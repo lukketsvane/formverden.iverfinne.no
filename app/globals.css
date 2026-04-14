@@ -1,0 +1,54 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@layer base {
+  body {
+    @apply bg-white text-black antialiased overflow-hidden;
+    height: 100dvh;
+    width: 100vw;
+  }
+}
+
+@layer components {
+  .hide-footnotes .traktat-content .note {
+    display: none;
+  }
+
+  .traktat-content .note {
+    @apply block mt-2 text-lg font-serif italic text-gray-500 leading-relaxed;
+  }
+
+  .traktat-content b {
+    @apply font-bold text-black;
+  }
+
+  .traktat-content i {
+    @apply italic;
+  }
+
+  .traktat-content sup {
+    @apply text-[10px] text-gray-400 font-mono font-bold mr-1;
+    vertical-align: super;
+    display: inline;
+  }
+
+  .math-symbol {
+    font-family: "Cambria Math", "STIX Two Math", serif;
+    padding: 0 0.2em;
+    @apply text-gray-700;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Remove all default animations and transitions for instant feel */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

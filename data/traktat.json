@@ -1,0 +1,873 @@
+[
+  {
+    "id": "1",
+    "status": "",
+    "text": "Formverda er alt som er tilfelle.",
+    "children": [
+      {
+        "id": "1.1",
+        "status": "o",
+        "text": "Formverda er totaliteten av realiserte konfigurasjonar, ikkje av ting.",
+        "children": [
+          {
+            "id": "1.11",
+            "status": "t",
+            "text": "Alt som har form, har nettopp denne forma og ikkje ei anna.",
+            "children": []
+          },
+          {
+            "id": "1.12",
+            "status": "t",
+            "text": "At ein konfigurasjon tek ein eksakt form, når uendeleg mange andre var logisk moglege, krev ei forklaring utover konfigurasjonen sjølv.",
+            "children": []
+          },
+          {
+            "id": "1.13",
+            "status": "t",
+            "text": "Forklaringa ligg i relasjonen mellom den manifesterte konfigurasjonen og det totale settet av konfigurasjonar som var moglege, men ikkje vart realiserte.",
+            "children": [
+              {
+                "id": "1.131",
+                "status": "t",
+                "text": "Ei form utan alternativ er ikkje ei form; ho er ein nødvendigheit.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1.2",
+        "status": "d",
+        "text": "Eit objekt er den enklaste bestanddelen i ein konfigurasjon. Objektet er udeleleg og uforanderleg.",
+        "children": [
+          {
+            "id": "1.201",
+            "status": "t",
+            "text": "Inndelinga i objekt er eit val av analysenivå. Under det valde nivået held fysikken fram; men ikkje formgjevinga.",
+            "children": []
+          },
+          {
+            "id": "1.203",
+            "status": "t",
+            "text": "Objekta utgjer formverdas substans. Substansen er det som eksisterer uavhengig av kva som er tilfellet.",
+            "children": [
+              {
+                "id": "1.2031",
+                "status": "t",
+                "text": "Om formverda ikkje hadde nokon substans, ville spørsmålet om ein konfigurasjon har meining vere avhengig av om ein annan konfigurasjon er realisert.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1.204",
+            "status": "t",
+            "text": "Det uforanderlege, det eksisterande og objektet er eitt og det same. Objektet er det uforanderlege; konfigurasjonen er det omskiftelege, det ubestandige.",
+            "children": []
+          },
+          {
+            "id": "1.21",
+            "status": "d",
+            "text": "Ein konfigurasjon er ein bestemt samanheng av objekt. Forma er konfigurasjonens struktur.",
+            "children": [
+              {
+                "id": "1.211",
+                "status": "i",
+                "text": "I konfigurasjonen heng objekta saman som lenkene i ei kjede.",
+                "children": []
+              },
+              {
+                "id": "1.212",
+                "status": "t",
+                "text": "Måten objekta heng saman på i konfigurasjonen er konfigurasjonens struktur.",
+                "children": []
+              },
+              {
+                "id": "1.213",
+                "status": "t",
+                "text": "Forma er strukturens moglegheit.",
+                "children": []
+              },
+              {
+                "id": "1.214",
+                "status": "t",
+                "text": "To konfigurasjonar med same objekt men ulik struktur er ulike former.To konfigurasjonar med ulike objekt men same struktur deler ein isomorfi.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1.22",
+            "status": "t",
+            "text": "Sidan objektas natur inneber moglegheita for å inngå i konfigurasjonar, er alle moglege former allereie gjevne i og med objekta.",
+            "children": [
+              {
+                "id": "1.221",
+                "status": "t",
+                "text": "Moglegheita for å inngå i ein konfigurasjon er objektets form.",
+                "children": []
+              },
+              {
+                "id": "1.222",
+                "status": "t",
+                "text": "Formrommet vert ikkje konstruert. Det vert oppdaga.",
+                "children": [
+                  {
+                    "id": "1.2221",
+                    "status": "t",
+                    "text": "Designaren oppfinnar ikkje moglegheiter; ho avdekkjer dei.",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "id": "1.223",
+                "status": "t",
+                "text": "Å kjenne objektet er å kjenne alle dets moglege konfigurasjonar. Ei ny moglegheit kan ikkje oppstå seinare.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1.3",
+        "status": "d",
+        "text": "Formrommet til ein klasse er mengda av alle moglege konfigurasjonar for objekt i denne klassen.<sup class=\"footnote-ref\">2, 10, 20</sup>",
+        "children": [
+          {
+            "id": "1.31",
+            "status": "d",
+            "text": "Kvart realisert objekt utgjer eitt eksakt punkt i dette n-dimensjonale rommet. Kvar akse er ein målbar eigenskap.",
+            "children": [
+              {
+                "id": "1.311",
+                "status": "t",
+                "text": "Valet av aksar er ein projeksjon. Forma eksisterer uavhengig av målinga, slik eit fjell eksisterer uavhengig av kartet.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1.32",
+            "status": "d",
+            "text": "Det empiriske formrommet er alltid ein projeksjon. Inga endeleg mengd parametrar fangar den latente kompleksiteten fullt ut.<sup class=\"footnote-ref\">2</sup>",
+            "children": [
+              {
+                "id": "1.321",
+                "status": "t",
+                "text": "At formrommet er ein projeksjon tyder ikkje at det er vilkårleg. Somme projeksjonar fangar meir variasjon enn andre. Den beste projeksjonen er den som gjer flest seleksjonstrykk synlege.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1.4",
+        "status": "d",
+        "text": "Formrommet deler seg topologisk i tre regionar: dei busette, dei opne og dei forbodne.",
+        "children": [
+          {
+            "id": "1.41",
+            "status": "o",
+            "text": "Dei busette regionane utgjer det historiske arkivet. Dei fungerer som ankerpunkt for all framtidig navigasjon og utgjer den induktive premissen for vidare form.",
+            "children": [
+              {
+                "id": "1.411",
+                "status": "t",
+                "text": "Tyngda til ein busett posisjon veks med okkupasjonstid. Uavhengig konvergens frå isolerte tradisjonar stadfestar at attraktoren er reell, ikkje konvensjonell.",
+                "children": []
+              },
+              {
+                "id": "1.412",
+                "status": "t",
+                "text": "Totaliteten av busette posisjonar er formhistoria. Formhistoria avgjer kva som er kjent mogleg.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1.42",
+            "status": "o",
+            "text": "Dei opne regionane er det nærliggande moglege. Tilgjengelege, men uaktualiserte. Dei er endelige; spente ut mellom det busette og det forbodne.",
+            "children": [
+              {
+                "id": "1.421",
+                "status": "t",
+                "text": "Ei open region som grensar til ei busett region er tilgjengeleg. Ei open region som berre grensar til forbodne regionar er utilgjengeleg utan materialskifte.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1.43",
+            "status": "d",
+            "text": "Dei forbodne regionane er utelukka av materielle, strukturelle eller energetiske vilkår. Forbodet følgjer vilkåra, ikkje regionen. Eit materialskifte kan opne ein forboden region.",
+            "children": [
+              {
+                "id": "1.431",
+                "status": "t",
+                "text": "Grensa mellom open og forboden er materiell, ikkje logisk. Bøk bøyer seg langs fiberen; granit gjer det ikkje. Materialet avgjer kva som er forbode.",
+                "children": []
+              },
+              {
+                "id": "1.432",
+                "status": "t",
+                "text": "At det forbodne er materielt avgrensa tyder at formverda kan ekspandere. Kvar ny materialkunnskap forskyv grensa mellom det opne og det forbodne.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1.44",
+            "status": "d",
+            "text": "Dei tre regionane utgjer ein epistemisk partisjon.<sup class=\"footnote-ref\">16, 17</sup> Det kjende (K), det tenkelege (C∖K), og det utenkjelege. Grensene er epistemiske, ikkje ontologiske.",
+            "children": [
+              {
+                "id": "1.441",
+                "status": "d",
+                "text": "C er tankerommet. Alle former som er tenkelege men ikkje avgjorte. K er kunnskapsrommet. Alle former som er kjende å verke eller svikte. Formgjeving er rørsla mellom dei.",
+                "children": []
+              },
+              {
+                "id": "1.442",
+                "status": "t",
+                "text": "Totaliteten av realiserte konfigurasjonar avgjer ikkje berre kva som er kjent mogleg, men også kva som er kjent umogleg. K rommar både suksessar og fiaskoar.",
+                "children": []
+              },
+              {
+                "id": "1.443",
+                "status": "t",
+                "text": "Grensa mellom C og det utenkjelege er usynleg innanfrå. Ein kan ikkje vite kva ein ikkje kan tenkje. <img src=\"/ck-teori_table.png\" alt=\"C-K-operator\" class=\"mt-4 max-w-full\" />",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "status": "",
+    "text": "Ikkje alle posisjonar er like sannsynlege.",
+    "children": [
+      {
+        "id": "2.01",
+        "status": "t",
+        "text": "At ikkje alle posisjonar er like sannsynlege tyder at noko verkar på fordelinga. Det som verkar, er seleksjonstrykk.",
+        "children": [
+          {
+            "id": "2.011",
+            "status": "t",
+            "text": "Trykket er ikkje ei kraft. Det er ei avgrensing av kvar forma ikkje kan vere.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "2.1",
+        "status": "d",
+        "text": "Eitseleksjonstrykk endrar sannsynsfordelinga i formrommet.<sup class=\"footnote-ref\">3</sup> Trykket er ein gradient, inga regel.",
+        "children": [
+          {
+            "id": "2.101",
+            "status": "t",
+            "text": "Forma er det som står att når trykka har utelukka alt anna.<sup class=\"footnote-ref\">15</sup>",
+            "children": []
+          },
+          {
+            "id": "2.11",
+            "status": "t",
+            "text": "Eit trykk som inkje utelukkar, er inkje trykk. Eit trykk som utelukkar alt unnateke éin region, er determinisme. Alle observerte trykk ligg mellom desse.",
+            "children": [
+              {
+                "id": "2.111",
+                "status": "t",
+                "text": "Mellom null-trykket og determinismen ligg heile rommet for design.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "2.12",
+            "status": "a",
+            "text": "Fleire seleksjonstrykk verkar samstundes.",
+            "children": [
+              {
+                "id": "2.121",
+                "status": "t",
+                "text": "Med berre eitt trykk ville alle former vore identiske.",
+                "children": []
+              },
+              {
+                "id": "2.122",
+                "status": "t",
+                "text": "Eit latent trykk verkar framleis; å påvise det krev variasjon i vilkåra.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "2.13",
+            "status": "a",
+            "text": "Minst to seleksjonstrykk peikar i motstridande retningar.Kvar realisert form er difor eit kompromiss.",
+            "children": [
+              {
+                "id": "2.131",
+                "status": "t",
+                "text": "Omgrepet «suboptimal» føreset ein referanse. Utan eit spesifikt trykksett er det ikkje falsifiserbart.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "2.14",
+            "status": "d",
+            "text": "Ein klasse er avgrensa gjennom delt affordansestruktur.<sup class=\"footnote-ref\">12</sup> Objekta i klassen tilbyr same operasjonar til same agentar.",
+            "children": [
+              {
+                "id": "2.141",
+                "status": "t",
+                "text": "Affordansestrukturen er konstant innanfor klassen. Han ber null informasjon om kvifor éi form oppstod framfor ei anna.",
+                "children": []
+              },
+              {
+                "id": "2.142",
+                "status": "o",
+                "text": "Stil predikerer meir formvariasjon enn materiale. Bruk er difor ikkje den drivande krafta.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "2.2",
+        "status": "d",
+        "text": "Materialaffordansener operasjonane materialet tillèt og hindrar.<sup class=\"footnote-ref\">12</sup> Signaturen er latent; han bind sannsynsfordelinga utan å tvinge geometrien.",
+        "children": [
+          {
+            "id": "2.201",
+            "status": "o",
+            "text": "Stål fanst i hundreår før røyrstolen fordi operasjonen mangla. Formhistoria er systematisk langsamare enn materialhistoria. Røyret låg i sykkelfabrikken i eit halvt hundreår. Nokon måtte sjå stolen i det.",
+            "children": []
+          },
+          {
+            "id": "2.21",
+            "status": "t",
+            "text": "Ein samlevariabel predikerer formvariasjon betre enn einskildtrykk. Stilperioden er ein slik samlevariabel.",
+            "children": [
+              {
+                "id": "2.211",
+                "status": "t",
+                "text": "Stilen er ikkje ei forklaring; han er eit aggregat som absorberer alle samtidige trykk i éin etikett.",
+                "children": []
+              },
+              {
+                "id": "2.212",
+                "status": "t",
+                "text": "Stilen er eit symptom på underliggjande krefter, ikkje ei årsak.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "status": "",
+    "text": "Seleksjonstrykka spenner ut eit landskap over formrommet.",
+    "children": [
+      {
+        "id": "3.1",
+        "status": "d",
+        "text": "Tilpassingslandskapeter vektorsummen av alle verksame seleksjonstrykk.<sup class=\"footnote-ref\">3, 8</sup> Kvar posisjon held ein verdi; graden av samtidig forløysing for alle trykk.",
+        "children": [
+          {
+            "id": "3.11",
+            "status": "t",
+            "text": "Landskapet lèt seg berre lodde retrospektivt. Det yter lokal prediksjon, men ingen einskildform er garantert. I stasen er siktlinja lang; i bifurkasjonen brotnar ho.",
+            "children": []
+          },
+          {
+            "id": "3.12",
+            "status": "t",
+            "text": "Tilpassingsfunksjonen har talrike lokale maksima. Ein haug er staden der kvart avsteg kostar; dalar er tilstandane formene skyr.",
+            "children": [
+              {
+                "id": "3.121",
+                "status": "t",
+                "text": "Éin universell topp er eit teoretisk unntak. Empirien knuser postulatet om den eine perfekte forma.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3.2",
+        "status": "d",
+        "text": "Stabiliteten til ein haug svarar til brattleiken på dalveggane.<sup class=\"footnote-ref\">8</sup> Bratte veggar tvingar fram kanalisering. Forma støyter vekk forstyrringar.",
+        "children": [
+          {
+            "id": "3.21",
+            "status": "t",
+            "text": "Djupe kanalar frys dimensjonane; grunne rommar fluktuasjonen.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "3.3",
+        "status": "d",
+        "text": "Ein stilart er forma si sverming kring eit felles tyngdepunkt.<sup class=\"footnote-ref\">9</sup> Stilarten er ein sverm, ikkje ein kategori; grensene er naudsynleg uskarpe. Stilperiodar er gradientar, ikkje øyar. Ingen har nokon gong sett ein stil. Ein ser stolar som liknar kvarandre.",
+        "children": []
+      },
+      {
+        "id": "3.4",
+        "status": "t",
+        "text": "Formgjevinga skapar ikkje landskapets grunnstruktur; den følgjer av dei materielle og energetiske vilkåra. Men kvar realisering modifiserer landskapet lokalt gjennom utviding av K.",
+        "children": [
+          {
+            "id": "3.41",
+            "status": "i",
+            "text": "Isolerte tradisjonar navigerer den same kløfta utan å utveksle eit ord. Uavhengig konvergens stadfestar at attraktoren er reell.",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "status": "",
+    "text": "Landskapet er dynamisk.",
+    "children": [
+      {
+        "id": "4.1",
+        "status": "a",
+        "text": "Seleksjonstrykka kviler aldri. Haugar stig, søkk, flyttar seg, deler seg, smeltar saman. Optimal tilpassing er lokal i tid.",
+        "children": [
+          {
+            "id": "4.11",
+            "status": "o",
+            "text": "Ein ny teknologi flyttar grensa for det forbodne; ein ny marknad endrar kva landskapet belønnar; eit nytt materiale utvidar operasjonsrommet.",
+            "children": []
+          },
+          {
+            "id": "4.12",
+            "status": "t",
+            "text": "Kontinuerlege trykk produserer diskontinuerleg endring. Landskapet har tersklar; gradvise trykkforskyvingar akkumulerer seg til haugen kollapsar. Diskontinuiteten kjem frå topologien i landskapet, ikkje frå dynamikken i trykka.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "4.2",
+        "status": "o",
+        "text": "Endringa er difor diskontinuerleg. Lange periodar med stase bryt saman i brå skifte. Radiasjon inn i ein ny region, deretter konvergens. Diskontinuiteten er signaturen til dynamikken, ikkje eit brot med han.",
+        "children": []
+      },
+      {
+        "id": "4.3",
+        "status": "t",
+        "text": "Landskapet har minne.<sup class=\"footnote-ref\">14</sup> Kvar realisert form endrar seleksjonstrykka for den neste. All formgjeving er omformgjeving; agenten arvar alltid ein posisjon. Stiavhengigheit er eit fundamentalt trekk, ingen anomali.",
+        "children": []
+      },
+      {
+        "id": "4.4",
+        "status": "o",
+        "text": "Formrommet ekspanderer kumulativt. Det nærliggande moglege<sup class=\"footnote-ref\">13</sup> er C∖K-grensa; mengda av former som er tenkelege men ukjende som realiserbare.Materialstraumar driv landskapsendringa.",
+        "children": []
+      },
+      {
+        "id": "4.5",
+        "status": "o",
+        "text": "Når eitt trykk dominerer, kollapsar landskapet mot éin attraktor. Eit eineveldande trykk forklarer ikkje form; det er fråværet av forklaring. Diversitet speglar mangfald av aktive trykk.",
+        "children": [
+          {
+            "id": "4.51",
+            "status": "t",
+            "text": "Ei lære som reduserer alle seleksjonstrykk til eitt kollapsar feltet til éin dimensjon. Dette er ikkje rasjonalitet; det er systematisk blindskap.",
+            "children": [
+              {
+                "id": "4.511",
+                "status": "t",
+                "text": "Formene som oppstår under eit kollapsa landskap sviktar under dei reelle trykka læra var blind for.",
+                "children": []
+              },
+              {
+                "id": "4.512",
+                "status": "t",
+                "text": "Dei fortrengde kompetansane let seg ikkje gjenskape frå læra som fortrengte dei.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "status": "",
+    "text": "Verda rommar agentar som responderer på landskapet.",
+    "children": [
+      {
+        "id": "5.1",
+        "status": "a",
+        "text": "Kvar klasse har minst eitt system som navigerer landskapet via negativ tilbakekopling.",
+        "children": [
+          {
+            "id": "5.11",
+            "status": "d",
+            "text": "Ein agent er ein operator definert av trippelet måltilstand, avstandsmåling, justeringsmekanisme.<sup class=\"footnote-ref\">4, 7</sup> Agens krev berre organisering; verken medvit, intensjon eller nervesystem.",
+            "children": [
+              {
+                "id": "5.111",
+                "status": "t",
+                "text": "Definisjonen er substrat-uavhengig. Eit kvart system som oppfyller vilkåra er ein agent. <img src=\"/agent.png\" alt=\"Agent definisjon\" class=\"mt-4 max-w-full\" />",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "5.12",
+            "status": "o",
+            "text": "Agens er stratifisert. Strukturen er den same; måltilstand, avstandsmåling, justering. Det som endrar seg, er kor mykje av formrommet agenten kan representere.",
+            "children": [
+              {
+                "id": "5.121",
+                "status": "i",
+                "text": "Termostaten: eitt mål, éin dimensjon, éin bryter.",
+                "children": []
+              },
+              {
+                "id": "5.122",
+                "status": "i",
+                "text": "Treet: fleire gradientar, ingen sentral prosessor. Kvar grein navigerer lokalt.",
+                "children": []
+              },
+              {
+                "id": "5.123",
+                "status": "i",
+                "text": "Kolonien: millionar av agentar; reiret trer fram i feltet mellom dei.",
+                "children": []
+              },
+              {
+                "id": "5.124",
+                "status": "i",
+                "text": "Pattedyret: prediksjon, minne, planlegging. Representasjonen strekk seg over tid.",
+                "children": []
+              },
+              {
+                "id": "5.125",
+                "status": "i",
+                "text": "Designaren: representasjonen strekk seg forbi agentens eigne behov. <img src=\"/termometer-arkitekt.png\" alt=\"Agent-hierarki\" class=\"mt-4 max-w-full\" />",
+                "children": []
+              },
+              {
+                "id": "5.126",
+                "status": "t",
+                "text": "Designaren navigerer på vegne av andre som kjem til å leve med forma.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "5.13",
+            "status": "t",
+            "text": "Agenten responderer på gradienten i landskapet, ikkje på forma. Han oppfinn ikkje målet; han oppdagar det.",
+            "children": [
+              {
+                "id": "5.131",
+                "status": "t",
+                "text": "Navigasjon krev berre den lokale gradienten. Lokal kompetanse produserer global manifestasjon.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "5.2",
+        "status": "d",
+        "text": "Kognitiv lyskjegle er delmengda av formrommet agenten kan representere og manipulere.<sup class=\"footnote-ref\">21</sup> Alt utanfor lyskjegla manglar kausal eksistens for agenten. Lyskjegler spenner frå cellulær millisekundrespons til tiårslang konsensus.",
+        "children": [
+          {
+            "id": "5.21",
+            "status": "t",
+            "text": "Lyskjegla dikterer oppløysinga til formrommet. Innanfor ho persiperer agenten ikkje former, men affordansar: operasjonane konfigurasjonen tillèt.<sup class=\"footnote-ref\">12</sup>",
+            "children": [
+              {
+                "id": "5.211",
+                "status": "t",
+                "text": "Utviding av lyskjegla aktualiserer latente affordansar; innsnevring deaktiverer reelle.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "5.3",
+        "status": "d",
+        "text": "Konfigurasjonar lukka under union, differanse og transformasjon utgjer ein formalgebra.<sup class=\"footnote-ref\">11, 13, 18</sup>",
+        "children": [
+          {
+            "id": "5.301",
+            "status": "d",
+            "text": "Formgrammatikkenutfører diskrete overgangar i denne geometrien. Reglar fyrer på innleiring: agenten gjenkjenner ei delform inne i heilforma. Inndatageometrien er einaste premiss. <img src=\"/formgrammatikk_table.png\" alt=\"Formgrammatikk\" class=\"mt-4 max-w-full\" />",
+            "children": []
+          },
+          {
+            "id": "5.31",
+            "status": "t",
+            "text": "Grammatikkoperasjonen er ein C→C-partisjon; ho utvidar tankerommet. Realisering er ein C→K-operasjon; ho avgjer konfigurasjonen.",
+            "children": [
+              {
+                "id": "5.311",
+                "status": "t",
+                "text": "Grammatikken definerer moglegheitsrommet; landskapet fastset trajektorien.",
+                "children": []
+              },
+              {
+                "id": "5.312",
+                "status": "t",
+                "text": "Agenten forløyser konfigurasjonen som mest radikalt reduserer lokal spenning.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "5.4",
+        "status": "d",
+        "text": "Substratet fungerer som ein null-ordens agent. Det vetoar konfigurasjonar og gjev resonans til andre gjennom ufravikelege avgrensingar.",
+        "children": [
+          {
+            "id": "5.41",
+            "status": "i",
+            "text": "Biologisk vev navigerer via bioelektrisk polarisering;<sup class=\"footnote-ref\">22, 24</sup> menneskeleg praksis via materiell friksjon; ein slimsopp via oscillerande samandragingar; ein språkmodell via vektoriell merksemd.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "5.5",
+        "status": "t",
+        "text": "Navigasjonskompetanse akkumulerer seg som strukturert informasjon. Læring er den irreversible ekspansjonen av tilgjengeleg formrom.",
+        "children": []
+      },
+      {
+        "id": "5.6",
+        "status": "d",
+        "text": "Omhug<sup class=\"footnote-ref\">23</sup> er mengda av aksar i formrommet agenten aktivt representerer og justerer for.",
+        "children": [
+          {
+            "id": "5.601",
+            "status": "t",
+            "text": "Omhug er ikkje kapasitet.Kapasiteten er kor mange aksar agenten kan representere; omhugen er kor mange han faktisk representerer.",
+            "children": []
+          },
+          {
+            "id": "5.61",
+            "status": "t",
+            "text": "Omhugen avgjer kor mange aksar lyskjegla rommar. Fleire aksar avdekkjer fleire kompromiss.",
+            "children": []
+          },
+          {
+            "id": "5.62",
+            "status": "d",
+            "text": "Kompetanse er evna til å navigere mot stabile posisjonar i landskapet. Kompetansen veks med omhugen. Intelligens er denne kompetansen; omhug er intelligensens innhald.<sup class=\"footnote-ref\">23</sup>",
+            "children": []
+          },
+          {
+            "id": "5.63",
+            "status": "t",
+            "text": "Ein agent utan omhug for ein dimensjon er blind for gradienten langs den aksen. Blindskapen er ikkje nøytral; dei usynlege trykka verkar framleis.",
+            "children": [
+              {
+                "id": "5.631",
+                "status": "t",
+                "text": "Omhugen kan ikkje supplerast i ettertid; den måtte vore der då forma vart navigert.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "5.64",
+            "status": "a",
+            "text": "Å utvide lyskjegla er ei etisk handling. Å snevra ho er å overlevere delar av formverda til krefter ingen representerer.",
+            "children": [
+              {
+                "id": "5.641",
+                "status": "t",
+                "text": "Konsekvensane er borna av dei som lever med forma, ikkje av den som formgav ho.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "status": "",
+    "text": "Forma oppstår i feltet mellom agentar.",
+    "children": [
+      {
+        "id": "6.1",
+        "status": "t",
+        "text": "Fleire agentar responderer på ulike trykk samstundes.Kvar form er eit poly-agentisk kompromiss. Ingen einskild agent dikterer morfologien; ho trer fram i skjeringspunktet mellom dei.",
+        "children": [
+          {
+            "id": "6.11",
+            "status": "t",
+            "text": "Kvart nivå løyser problem kompetent innanfor si eiga lyskjegle. Lågare komponentar fremjar mål dei manglar kapasitet til å representere.",
+            "children": [
+              {
+                "id": "6.111",
+                "status": "t",
+                "text": "Reduksjonisme og holisme er komplementære. Begge er sanne; ingen er tilstrekkeleg åleine.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "6.12",
+            "status": "t",
+            "text": "Agens er multiskalar.<sup class=\"footnote-ref\">22</sup> Kvar skala har sin eigen kompetanse og si eiga lyskjegle. Formproduksjon er distribuert C↔Kekspansjon utført av grammatikkoperasjonar over kompetanseskalaer.",
+            "children": []
+          },
+          {
+            "id": "6.13",
+            "status": "t",
+            "text": "Agenten vel; landskapet filtrerer. Kontrollen er alltid delt. Utforsking krev lause koplingar; utnytting krev tette.",
+            "children": []
+          },
+          {
+            "id": "6.14",
+            "status": "t",
+            "text": "Designaren er aldri åleine i landskapet. Ho navigerer i eit felt av konkurrerande agens frå mikrobielt vev til marknadskrefter. Kompetansen hennar ligg i å koordinere uavhengige lyskjegler til eit stabilt form-optimum.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "6.2",
+        "status": "o",
+        "text": "Tett samanbinding etablerer globale tilbakekoplingssløyfer; heilskapen vert sjølv ein agent.",
+        "children": []
+      },
+      {
+        "id": "6.3",
+        "status": "t",
+        "text": "Ein stilart manglar kausal kraft;<sup class=\"footnote-ref\">9, 15</sup> han er ikkje ei kraft, men eitmønsterminne. Stilarten fungerer som ein makroskala-attraktor som kanar lyskjeglene til agentane som observerer han. Han forenklar navigasjon ved å tilby eit gjenkjenneleg tyngdepunkt; men å formgje «i ein stil» utan å forstå trykka som genererte klynga, er ein kategorifeil.",
+        "children": [
+          {
+            "id": "6.31",
+            "status": "o",
+            "text": "For brukaren er stilarten ikkje eit symptom; han er eit grensesnitt. Brukaren persiperer tyngdepunktet, ikkje seleksjonstrykka.",
+            "children": [
+              {
+                "id": "6.311",
+                "status": "t",
+                "text": "Designaren som ignorerer dette, ignorerer agenten ho formgjev for.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "6.32",
+            "status": "t",
+            "text": "Å navigere med stilkunnskap er å representere fleire aksar.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "6.4",
+        "status": "t",
+        "text": "Kvar realisert form utvidar det kjende og forskyver grensa til det nærliggande moglege (jf. 4.4). Formhistoria tømmer ikkje eit lukka repertoar; ho utvidar det gjennom rørsle.",
+        "children": []
+      },
+      {
+        "id": "6.5",
+        "status": "t",
+        "text": "Inga form er endeleg. Kvar balanse vert med tida suboptimal. Berre den generative strukturen varer; formrom, trykk, landskap, agentar. Formene er flyktige spor; grammatikken er stabil.",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "status": "",
+    "text": "Forma viser kor langt omhugen rakk.",
+    "children": [
+      {
+        "id": "7.1",
+        "status": "t",
+        "text": "Den realiserte forma er eit leseleg arkiv over kompromisset sin dimensjonalitet. Ei form designa under trong omhug sviktar systematisk langs dei aksane som ikkje vart tekne vare på. Svikten er ikkje tilfeldig; ho ber signaturen av blindskapen som produserte ho.",
+        "children": [
+          {
+            "id": "7.11",
+            "status": "t",
+            "text": "Signaturen er leseleg fordi form ikkje er tilfeldig støy; ho er residuet av ein retta prosess. Retninga er gjeven av lyskjegla.",
+            "children": []
+          },
+          {
+            "id": "7.12",
+            "status": "t",
+            "text": "To former designa under ulik omhug for same funksjon vil skilje seg langs dei aksane den eine designaren såg og den andre ikkje såg. Skilnaden er arkivet.",
+            "children": []
+          },
+          {
+            "id": "7.13",
+            "status": "t",
+            "text": "Arkivet er ikkje ei skulding. Det er eit faktum. Same faktumet som gjer geologi leseleg, gjer design leseleg.",
+            "children": []
+          },
+          {
+            "id": "7.14",
+            "status": "t",
+            "text": "Påstanden er deskriptiv og falsifiserbar uavhengig av den normative. Ho kan testast: dersom former designa under demonstrerbart trong omhug ikkje presterer dårlegare langs urepresenterte aksar enn former designa under brei omhug, er proposisjonen tilbakevist.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "7.2",
+        "status": "a",
+        "text": "Dersom designaren kunne ha representert fleire aksar men valde å ikkje gjere det, er dei resulterande sviktane tilskrivbare det valet.",
+        "children": [
+          {
+            "id": "7.21",
+            "status": "t",
+            "text": "Designhandlinga har reelle konsekvensar for andre agentar som navigerer det same landskapet.",
+            "children": []
+          },
+          {
+            "id": "7.23",
+            "status": "t",
+            "text": "Gapet mellom kapasitet og omhug er det etiske rommet i design. Kapasiteten set den øvre grensa; omhugen avgjer kor mykje av grensa som vert nytta. Det unytta gapet er det forma sviktar langs.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "7.3",
+        "status": "t",
+        "text": "Formverda er det tilfellet som verkar. Navigasjonen held fram.",
+        "children": []
+      }
+    ]
+  }
+]
