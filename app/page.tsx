@@ -1,7 +1,41 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { Search, X } from 'lucide-react';
 import traktatData from '@/data/traktat.json';
+import referencesData from '@/data/references.json';
+import notesData from '@/data/notes.json';
+
+const references = referencesData as Record<string, { text: string; doi?: string; url?: string }>;
+
+interface Note {
+  kind: 'note' | 'falsifisering';
+  label?: string;
+  text: string;
+}
+const notes = notesData as Record<string, Note[]>;
+
+function extractRefIds(html: string): string[] {
+  const ids: string[] = [];
+  const re = /<sup class="footnote-ref">([^<]+)<\/sup>/g;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    m[1].split(/[,\s]+/).filter(Boolean).forEach(n => {
+      if (!ids.includes(n)) ids.push(n);
+    });
+  }
+  return ids;
+}
+
+function linkifyDoi(text: string): string {
+  return text.replace(/\b(10\.\d{4,9}\/[-._;()\/:A-Z0-9]+)\b/gi, (doi) =>
+    `<a href="https://doi.org/${doi}" target="_blank" rel="noopener noreferrer" class="underline decoration-dotted hover:decoration-solid">doi:${doi}</a>`
+  );
+}
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+}
 
 interface Proposition {
   id: string;
@@ -90,8 +124,47 @@ export default function Home() {
     }
   }, [parentMap]);
 
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const searchMatches = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (q.length < 2) return [] as FlattenedNode[];
+    return allNodesFlattened.filter(n =>
+      n.node.id.toLowerCase().includes(q) ||
+      stripHtml(n.node.text).toLowerCase().includes(q)
+    );
+  }, [searchQuery, allNodesFlattened]);
+
+  const jumpToMatch = useCallback((nodeId: string) => {
+    expandAncestors(nodeId);
+    setSelectedId(nodeId);
+  }, [expandAncestors]);
+
+  useEffect(() => {
+    if (searchMatches.length > 0 && searchQuery.trim().length >= 3) {
+      jumpToMatch(searchMatches[0].node.id);
+    }
+  }, [searchMatches, searchQuery, jumpToMatch]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
+        e.preventDefault();
+        setSearchOpen(true);
+        setTimeout(() => searchInputRef.current?.focus(), 0);
+        return;
+      }
+
+      if (searchOpen) {
+        if (e.key === 'Escape') {
+          setSearchOpen(false);
+          setSearchQuery('');
+        }
+        return;
+      }
+
       if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', ' '].includes(e.key)) {
         e.preventDefault();
       }
@@ -166,7 +239,7 @@ export default function Home() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [visibleNodes, safeSelectedIndex, expandedIds, toggleExpand, selectedId, allNodesFlattened, expandAncestors]);
+  }, [visibleNodes, safeSelectedIndex, expandedIds, toggleExpand, selectedId, allNodesFlattened, expandAncestors, searchOpen]);
 
   const touchStart = useRef<{ x: number, y: number } | null>(null);
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -198,41 +271,91 @@ export default function Home() {
     }
   }, [selectedId]);
 
+  const selectedNode = visibleNodes[safeSelectedIndex]?.node;
+  const currentRefIds = useMemo(
+    () => (selectedNode ? extractRefIds(selectedNode.text) : []),
+    [selectedNode]
+  );
+  const currentNotes = selectedNode ? notes[selectedNode.id] ?? [] : [];
+
+  const [panel, setPanel] = useState<{ id: string; notes: Note[]; refIds: string[] } | null>(null);
+  useEffect(() => {
+    if (selectedNode && (currentNotes.length > 0 || currentRefIds.length > 0)) {
+      setPanel({ id: selectedNode.id, notes: currentNotes, refIds: currentRefIds });
+    }
+  }, [selectedNode, currentNotes, currentRefIds]);
+
   return (
     <main 
       className={`h-[100dvh] w-screen overflow-hidden bg-white text-black select-none touch-none ${showFootnotes ? 'show-footnotes' : 'hide-footnotes'}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="h-full w-full overflow-y-auto hide-scrollbar p-6 md:p-16 max-w-4xl mx-auto pb-[60vh]">
-        <header className="mb-8 shrink-0">
+      <div className="h-full w-full overflow-y-auto hide-scrollbar p-6 md:p-16 max-w-4xl mx-auto pb-[50vh]">
+        <header className="mb-8 shrink-0 flex items-start justify-between gap-4">
           <h1 className="text-5xl font-serif font-bold tracking-tight text-black">formlære</h1>
+          <div className="flex items-center gap-2 pt-2">
+            {searchOpen ? (
+              <>
+                <input
+                  ref={searchInputRef}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && searchMatches.length > 0) {
+                      jumpToMatch(searchMatches[0].node.id);
+                    }
+                  }}
+                  placeholder="søk"
+                  className="border-b border-black/30 focus:border-black outline-none bg-transparent text-sm font-mono py-0.5 w-40"
+                />
+                <button
+                  onClick={() => { setSearchOpen(false); setSearchQuery(''); }}
+                  className="text-black/60 hover:text-black"
+                  aria-label="Lukk søk"
+                >
+                  <X size={16} />
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  setSearchOpen(true);
+                  setTimeout(() => searchInputRef.current?.focus(), 0);
+                }}
+                className="text-black/60 hover:text-black"
+                aria-label="Søk"
+              >
+                <Search size={18} />
+              </button>
+            )}
+          </div>
         </header>
         
         <div className="flex flex-col gap-1">
           {visibleNodes.map((item, index) => {
             const isSelected = index === safeSelectedIndex;
-            const isPreceding = index < safeSelectedIndex;
-            const currentDepth = visibleNodes[safeSelectedIndex]?.depth ?? 0;
-            const isSameOrShallower = item.depth <= currentDepth;
-            const isFullyVisible = isPreceding || isSelected || isSameOrShallower;
-            const opacityClass = isFullyVisible ? 'opacity-100' : 'opacity-40';
+            const isAbove = index < safeSelectedIndex;
+            const isBelow = index > safeSelectedIndex;
+
+            const rowOpacity = isBelow ? 'opacity-40' : 'opacity-100';
+            const numberOpacity = isAbove ? 'opacity-40' : 'opacity-100';
 
             // Remove double superscript from text if it's already there
             const cleanText = item.node.text.replace(/^(<sup>[a-z]<\/sup>\s*)+/i, '');
-            
+
             return (
-              <div 
+              <div
                 key={item.node.id}
                 ref={isSelected ? selectedRef : null}
-                className={`flex items-start py-1 transition-opacity duration-75 cursor-pointer ${opacityClass}`}
+                className={`flex items-start py-1 transition-opacity duration-75 cursor-pointer ${rowOpacity}`}
                 style={{ paddingLeft: `${item.depth * 24}px` }}
                 onClick={() => {
                   if (isSelected) toggleExpand(item.node.id);
                   else setSelectedId(item.node.id);
                 }}
               >
-                <div className="flex flex-col items-end mr-6 min-w-[3.5rem] pt-0.5">
+                <div className={`flex flex-col items-end mr-6 min-w-[3.5rem] pt-0.5 ${numberOpacity}`}>
                   <span className="text-2xl font-bold text-black tabular-nums leading-none">
                     {item.node.id}
                   </span>
@@ -250,6 +373,63 @@ export default function Home() {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      <div className="fixed bottom-0 left-0 right-0 h-[45vh] bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto">
+        <div className="h-full max-w-4xl mx-auto px-6 md:px-16 py-6 overflow-y-auto hide-scrollbar">
+          {panel ? (
+            <>
+              {panel.notes.length > 0 && (
+                <section>
+                  <h2 className="text-5xl font-serif font-bold tracking-tight text-black mb-4">notat</h2>
+                  <ul className="flex flex-col gap-3 mb-6">
+                    {panel.notes.map((n, i) => (
+                      <li key={i} className="flex items-baseline gap-3 text-base font-serif text-gray-800 leading-snug">
+                        <span className="text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[5.5rem] shrink-0">
+                          {n.label ?? (n.kind === 'falsifisering' ? 'falsifisering' : 'notat')}
+                        </span>
+                        <span dangerouslySetInnerHTML={{ __html: n.text }} />
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              {panel.notes.length > 0 && panel.refIds.length > 0 && (
+                <hr className="border-t border-black/20 my-4" />
+              )}
+
+              {panel.refIds.length > 0 && (
+                <section>
+                  <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Referansar · {panel.id}
+                  </div>
+                  <ol className="flex flex-col gap-1.5">
+                    {panel.refIds.map((n) => {
+                      const ref = references[n];
+                      if (!ref) return null;
+                      const body = ref.doi
+                        ? `${ref.text} <a href="https://doi.org/${ref.doi}" target="_blank" rel="noopener noreferrer" class="underline decoration-dotted hover:decoration-solid">doi:${ref.doi}</a>`
+                        : ref.url
+                          ? `${ref.text} <a href="${ref.url}" target="_blank" rel="noopener noreferrer" class="underline decoration-dotted hover:decoration-solid">↗</a>`
+                          : linkifyDoi(ref.text);
+                      return (
+                        <li key={n} className="flex items-baseline gap-2 text-sm font-serif text-gray-700 leading-snug">
+                          <span className="tabular-nums text-gray-400 font-mono font-bold min-w-[1.5rem] text-right">
+                            {n}
+                          </span>
+                          <span dangerouslySetInnerHTML={{ __html: body }} />
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </section>
+              )}
+            </>
+          ) : (
+            <h2 className="text-5xl font-serif font-bold tracking-tight text-black/20">notat</h2>
+          )}
         </div>
       </div>
     </main>

@@ -1,0 +1,85 @@
+{
+  "1.2": [
+    { "kind": "note", "text": "Objektet er udeleleg i den forstand at vidare dekomponering øydelegg den kausale kapasiteten me er interesserte i. Under det nivået finst det framleis fysikk; men ikkje formgjeving." }
+  ],
+  "1.3": [
+    { "kind": "note", "text": "Formrommet vart innført av Raup [10] for skjellgeometri og generalisert av Mitteroecker & Huttegger [20] til utviklingsbiologi. Me brukar det her substrat-uavhengig; rommet er definert av eigenskapar, ikkje av domene." }
+  ],
+  "1.44": [
+    { "kind": "note", "text": "Tanke–kunnskapsteorien er utvikla av Hatchuel & Weil [15, 16] som ein formalisme for designprosessen. Me identifiserer C med dei opne regionane i formrommet og K med dei busette og stadfesta forbodne. Partisjonen er epistemisk; ho endrar seg med kvar ny realisering." },
+    { "kind": "note", "label": "CK-kritikk", "text": "Den sterkaste innvendinga mot tanke–kunnskapsteorien er at C-rommet er eindimensjonalt og at funksjons- og strukturomgrep manglar. Denne traktaten adresserer begge: formrommet er fleirdimensjonalt (1.3); affordansestrukturen erstattar funksjonsomgrepet (1.31); og formalgebraen gjev struktur (1.32)." }
+  ],
+  "2.1": [
+    { "kind": "note", "text": "Seleksjonstrykk som gradient (ikkje regel) er Wrights [3] tilpassing av evolusjonsteori. Michl [15] viste at den funksjonalistiske «regelen» (form follows function) er logisk tom. Vår formulering; at forma er ein rest; generaliserer Michls innsikt til eit positivt rammeverk. «Rest» er ei forenkling; meir presist er forma ein likevektstilstand i eit system der form og trykk er gjensidig avhengige (jf. 4.3). Restmetaforen held for den synkrone analysen; den dynamiske analysen krev likevektsomgrepet. Trentmann [25] skildrar den materielle kulturen si gjensidigheit frå eit historisk perspektiv." }
+  ],
+  "2.12": [
+    { "kind": "falsifisering", "text": "Falsifisert dersom ein observerer ein klasse der all formvariasjon let seg forklare av éin einaste faktor." }
+  ],
+  "2.14": [
+    { "kind": "note", "text": "Gibson [12] definerer affordanse som relasjonell; ikkje ein eigenskap ved objektet åleine, men ved objektet-i-relasjon-til-agenten. Me utvider dette til å definere klassen sjølv gjennom affordansekonstellasjonen. Proposisjonen er flytta frå kapittel 1 til kapittel 2 fordi affordansestrukturen er operasjonelt knytt til seleksjonstrykk, ikkje til den ontologiske grunnstrukturen." },
+    { "kind": "falsifisering", "text": "Falsifisert dersom bruksmåten (ikkje stilen) predikerer meir formvariasjon enn alle andre variablar innanfor klassen." }
+  ],
+  "3.1": [
+    { "kind": "note", "text": "Tilpassingslandskapet samlar Wrights [3] adaptive landscape og Waddingtons [7] epigenetiske landskap i éin definisjon. Wright skildra landskapet for populasjonar; Waddington for utviklingsprosessar. Me skildrar det for formverda." }
+  ],
+  "3.12": [
+    { "kind": "falsifisering", "text": "Falsifisert dersom tilpassingsfunksjonen konsekvent har éin einaste global topp i kvar klasse." }
+  ],
+  "3.2": [
+    { "kind": "note", "text": "Kanalisering er Waddingtons [7] omgrep for utviklingsrobustheit. I vårt rammeverk tyder det at somme dimensjonar av formrommet er meir robuste enn andre. Empirisk: setehøgd varierer minimalt (CV = 0,07) over 500 år; ornament varierer maksimalt (CV ≈ 1,5). Spreiinga er 128 gonger." }
+  ],
+  "4.1": [
+    { "kind": "falsifisering", "text": "Falsifisert dersom landskapet er stabilt over tid; dersom vektene ikkje endrar seg." }
+  ],
+  "4.3": [
+    { "kind": "note", "text": "Stiavhengigheit er Arthurs [14] omgrep for korleis tidlege val låser seinare. I formverda: kvar realisert konfigurasjon deformerer landskapet rundt seg og avgrensar kva nabokonfigurasjonar som er tilgjengelege for den neste agenten." }
+  ],
+  "4.51": [
+    { "kind": "falsifisering", "text": "Falsifisert dersom éin-dimensjonal optimalisering produserer former som ikkje sviktar under dei andre dimensjonane." }
+  ],
+  "5.1": [
+    { "kind": "note", "text": "Ei klasse utan ein navigerande agent er formelt mogleg men empirisk tom; ho ville ha null realiserte posisjonar og difor ikkje eksistere som observerbar klasse." }
+  ],
+  "5.11": [
+    { "kind": "note", "text": "Agentdefinisjonen konvergerer frå fire uavhengige tradisjonar: kybernetikk [4, 5, 7], utviklingsbiologi [22, 24], maskinlæring (gradientnedstigning som navigasjon), og fri-energi-prinsippet [19]. At fire domene uavhengig definerer same struktur (mål, måling, justering), stadfestar at definisjonen grip noko reelt. Definisjonen er Turing-komplett [6]; eit kvart system som oppfyller (g, d, δ) med konvergensgaranti er ein universell navigator uavhengig av substrat. Formgrammatikken er og Turing-komplett; Stiny (1975) konstruerte to uavhengige simuleringar av Turing-maskiner i formgrammatikk-formalismen." }
+  ],
+  "5.2": [
+    { "kind": "note", "text": "Kognitiv lyskjegle er Fields & Levins [21] generalisering av perseptuelle grenser til vilkårlege agentar. Omgrepet generaliserer den fysiske lyskjegla frå relativitetsteorien: det finst ei grense for kor mykje av formrommet ein agent kan representere innanfor sin eigen tidsskala." }
+  ],
+  "5.3": [
+    { "kind": "note", "text": "Formalgebraen er utvikla av Stiny over fire tiår [11, 13, 18]. Algebraen er ikkje ein modell av form; han er syntaksen til formrommet. Innleiringsoperasjonen (at agenten gjenkjenner ei delform inne i heilforma) er grunnlaget for grammatikkreglane. At formrommet er kontinuerleg langs geometriske aksar og diskret langs materielle, adresserast her for fyrste gong." }
+  ],
+  "5.4": [
+    { "kind": "note", "text": "Substratet som null-ordens agent har ein parallell i Pyes [26] skilje mellom <i>risikohandverk</i> (utfallet avheng av handverkarens kompetanse i kvart steg) og <i>vissheitshandverk</i> (utfallet er predeterminert av forma, jigen, maskina). Risikohandverket let substratet tale sterkare; vissheitshandverket dempar substratets agens. Begge er former for navigasjon; dei skil seg i kor mykje av landskapet substratet sjølv får utforske." }
+  ],
+  "5.6": [
+    { "kind": "note", "text": "Omhug som formell eigenskap ved agentar er frå Doctor, Levin et al. [23]. Identiteten <i>omhug = intelligensens innhald; intelligens = omhugen si form</i> er vår formulering av deira innsikt: at mengda av dimensjonar eit system aktivt justerer for, er same ting som det me kallar intelligens." },
+    { "kind": "note", "text": "Distinksjonen mellom omhug og kapasitet er avgjerande. Ein designar med brei kapasitet som likevel berre attenderer til éin akse; til dømes visuell nyheit åleine; viser trong omhug trass i høg kapasitet. Det er omhugen, ikkje kapasiteten, som er leseleg i forma." }
+  ],
+  "5.61": [
+    { "kind": "note", "text": "Proposisjonen er ein definisjon (status d), ikkje eit teorem. Identiteten omhug = intelligens er eit val av terminologi, ikkje ein empirisk påstand. Eit uavhengig mål på intelligens (til dømes navigasjonseffektivitet som funksjon av dim(C(A))) ville gjort identiteten testbar. Semper [1] var den fyrste som kopla materialteknikk, form og kulturell meining i éin systematisk analyse; omhugsomgrepet generaliserer denne innsikta. Thompson [2] viste at biologisk form følgjer fysiske krefter; me generaliserer innsikta hans til alle formdomene." }
+  ],
+  "5.62": [
+    { "kind": "falsifisering", "text": "Falsifisert dersom snevring av lyskjegla ikkje har negative konsekvensar for forma si robustheit." }
+  ],
+  "5.64": [
+    { "kind": "note", "text": "Proposisjonen er eit postulat (status a), ikkje eit teorem. Den normative påstanden følgjer ikkje frå det formelle apparatet åleine; ho krev ein tilleggspremiss om at designhandlinga har konsekvensar for andre agentar. Denne premissen er parallell til Doctor et al. [23] si kopling mellom omhug og normativitet. At premissen ikkje er deduserbar, gjer han ikkje vilkårleg; han gjer han eksplisitt." }
+  ],
+  "6.1": [
+    { "kind": "falsifisering", "text": "Falsifisert dersom éin einskild agent konsekvent dikterer morfologien i ein klasse." }
+  ],
+  "6.12": [
+    { "kind": "note", "text": "Multiskala-kompetanse er Levins [22] rammeverk for korleis biologiske system opererer agentisk på fleire skalaer samstundes. Me generaliserer det til formverda: celle, materiale, verktøy, handverkar, marknad er alle agentar med eigne lyskjegler. Forma er resultatet av deira samtidige navigasjon." },
+    { "kind": "note", "text": "Kjerne-likninga Form = SG(∇<sub>C(A)</sub> L(<i>c</i>, <i>t</i>)) er eit strukturelt skjema, ikkje ein prediksjonsmotor. Ho spesifiserer kva komponentar som er naudsynte og saman tilstrekkelege for å forklare form; grammatikk, landskap, og lyskjegle; men ho spesifiserer ikkje den funksjonelle forma til L, ikkje kva grammatikkreglar som fyrer, og ikkje dimensjonaliteten til C(A) for ein gjeven agent. Analogien er F = ma før kraftlova er kjend." }
+  ],
+  "6.3": [
+    { "kind": "note", "text": "Stilarten spelar for formverda ei rolle som liknar det genus spelar i biologien; ein deskriptiv kategori som fangar slektskap utan å forklare det. Om stilarten ber kausal kraft utover mønsterminne; om han kan kanalisere navigasjon aktivt og ikkje berre passivt; er eit ope spørsmål. Falsifiseringseksperiment: gje to grupper designarar identiske trykk men ulik stileksponering. Dersom stileksponeringa endrar formvariasjonen signifikant utover trykka sin effekt, har stilarten kausal kraft utover mønsterminne." },
+    { "kind": "note", "text": "Ingen reint eksperiment testar stileksponering som uavhengig variabel på formvariasjon (per april 2026). Designfiksasjon-litteraturen stadfestar at eksempeleksponering avgrensar kreativ output, men isolerer ikkje stilnivået frå eksempelnivået. Falsifiseringseksperimentet i 6.3-notatet er difor originalt." }
+  ],
+  "6.5": [
+    { "kind": "note", "text": "Følgjer av 2.13 (motstridande trykk utelukkar permanent likevekt) og 4.1 (trykka kviler aldri). Saman: ingen balanse er stabil over tid; kvar form er gyldig berre for aktualiseringsaugeblikket." }
+  ],
+  "7.1": [
+    { "kind": "note", "text": "Proposisjon 7 rommar to distinkte påstandar. Den deskriptive (7.1) kan testast empirisk: dersom former designa under demonstrerbart trong omhug ikkje presterer dårlegare langs urepresenterte aksar enn former designa under brei omhug, er proposisjonen tilbakevist. Den normative (7.2) gjev den deskriptive retning og relevans, men står ikkje og fell med henne." }
+  ]
+}
