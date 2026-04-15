@@ -722,7 +722,10 @@ export default function Home() {
         className="reader-scroll h-full w-full overflow-y-auto hide-scrollbar p-4 md:p-16 max-w-4xl mx-auto pb-[30vh] md:pb-[34vh]"
         onClick={handleContentClick}
       >
-        <header className="mb-6 md:mb-8 shrink-0 flex items-start justify-between gap-4">
+        <header 
+          className="mb-6 md:mb-8 shrink-0 flex items-start justify-between gap-4"
+          style={{ paddingTop: 'env(safe-area-inset-top)' }}
+        >
           <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-black">formlære</h1>
           <div className="flex items-center gap-2 pt-2">
             {searchOpen ? (
