@@ -404,10 +404,12 @@ export default function Home() {
     if (!slug) slug = 'forord';
     const lower = slug.toLowerCase();
     if (lower === 'forord' || lower === 'føreord' || lower === 'foreord') {
+      setSelectedId('forord');
       requestAnimationFrame(() => foreordRef.current?.scrollIntoView({ block: 'start' }));
       return;
     }
     if (lower === 'etterord') {
+      setSelectedId('etterord');
       requestAnimationFrame(() => etterordRef.current?.scrollIntoView({ block: 'start' }));
       return;
     }
@@ -430,7 +432,7 @@ export default function Home() {
   }, [allNodesFlattened, expandAncestors, parentMap]);
 
   useEffect(() => {
-    if (!didInitialRouteRef.current) return;
+    if (!didInitialRouteRef.current || !selectedId) return;
     const target = `/${selectedId}`;
     if (window.location.pathname !== target) {
       window.history.replaceState(null, '', target);
