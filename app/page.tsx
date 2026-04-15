@@ -204,113 +204,47 @@ async function sharePropLink(nodeId: string) {
   } catch { /* user cancelled or unsupported */ }
 }
 
-function AudioPlayer({ src, onEnded, theme, toggleTheme, mounted }: { src: string; onEnded: () => void; theme: string; toggleTheme: () => void; mounted: boolean }) {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [rateIdx, setRateIdx] = useState(0);
-  const [available, setAvailable] = useState(true);
-  // If the user was playing when a track advanced, keep playing on the next.
-  const wasPlayingRef = useRef(false);
-
-  useEffect(() => {
-    setAvailable(true);
-    const el = audioRef.current;
-    if (!el) return;
-    el.playbackRate = PLAYBACK_RATES[rateIdx];
-    if (wasPlayingRef.current) {
-      el.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-    } else {
-      setIsPlaying(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src]);
-
-  useEffect(() => {
-    const el = audioRef.current;
-    if (el) el.playbackRate = PLAYBACK_RATES[rateIdx];
-  }, [rateIdx]);
-
-  const togglePlay = () => {
-    const el = audioRef.current;
-    if (!el) return;
-    if (el.paused) {
-      el.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-    } else {
-      el.pause();
-      setIsPlaying(false);
-    }
-  };
-
-  const skip = (s: number) => {
-    const el = audioRef.current;
-    if (!el) return;
-    if (!isFinite(el.duration)) {
-      el.currentTime = Math.max(0, el.currentTime + s);
-      return;
-    }
-    el.currentTime = Math.max(0, Math.min(el.duration, el.currentTime + s));
-  };
-
-  // Layout tuned for iOS thumb reach:
-  //   [ 1.0× ] [ ☀️/🌙 ]         [ ⏪ ⏩ ]   [ ▶ ]
-  //   speed far left; skip pair then play in the right-hand thumb zone.
+function AudioControls({ 
+  isPlaying, 
+  togglePlay, 
+  skip, 
+  available, 
+  compact = false 
+}: { 
+  isPlaying: boolean; 
+  togglePlay: () => void; 
+  skip: (s: number) => void; 
+  available: boolean;
+  compact?: boolean;
+}) {
+  const iconSize = compact ? 20 : 22;
+  const playSize = compact ? 24 : 34;
+  
   return (
-    <div className="flex items-center text-black/70 w-full">
-      <audio
-        ref={audioRef}
-        src={src}
-        onEnded={() => { wasPlayingRef.current = true; setIsPlaying(false); onEnded(); }}
-        onError={() => setAvailable(false)}
-        onLoadedData={() => setAvailable(true)}
-        onPlay={() => { wasPlayingRef.current = true; setIsPlaying(true); }}
-        onPause={() => { wasPlayingRef.current = false; setIsPlaying(false); }}
-        preload="metadata"
-      />
-      <div className="flex items-center gap-2">
-        <button
-          onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
-          className="font-mono text-sm px-1 py-0.5 tabular-nums hover:text-black"
-          aria-label={`Hastigheit ${PLAYBACK_RATES[rateIdx]}×`}
-          disabled={!available}
-        >
-          {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}×
-        </button>
-        {mounted && (
-          <button
-            onClick={toggleTheme}
-            className="p-1 hover:text-black transition-colors"
-            aria-label={theme === 'dark' ? 'Byt til lyst tema' : 'Byt til mørkt tema'}
-          >
-            {theme === 'dark' ? <Sun size={18} strokeWidth={1.75} /> : <Moon size={18} strokeWidth={1.75} />}
-          </button>
-        )}
-      </div>
-      <div className="flex-1" />
-      <div className="flex items-center gap-1">
-        <button
-          onClick={() => skip(-10)}
-          aria-label="Hopp 10s tilbake"
-          className="hover:text-black p-2 disabled:opacity-30"
-          disabled={!available}
-        >
-          <RotateCcwSquare size={22} strokeWidth={1.75} />
-        </button>
-        <button
-          onClick={() => skip(10)}
-          aria-label="Hopp 10s fram"
-          className="hover:text-black p-2 disabled:opacity-30"
-          disabled={!available}
-        >
-          <RotateCwSquare size={22} strokeWidth={1.75} />
-        </button>
-      </div>
+    <div className="flex items-center gap-0.5 md:gap-1">
       <button
-        onClick={togglePlay}
-        aria-label={isPlaying ? 'Pause' : 'Spel'}
-        className="text-black p-2 ml-3 disabled:opacity-30"
+        onClick={(e) => { e.stopPropagation(); skip(-10); }}
+        aria-label="Hopp 10s tilbake"
+        className="hover:text-black p-1 md:p-2 disabled:opacity-30 transition-colors"
         disabled={!available}
       >
-        {isPlaying ? <Pause size={34} strokeWidth={1.75} fill="currentColor" /> : <Play size={34} strokeWidth={1.75} fill="currentColor" />}
+        <RotateCcwSquare size={iconSize} strokeWidth={1.75} />
+      </button>
+      <button
+        onClick={(e) => { e.stopPropagation(); skip(10); }}
+        aria-label="Hopp 10s fram"
+        className="hover:text-black p-1 md:p-2 disabled:opacity-30 transition-colors"
+        disabled={!available}
+      >
+        <RotateCwSquare size={iconSize} strokeWidth={1.75} />
+      </button>
+      <button
+        onClick={(e) => { e.stopPropagation(); togglePlay(); }}
+        aria-label={isPlaying ? 'Pause' : 'Spel'}
+        className="text-black p-1 md:p-2 ml-0.5 md:ml-3 disabled:opacity-30 transition-colors"
+        disabled={!available}
+      >
+        {isPlaying ? <Pause size={playSize} strokeWidth={1.75} fill="currentColor" /> : <Play size={playSize} strokeWidth={1.75} fill="currentColor" />}
       </button>
     </div>
   );
@@ -350,12 +284,65 @@ export default function Home() {
 
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(['1', '1.3', '1.31']));
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  // Audio has its own cursor. Scrolling never changes it — only explicit taps
-  // on a row or the natural end-of-track auto-advance do.
+  
+  // Audio State
   const [audioNodeId, setAudioNodeId] = useState<string>((traktatData as Proposition[])[0].id);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [rateIdx, setRateIdx] = useState(0);
+  const [audioAvailable, setAudioAvailable] = useState(true);
+  const wasPlayingRef = useRef(false);
+
   const [showFootnotes, setShowFootnotes] = useState(false);
 
   const allNodesFlattened = useMemo(() => flattenAll(traktatData as Proposition[]), []);
+
+  const audioNode = useMemo(
+    () => allNodesFlattened.find(n => n.node.id === audioNodeId)?.node ?? null,
+    [allNodesFlattened, audioNodeId]
+  );
+
+  useEffect(() => {
+    setAudioAvailable(true);
+    const el = audioRef.current;
+    if (!el) return;
+    el.playbackRate = PLAYBACK_RATES[rateIdx];
+    if (wasPlayingRef.current) {
+      el.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    } else {
+      setIsPlaying(false);
+    }
+  }, [audioNodeId, rateIdx]);
+
+  const togglePlay = useCallback(() => {
+    const el = audioRef.current;
+    if (!el) return;
+    if (el.paused) {
+      el.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    } else {
+      el.pause();
+      setIsPlaying(false);
+    }
+  }, []);
+
+  const audioSkip = useCallback((s: number) => {
+    const el = audioRef.current;
+    if (!el) return;
+    if (!isFinite(el.duration)) {
+      el.currentTime = Math.max(0, el.currentTime + s);
+      return;
+    }
+    el.currentTime = Math.max(0, Math.min(el.duration, el.currentTime + s));
+  }, []);
+
+  const onAudioEnded = useCallback(() => {
+    wasPlayingRef.current = true;
+    setIsPlaying(false);
+    const idx = allNodesFlattened.findIndex(n => n.node.id === audioNodeId);
+    if (idx !== -1 && idx < allNodesFlattened.length - 1) {
+      setAudioNodeId(allNodesFlattened[idx + 1].node.id);
+    }
+  }, [allNodesFlattened, audioNodeId]);
 
   const parentMap = useMemo(() => {
     const map = new Map<string, string | null>();
@@ -904,6 +891,17 @@ export default function Home() {
                 <ExternalLink size={28} strokeWidth={1.75} />
               </button>
             )}
+            {panelCollapsed && mounted && audioNode && (
+              <div className="ml-1 border-l border-black/10 pl-2">
+                <AudioControls 
+                  isPlaying={isPlaying} 
+                  togglePlay={togglePlay} 
+                  skip={audioSkip} 
+                  available={audioAvailable} 
+                  compact 
+                />
+              </div>
+            )}
             <button
               onClick={() => setPanelCollapsed(v => !v)}
               aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
@@ -1025,20 +1023,32 @@ export default function Home() {
         </div>
         {mounted && audioNode && !panelCollapsed && (
           <div className="border-t border-black/10 max-w-4xl mx-auto w-full px-6 md:px-16 py-1 md:py-2">
-            <AudioPlayer
-              src={audioUrlForNode(audioNode)}
-              theme={theme}
-              toggleTheme={toggleTheme}
-              mounted={mounted}
-              onEnded={() => {
-                // Auto-advance the audio cursor only — do not yank the user's
-                // scroll position or the notes panel.
-                const idx = allNodesFlattened.findIndex(n => n.node.id === audioNode.id);
-                if (idx !== -1 && idx < allNodesFlattened.length - 1) {
-                  setAudioNodeId(allNodesFlattened[idx + 1].node.id);
-                }
-              }}
-            />
+            <div className="flex items-center text-black/70 w-full">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
+                  className="font-mono text-sm px-1 py-0.5 tabular-nums hover:text-black transition-colors"
+                  aria-label={`Hastigheit ${PLAYBACK_RATES[rateIdx]}×`}
+                  disabled={!audioAvailable}
+                >
+                  {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}×
+                </button>
+                <button
+                  onClick={toggleTheme}
+                  className="p-1 hover:text-black transition-colors"
+                  aria-label={theme === 'dark' ? 'Byt til lyst tema' : 'Byt til mørkt tema'}
+                >
+                  {theme === 'dark' ? <Sun size={18} strokeWidth={1.75} /> : <Moon size={18} strokeWidth={1.75} />}
+                </button>
+              </div>
+              <div className="flex-1" />
+              <AudioControls 
+                isPlaying={isPlaying} 
+                togglePlay={togglePlay} 
+                skip={audioSkip} 
+                available={audioAvailable} 
+              />
+            </div>
           </div>
         )}
       </div>
@@ -1072,5 +1082,18 @@ export default function Home() {
       )}
 
     </main>
+      {mounted && audioNode && (
+        <audio
+          ref={audioRef}
+          src={audioUrlForNode(audioNode)}
+          onEnded={onAudioEnded}
+          onError={() => setAudioAvailable(false)}
+          onLoadedData={() => setAudioAvailable(true)}
+          onPlay={() => { wasPlayingRef.current = true; setIsPlaying(true); }}
+          onPause={() => { wasPlayingRef.current = false; setIsPlaying(false); }}
+          preload="metadata"
+        />
+      )}
+    </>
   );
 }
