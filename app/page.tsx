@@ -711,6 +711,7 @@ export default function Home() {
   }, [selectedId]);
 
   return (
+    <>
     <main
       className={`h-[100dvh] w-screen overflow-hidden bg-white text-black ${showFootnotes ? 'show-footnotes' : 'hide-footnotes'}`}
       onTouchStart={handleTouchStart}
