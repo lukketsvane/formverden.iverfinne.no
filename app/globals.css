@@ -28,6 +28,10 @@
   --selection-bg: #3f3f17;
 }
 
+[data-theme='dark'] img {
+  filter: invert(1);
+}
+
 @layer base {
   html, body {
     background-color: var(--background);
