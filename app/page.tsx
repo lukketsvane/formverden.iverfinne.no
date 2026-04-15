@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { Search, X, BookOpen, ChevronDown, Play, Pause, RotateCcwSquare, RotateCwSquare, ExternalLink } from 'lucide-react';
+import { Search, X, BookOpen, ChevronDown, Play, Pause, RotateCcwSquare, RotateCwSquare, ExternalLink, Sun, Moon } from 'lucide-react';
 import traktatData from '@/data/traktat.json';
 import referencesData from '@/data/references.json';
 import notesData from '@/data/notes.json';
@@ -204,7 +204,7 @@ async function sharePropLink(nodeId: string) {
   } catch { /* user cancelled or unsupported */ }
 }
 
-function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
+function AudioPlayer({ src, onEnded, theme, toggleTheme, mounted }: { src: string; onEnded: () => void; theme: string; toggleTheme: () => void; mounted: boolean }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [rateIdx, setRateIdx] = useState(0);
@@ -252,7 +252,7 @@ function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
   };
 
   // Layout tuned for iOS thumb reach:
-  //   [ 1.0× ]          [ ⏪ ⏩ ]   [ ▶ ]
+  //   [ 1.0× ] [ ☀️/🌙 ]         [ ⏪ ⏩ ]   [ ▶ ]
   //   speed far left; skip pair then play in the right-hand thumb zone.
   return (
     <div className="flex items-center text-black/70 w-full">
@@ -266,14 +266,25 @@ function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
         onPause={() => { wasPlayingRef.current = false; setIsPlaying(false); }}
         preload="metadata"
       />
-      <button
-        onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
-        className="font-mono text-sm px-1 py-0.5 tabular-nums hover:text-black"
-        aria-label={`Hastigheit ${PLAYBACK_RATES[rateIdx]}×`}
-        disabled={!available}
-      >
-        {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}×
-      </button>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
+          className="font-mono text-sm px-1 py-0.5 tabular-nums hover:text-black"
+          aria-label={`Hastigheit ${PLAYBACK_RATES[rateIdx]}×`}
+          disabled={!available}
+        >
+          {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}×
+        </button>
+        {mounted && (
+          <button
+            onClick={toggleTheme}
+            className="p-1 hover:text-black transition-colors"
+            aria-label={theme === 'dark' ? 'Byt til lyst tema' : 'Byt til mørkt tema'}
+          >
+            {theme === 'dark' ? <Sun size={18} strokeWidth={1.75} /> : <Moon size={18} strokeWidth={1.75} />}
+          </button>
+        )}
+      </div>
       <div className="flex-1" />
       <div className="flex items-center gap-1">
         <button
@@ -306,16 +317,39 @@ function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
 }
 
 export default function Home() {
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(['1', '1.3', '1.31']));
-  const [selectedId, setSelectedId] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      const slug = window.location.pathname.replace(/^\/+|\/+$/g, '');
-      if (slug) {
-        try { return decodeURIComponent(slug); } catch { return slug; }
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (systemDark ? 'dark' : 'light');
+    setTheme(initial);
+
+    // Sync with system live
+    const mql = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
       }
-    }
-    return 'forord';
-  });
+    };
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme, mounted]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  }, []);
+
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(['1', '1.3', '1.31']));
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   // Audio has its own cursor. Scrolling never changes it — only explicit taps
   // on a row or the natural end-of-track auto-advance do.
   const [audioNodeId, setAudioNodeId] = useState<string>((traktatData as Proposition[])[0].id);
@@ -989,10 +1023,13 @@ export default function Home() {
             </section>
           )}
         </div>
-        {audioNode && !panelCollapsed && (
+        {mounted && audioNode && !panelCollapsed && (
           <div className="border-t border-black/10 max-w-4xl mx-auto w-full px-6 md:px-16 py-1 md:py-2">
             <AudioPlayer
               src={audioUrlForNode(audioNode)}
+              theme={theme}
+              toggleTheme={toggleTheme}
+              mounted={mounted}
               onEnded={() => {
                 // Auto-advance the audio cursor only — do not yank the user's
                 // scroll position or the notes panel.
