@@ -875,7 +875,7 @@ export default function Home() {
                 <div className="ml-3 md:ml-4 flex flex-col items-center justify-start gap-0.5 pt-2 shrink-0 w-3">
                   {item.depth === 0 ? (
                     computeSubDepth(item.node) > 0 && (
-                      <ChevronDown size={12} className={`text-black/40 transition-transform duration-250 ease-out ${expandedIds.has(item.node.id) ? 'rotate-180' : ''}`} />
+                      <ChevronDown size={12} className={`text-black/40 transition-transform duration-200 ease-out ${expandedIds.has(item.node.id) ? 'rotate-180' : ''}`} />
                     )
                   ) : (
                     Array.from({ length: computeSubDepth(item.node) + 1 }).map((_, i) => (
