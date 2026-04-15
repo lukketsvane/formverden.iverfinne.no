@@ -830,20 +830,25 @@ export default function Home() {
 
       <div
         className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto flex flex-col ${
-          panelCollapsed ? 'h-8' : 'h-[26vh] md:h-auto md:max-h-[30vh]'
+          panelCollapsed ? 'h-10' : 'h-[26vh] md:h-auto md:max-h-[30vh]'
         }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         <button
           onClick={() => setPanelCollapsed(v => !v)}
-          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-white border border-black/10 border-b-0 rounded-t px-3 py-0.5 text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
           aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
+          className="max-w-4xl mx-auto w-full px-6 md:px-16 pt-1.5 md:pt-3 pb-1 flex items-baseline justify-between gap-3 text-left"
         >
-          {panelCollapsed ? '▲' : '▼'}
-        </button>
-        <div className={`max-w-4xl mx-auto w-full px-6 md:px-16 pt-1.5 md:pt-3 ${panelCollapsed ? 'hidden' : ''}`}>
           <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
-        </div>
+          <span className="flex items-baseline gap-2 text-gray-500">
+            {selectedNode && (
+              <span className="font-mono text-xs tabular-nums text-black/70">{selectedNode.id}</span>
+            )}
+            <span className="text-[10px] font-mono uppercase tracking-wider">
+              {panelCollapsed ? '▲' : '▼'}
+            </span>
+          </span>
+        </button>
         <div
           ref={panelRef}
           className={`flex-1 min-h-0 max-w-4xl mx-auto w-full px-6 md:px-16 pt-1 pb-1 overflow-y-auto hide-scrollbar flex flex-col text-[13px] md:text-base ${panelCollapsed ? 'hidden' : ''}`}
