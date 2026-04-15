@@ -307,14 +307,22 @@ function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
 
 export default function Home() {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(['1', '1.3', '1.31']));
-  const [selectedId, setSelectedId] = useState<string>((traktatData as Proposition[])[0].id);
+  const [selectedId, setSelectedId] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const slug = window.location.pathname.replace(/^\/+|\/+$/g, '');
+      if (slug) {
+        try { return decodeURIComponent(slug); } catch { return slug; }
+      }
+    }
+    return 'forord';
+  });
   // Audio has its own cursor. Scrolling never changes it — only explicit taps
   // on a row or the natural end-of-track auto-advance do.
   const [audioNodeId, setAudioNodeId] = useState<string>((traktatData as Proposition[])[0].id);
   const [showFootnotes, setShowFootnotes] = useState(false);
 
   const allNodesFlattened = useMemo(() => flattenAll(traktatData as Proposition[]), []);
-  
+
   const parentMap = useMemo(() => {
     const map = new Map<string, string | null>();
     allNodesFlattened.forEach(n => {
@@ -329,9 +337,8 @@ export default function Home() {
 
   const safeSelectedIndex = useMemo(() => {
     const idx = visibleNodes.findIndex(n => n.node.id === selectedId);
-    return idx !== -1 ? idx : 0;
+    return idx;
   }, [visibleNodes, selectedId]);
-
   const toggleExpand = useCallback((id: string) => {
     setExpandedIds(prev => {
       const next = new Set(prev);
@@ -373,7 +380,7 @@ export default function Home() {
     } catch {
       slug = window.location.pathname.replace(/^\/+|\/+$/g, '');
     }
-    if (!slug) return;
+    if (!slug) slug = 'forord';
     const lower = slug.toLowerCase();
     if (lower === 'forord' || lower === 'føreord' || lower === 'foreord') {
       requestAnimationFrame(() => foreordRef.current?.scrollIntoView({ block: 'start' }));
@@ -752,8 +759,8 @@ export default function Home() {
         <div className="flex flex-col gap-1">
           {visibleNodes.map((item, index) => {
             const isSelected = index === safeSelectedIndex;
-            const isAbove = index < safeSelectedIndex;
-            const isBelow = index > safeSelectedIndex;
+            const isAbove = safeSelectedIndex !== -1 && index < safeSelectedIndex;
+            const isBelow = safeSelectedIndex !== -1 && index > safeSelectedIndex;
 
             const rowOpacity = isBelow ? 'opacity-40' : 'opacity-100';
             const numberOpacity = isAbove ? 'opacity-40' : 'opacity-100';
