@@ -828,38 +828,45 @@ export default function Home() {
         }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
-        <div className="max-w-4xl mx-auto w-full px-6 md:px-16 pt-1.5 md:pt-3 pb-1 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setPanelCollapsed(v => !v)}
-              aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-              className="text-left"
-            >
-              <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
-            </button>
+        <button
+          onClick={() => setPanelCollapsed(v => !v)}
+          aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
+          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-white border border-black/10 border-b-0 rounded-t px-3 py-0.5 text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
+        >
+          {panelCollapsed ? '▲' : '▼'}
+        </button>
+        <div className="max-w-4xl mx-auto w-full px-6 md:px-16 pt-1.5 md:pt-3 pb-1 flex items-baseline justify-between gap-3">
+          <button
+            onClick={() => setPanelCollapsed(v => !v)}
+            aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
+            className="text-left"
+          >
+            <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
+          </button>
+          <div className="flex items-baseline gap-2">
             {selectedNode && (
               <button
                 onClick={() => sharePropLink(selectedNode.id)}
                 aria-label="Del lenkje"
                 title="Del lenkje"
-                className="p-1 -m-1 text-black/50 hover:text-black"
+                className="text-black/50 hover:text-black relative top-1 p-1 -m-1"
               >
-                <ExternalLink size={16} strokeWidth={1.75} />
+                <ExternalLink size={28} strokeWidth={1.75} />
               </button>
             )}
+            <button
+              onClick={() => setPanelCollapsed(v => !v)}
+              aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
+              className="flex items-baseline gap-2 text-gray-500"
+            >
+              {selectedNode && (
+                <span className="font-mono text-xs tabular-nums text-black/70">{selectedNode.id}</span>
+              )}
+              <span className="text-[10px] font-mono uppercase tracking-wider">
+                {panelCollapsed ? '▲' : '▼'}
+              </span>
+            </button>
           </div>
-          <button
-            onClick={() => setPanelCollapsed(v => !v)}
-            aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-            className="flex items-baseline gap-2 text-gray-500"
-          >
-            {selectedNode && (
-              <span className="font-mono text-xs tabular-nums text-black/70">{selectedNode.id}</span>
-            )}
-            <span className="text-[10px] font-mono uppercase tracking-wider">
-              {panelCollapsed ? '▲' : '▼'}
-            </span>
-          </button>
         </div>
         <div
           ref={panelRef}

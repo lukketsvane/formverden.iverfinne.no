@@ -12,7 +12,7 @@
           {
             "id": "1.11",
             "status": "t",
-            "text": "Alt som har form, har nettopp denne forma og ikkje ei anna.",
+            "text": "Kvar realisert konfigurasjon er spesifikk; ingen konfigurasjon er delvis realisert.",
             "children": []
           },
           {
@@ -39,7 +39,7 @@
       {
         "id": "1.2",
         "status": "d",
-        "text": "Eit objekt er den enklaste bestanddelen i ein konfigurasjon. Objektet er udeleleg og uforanderleg.",
+        "text": "Eit <b>objekt</b> er den enklaste bestanddelen i ein konfigurasjon. Objektet er udeleleg og uforanderleg.",
         "children": [
           {
             "id": "1.201",
@@ -63,13 +63,13 @@
           {
             "id": "1.204",
             "status": "t",
-            "text": "Det uforanderlege, det eksisterande og objektet er eitt og det same. Objektet er det uforanderlege; konfigurasjonen er det omskiftelege, det ubestandige.",
+            "text": "Objektet er det uforanderlege; konfigurasjonen er det ubestandige.",
             "children": []
           },
           {
             "id": "1.21",
             "status": "d",
-            "text": "Ein konfigurasjon er ein bestemt samanheng av objekt. Forma er konfigurasjonens struktur.",
+            "text": "Ein <b>konfigurasjon</b> er ein bestemt samanheng av objekt. Forma er konfigurasjonens struktur.",
             "children": [
               {
                 "id": "1.211",
@@ -92,7 +92,7 @@
               {
                 "id": "1.214",
                 "status": "t",
-                "text": "To konfigurasjonar med same objekt men ulik struktur er ulike former.To konfigurasjonar med ulike objekt men same struktur deler ein isomorfi.",
+                "text": "To konfigurasjonar med same objekt men ulik struktur er ulike former.",
                 "children": []
               }
             ]
@@ -134,7 +134,7 @@
       {
         "id": "1.3",
         "status": "d",
-        "text": "Formrommet til ein klasse er mengda av alle moglege konfigurasjonar for objekt i denne klassen.<sup class=\"footnote-ref\">2, 10, 20</sup>",
+        "text": "<b>Formrommet</b> til ein klasse er mengda av alle moglege konfigurasjonar for objekt i denne klassen.<sup class=\"footnote-ref\">2, 10, 20</sup>",
         "children": [
           {
             "id": "1.31",
@@ -167,7 +167,7 @@
       {
         "id": "1.4",
         "status": "d",
-        "text": "Formrommet deler seg topologisk i tre regionar: dei busette, dei opne og dei forbodne.",
+        "text": "Formrommet deler seg topologisk i tre regionar: dei <i>busette</i>, dei <i>opne</i> og dei <i>forbodne</i>.",
         "children": [
           {
             "id": "1.41",
@@ -191,7 +191,7 @@
           {
             "id": "1.42",
             "status": "o",
-            "text": "Dei opne regionane er det nærliggande moglege. Tilgjengelege, men uaktualiserte. Dei er endelige; spente ut mellom det busette og det forbodne.",
+            "text": "Dei opne regionane er det <i>nærliggande moglege</i>. Tilgjengelege, men uaktualiserte. Dei er endelige; spente ut mellom det busette og det forbodne.",
             "children": [
               {
                 "id": "1.421",
@@ -223,12 +223,12 @@
           {
             "id": "1.44",
             "status": "d",
-            "text": "Dei tre regionane utgjer ein epistemisk partisjon.<sup class=\"footnote-ref\">16, 17</sup> Det kjende (K), det tenkelege (C∖K), og det utenkjelege. Grensene er epistemiske, ikkje ontologiske.",
+            "text": "Dei tre regionane utgjer ein epistemisk partisjon. Det <b>kjende</b> (K), det <b>tenkelege</b> (C∖K), og det utenkjelege. Grensene er epistemiske, ikkje ontologiske.<sup class=\"footnote-ref\">16, 17</sup>",
             "children": [
               {
                 "id": "1.441",
                 "status": "d",
-                "text": "C er tankerommet. Alle former som er tenkelege men ikkje avgjorte. K er kunnskapsrommet. Alle former som er kjende å verke eller svikte. Formgjeving er rørsla mellom dei.",
+                "text": "C er <i>tankerommet</i>. Alle former som er tenkelege men ikkje avgjorte. K er <i>kunnskapsrommet</i>. Alle former som er kjende å verke eller svikte. Formgjeving er rørsla mellom dei.",
                 "children": []
               },
               {
@@ -246,6 +246,24 @@
             ]
           }
         ]
+      },
+      {
+        "id": "1.433",
+        "status": "t",
+        "text": "Dei topologiske regionane er ikkje identiske med dei epistemiske: eit forbode område kan vere tenkeleg (materielt avgrensa), ein open region kan vere utenkjeleg (kognitivt utilgjengeleg).",
+        "children": []
+      },
+      {
+        "id": "1.444",
+        "status": "t",
+        "text": "Operasjonane mellom C og K spenner ut fire retningar:",
+        "children": []
+      },
+      {
+        "id": "1.2141",
+        "status": "t",
+        "text": "To konfigurasjonar med ulike objekt men same struktur deler form.",
+        "children": []
       }
     ]
   },
@@ -262,7 +280,7 @@
           {
             "id": "2.011",
             "status": "t",
-            "text": "Trykket er ikkje ei kraft. Det er ei avgrensing av kvar forma ikkje kan vere.",
+            "text": "Trykket er ikkje ei kraft. Det er ei avgrensing av kvar forma <i>ikkje</i> kan vere.",
             "children": []
           }
         ]
@@ -270,7 +288,7 @@
       {
         "id": "2.1",
         "status": "d",
-        "text": "Eitseleksjonstrykk endrar sannsynsfordelinga i formrommet.<sup class=\"footnote-ref\">3</sup> Trykket er ein gradient, inga regel.",
+        "text": "Eit <b>seleksjonstrykk</b> endrar sannsynsfordelinga i formrommet. Trykket er ein gradient, inga regel.<sup class=\"footnote-ref\">3</sup>",
         "children": [
           {
             "id": "2.101",
@@ -313,7 +331,7 @@
           {
             "id": "2.13",
             "status": "a",
-            "text": "Minst to seleksjonstrykk peikar i motstridande retningar.Kvar realisert form er difor eit kompromiss.",
+            "text": "Minst to seleksjonstrykk peikar i motstridande retningar. Kvar realisert form er difor eit kompromiss.",
             "children": [
               {
                 "id": "2.131",
@@ -326,7 +344,7 @@
           {
             "id": "2.14",
             "status": "d",
-            "text": "Ein klasse er avgrensa gjennom delt affordansestruktur.<sup class=\"footnote-ref\">12, 55, 56</sup> Objekta i klassen tilbyr same operasjonar til same agentar.",
+            "text": "Ein <b>klasse</b> er avgrensa gjennom delt <i>affordansestruktur</i>. Objekta i klassen tilbyr same operasjonar til same agentar.<sup class=\"footnote-ref\">12, 55, 56</sup>",
             "children": [
               {
                 "id": "2.141",
@@ -337,7 +355,7 @@
               {
                 "id": "2.142",
                 "status": "o",
-                "text": "Stil predikerer meir formvariasjon enn materiale. Bruk er difor ikkje den drivande krafta.<sup class=\"footnote-ref\">53</sup>",
+                "text": "Stil predikerer meir formvariasjon enn materiale. Materialet er difor ikkje den drivande krafta.<sup class=\"footnote-ref\">53</sup>",
                 "children": []
               }
             ]
@@ -347,18 +365,18 @@
       {
         "id": "2.2",
         "status": "d",
-        "text": "Materialaffordansener operasjonane materialet tillèt og hindrar.<sup class=\"footnote-ref\">12</sup> Signaturen er latent; han bind sannsynsfordelinga utan å tvinge geometrien.",
+        "text": "<b>Materialaffordansen</b> er operasjonane materialet tillèt og hindrar. Signaturen er <i>latent</i>; han bind sannsynsfordelinga utan å tvinge geometrien.<sup class=\"footnote-ref\">12</sup>",
         "children": [
           {
             "id": "2.201",
             "status": "o",
-            "text": "Stål fanst i hundreår før røyrstolen fordi operasjonen mangla. Formhistoria er systematisk langsamare enn materialhistoria. Røyret låg i sykkelfabrikken i eit halvt hundreår. Nokon måtte sjå stolen i det.<sup class=\"footnote-ref\">54</sup>",
+            "text": "Stål fanst i hundreår før røyrstolen fordi operasjonen mangla. Formhistoria er systematisk langsamare enn materialhistoria.<sup class=\"footnote-ref\">54</sup>",
             "children": []
           },
           {
             "id": "2.21",
             "status": "t",
-            "text": "Ein samlevariabel predikerer formvariasjon betre enn einskildtrykk. Stilperioden er ein slik samlevariabel.",
+            "text": "Ein <i>samlevariabel</i> predikerer formvariasjon betre enn einskildtrykk. Stilperioden er ein slik samlevariabel.",
             "children": [
               {
                 "id": "2.211",
@@ -386,7 +404,7 @@
       {
         "id": "3.1",
         "status": "d",
-        "text": "Tilpassingslandskapeter vektorsummen av alle verksame seleksjonstrykk.<sup class=\"footnote-ref\">3, 8, 58</sup> Kvar posisjon held ein verdi; graden av samtidig forløysing for alle trykk.",
+        "text": "<b>Tilpassingslandskapet</b> er vektorsummen av alle verksame seleksjonstrykk. Kvar posisjon held ein verdi; graden av samtidig forløysing for alle trykk.<sup class=\"footnote-ref\">3, 8, 58</sup>",
         "children": [
           {
             "id": "3.11",
@@ -412,7 +430,7 @@
       {
         "id": "3.2",
         "status": "d",
-        "text": "Stabiliteten til ein haug svarar til brattleiken på dalveggane.<sup class=\"footnote-ref\">8</sup> Bratte veggar tvingar fram kanalisering. Forma støyter vekk forstyrringar.",
+        "text": "Stabiliteten til ein haug svarar til brattleiken på dalveggane. Bratte veggar tvingar fram <i>kanalisering</i>. Forma støyter vekk forstyrringar.<sup class=\"footnote-ref\">8</sup>",
         "children": [
           {
             "id": "3.21",
@@ -425,7 +443,7 @@
       {
         "id": "3.3",
         "status": "d",
-        "text": "Ein stilart er forma si sverming kring eit felles tyngdepunkt.<sup class=\"footnote-ref\">9, 53</sup> Stilarten er ein sverm, ikkje ein kategori; grensene er naudsynleg uskarpe. Stilperiodar er gradientar, ikkje øyar. Ingen har nokon gong sett ein stil. Ein ser stolar som liknar kvarandre.",
+        "text": "Ein <b>stilart</b> er forma si <i>sverming</i> kring eit felles tyngdepunkt. Stilarten er ein <i>sverm</i>, ikkje ein kategori; grensene er naudsynleg uskarpe. Stilperiodar er gradientar, ikkje øyar.<sup class=\"footnote-ref\">9, 53</sup>",
         "children": []
       },
       {
@@ -462,7 +480,7 @@
           {
             "id": "4.12",
             "status": "t",
-            "text": "Kontinuerlege trykk produserer diskontinuerleg endring. Landskapet har tersklar; gradvise trykkforskyvingar akkumulerer seg til haugen kollapsar. Diskontinuiteten kjem frå topologien i landskapet, ikkje frå dynamikken i trykka.",
+            "text": "Gradvise trykkforskyvingar akkumulerer seg til haugen kollapsar; diskontinuiteten ligg i topologien, ikkje i dynamikken.",
             "children": []
           }
         ]
@@ -470,19 +488,19 @@
       {
         "id": "4.2",
         "status": "o",
-        "text": "Endringa er difor diskontinuerleg. Lange periodar med stase bryt saman i brå skifte. Radiasjon inn i ein ny region, deretter konvergens. Diskontinuiteten er signaturen til dynamikken, ikkje eit brot med han.",
+        "text": "Lange periodar med stase bryt saman i brå skifte. Radiasjon inn i ein ny region, deretter konvergens. Diskontinuiteten er signaturen til dynamikken, ikkje eit brot med han.",
         "children": []
       },
       {
         "id": "4.3",
         "status": "t",
-        "text": "Landskapet har minne.<sup class=\"footnote-ref\">14</sup> Kvar realisert form endrar seleksjonstrykka for den neste. All formgjeving er omformgjeving; agenten arvar alltid ein posisjon. Stiavhengigheit er eit fundamentalt trekk, ingen anomali.",
+        "text": "Landskapet har minne. Kvar realisert form endrar seleksjonstrykka for den neste. All formgjeving er omformgjeving; agenten arvar alltid ein posisjon. <i>Stiavhengigheit</i> er eit fundamentalt trekk, ingen anomali.<sup class=\"footnote-ref\">14</sup>",
         "children": []
       },
       {
         "id": "4.4",
         "status": "o",
-        "text": "Formrommet ekspanderer kumulativt. Det nærliggande moglege<sup class=\"footnote-ref\">13, 59, 60, 79</sup> er C∖K-grensa; mengda av former som er tenkelege men ukjende som realiserbare.Materialstraumar driv landskapsendringa.",
+        "text": "Formrommet ekspanderer kumulativt. Det <i>nærliggande moglege</i> er C∖K-grensa; mengda av former som er tenkelege men ukjende som realiserbare. Materialstraumar driv landskapsendringa.<sup class=\"footnote-ref\">13, 59, 60, 79</sup>",
         "children": []
       },
       {
@@ -526,7 +544,7 @@
           {
             "id": "5.11",
             "status": "d",
-            "text": "Ein agent er ein operator definert av trippelet måltilstand, avstandsmåling, justeringsmekanisme.<sup class=\"footnote-ref\">4, 7, 62</sup> Agens krev berre organisering; verken medvit, intensjon eller nervesystem.",
+            "text": "Ein <b>agent</b> er ein operator definert av trippelet måltilstand, avstandsmåling, justeringsmekanisme. Agens krev berre organisering; verken medvit, intensjon eller nervesystem.<sup class=\"footnote-ref\">4, 7, 21, 82, 83, 84</sup>",
             "children": [
               {
                 "id": "5.111",
@@ -539,7 +557,7 @@
           {
             "id": "5.12",
             "status": "o",
-            "text": "Agens er stratifisert. Strukturen er den same; måltilstand, avstandsmåling, justering. Det som endrar seg, er kor mykje av formrommet agenten kan representere.",
+            "text": "Agens er <i>stratifisert</i>: strukturen er stabil, oppløysinga varierer.",
             "children": [
               {
                 "id": "5.121",
@@ -597,12 +615,12 @@
       {
         "id": "5.2",
         "status": "d",
-        "text": "Kognitiv lyskjegle er delmengda av formrommet agenten kan representere og manipulere.<sup class=\"footnote-ref\">21</sup> Alt utanfor lyskjegla manglar kausal eksistens for agenten. Lyskjegler spenner frå cellulær millisekundrespons til tiårslang konsensus.",
+        "text": "<b>Kognitiv lyskjegle</b> er delmengda av formrommet agenten kan representere og manipulere. Alt utanfor lyskjegla manglar kausal eksistens for agenten. Lyskjegler spenner frå cellulær millisekundrespons til tiårslang konsensus.<sup class=\"footnote-ref\">21</sup>",
         "children": [
           {
             "id": "5.21",
             "status": "t",
-            "text": "Lyskjegla dikterer oppløysinga til formrommet. Innanfor ho persiperer agenten ikkje former, men affordansar: operasjonane konfigurasjonen tillèt.<sup class=\"footnote-ref\">12, 55</sup>",
+            "text": "Lyskjegla dikterer oppløysinga til formrommet. Innanfor ho persiperer agenten ikkje former, men <i>affordansar</i>: operasjonane konfigurasjonen tillèt.<sup class=\"footnote-ref\">12, 55</sup>",
             "children": [
               {
                 "id": "5.211",
@@ -617,12 +635,12 @@
       {
         "id": "5.3",
         "status": "d",
-        "text": "Konfigurasjonar lukka under union, differanse og transformasjon utgjer ein formalgebra.<sup class=\"footnote-ref\">11, 13, 18</sup> <img src=\"/shape-grammar.png\" alt=\"Shape grammar – illustrasjon\" class=\"mt-4 max-w-full\" />",
+        "text": "Konfigurasjonar lukka under union, differanse og transformasjon utgjer ein <i>formalgebra</i>.<sup class=\"footnote-ref\">11, 13, 18</sup> <img src=\"/shape-grammar.png\" alt=\"Shape grammar – illustrasjon\" class=\"mt-4 max-w-full\" />",
         "children": [
           {
             "id": "5.301",
             "status": "d",
-            "text": "Formgrammatikkenutfører diskrete overgangar i denne geometrien. Reglar fyrer på innleiring: agenten gjenkjenner ei delform inne i heilforma. Inndatageometrien er einaste premiss. <img src=\"/formgrammatikk_table.png\" alt=\"Formgrammatikk\" class=\"mt-4 max-w-full\" />",
+            "text": "<b>Formgrammatikken</b> utfører diskrete overgangar i denne geometrien. Reglar fyrer på <i>innleiring</i>: agenten gjenkjenner ei delform inne i heilforma. Inndatageometrien er einaste premiss. <img src=\"/formgrammatikk_table.png\" alt=\"Formgrammatikk\" class=\"mt-4 max-w-full\" />",
             "children": []
           },
           {
@@ -639,7 +657,7 @@
               {
                 "id": "5.312",
                 "status": "t",
-                "text": "Agenten forløyser konfigurasjonen som mest radikalt reduserer lokal spenning.",
+                "text": "Agenten forløyser ein konfigurasjon som reduserer lokal gradient.",
                 "children": []
               }
             ]
@@ -649,12 +667,12 @@
       {
         "id": "5.4",
         "status": "d",
-        "text": "Substratet fungerer som ein null-ordens agent. Det vetoar konfigurasjonar og gjev resonans til andre gjennom ufravikelege avgrensingar.<sup class=\"footnote-ref\">26, 81</sup>",
+        "text": "Substratet fungerer som ein <i>null-ordens agent</i>. Det vetoar konfigurasjonar og gjev resonans til andre gjennom ufravikelege avgrensingar.<sup class=\"footnote-ref\">26, 81</sup>",
         "children": [
           {
             "id": "5.41",
             "status": "i",
-            "text": "Biologisk vev navigerer via bioelektrisk polarisering;<sup class=\"footnote-ref\">22, 24</sup> menneskeleg praksis via materiell friksjon; ein slimsopp via oscillerande samandragingar; ein språkmodell via vektoriell merksemd.",
+            "text": "Biologisk vev navigerer via bioelektrisk polarisering; menneskeleg praksis via materiell friksjon; ein slimsopp via oscillerande samandragingar; ein språkmodell via vektoriell merksemd.<sup class=\"footnote-ref\">22, 24</sup>",
             "children": []
           }
         ]
@@ -668,12 +686,12 @@
       {
         "id": "5.6",
         "status": "d",
-        "text": "Omhug<sup class=\"footnote-ref\">23, 68</sup> er mengda av aksar i formrommet agenten aktivt representerer og justerer for.",
+        "text": "<b>Omhug</b> er mengda av aksar i formrommet agenten <i>aktivt</i> representerer og justerer for.<sup class=\"footnote-ref\">23, 68</sup>",
         "children": [
           {
             "id": "5.601",
             "status": "t",
-            "text": "Omhug er ikkje kapasitet.Kapasiteten er kor mange aksar agenten kan representere; omhugen er kor mange han faktisk representerer.",
+            "text": "Omhug er ikkje kapasitet. Kapasiteten er kor mange aksar agenten <i>kan</i> representere; omhugen er kor mange han faktisk representerer.",
             "children": []
           },
           {
@@ -723,6 +741,12 @@
         "children": []
       },
       {
+        "id": "5.51",
+        "status": "t",
+        "text": "Kompetanseakkumulering utvider C(A) men garanterer ikkje omhug; agenten kan kjenne fleire aksar utan å justere for dei.",
+        "children": []
+      },
+      {
         "id": "5.71",
         "status": "o",
         "text": "Likninga er eit strukturelt skjema. Ho namngjev komponentane som er naudsynte og saman tilstrekkelege. Ho spesifiserer ikkje den funksjonelle forma til L, kva reglar i R som fyrer, eller dimensjonaliteten av C(A).",
@@ -748,7 +772,7 @@
       },
       {
         "id": "5.723",
-        "status": "t",
+        "status": "a",
         "text": "Likninga lukkar feltet. Fleire lag kan ikkje leggjast til utan å endre strukturen til formverda sjølv; færre kan ikkje takast bort utan å forsvinne inn i eit grensetilfelle.",
         "children": []
       }
@@ -762,7 +786,7 @@
       {
         "id": "6.1",
         "status": "t",
-        "text": "Fleire agentar responderer på ulike trykk samstundes.Kvar form er eit poly-agentisk kompromiss. Ingen einskild agent dikterer morfologien; ho trer fram i skjeringspunktet mellom dei.<sup class=\"footnote-ref\">66, 67</sup>",
+        "text": "Fleire agentar responderer på ulike trykk samstundes. Kvar form er eit <i>poly-agentisk kompromiss</i>. Ingen einskild agent dikterer morfologien; ho trer fram i skjeringspunktet mellom dei.<sup class=\"footnote-ref\">66, 67</sup>",
         "children": [
           {
             "id": "6.11",
@@ -780,7 +804,7 @@
           {
             "id": "6.12",
             "status": "t",
-            "text": "Agens er multiskalar.<sup class=\"footnote-ref\">22, 67</sup> Kvar skala har sin eigen kompetanse og si eiga lyskjegle. Formproduksjon er distribuert C↔Kekspansjon utført av grammatikkoperasjonar over kompetanseskalaer.",
+            "text": "Agens er <i>multiskalar</i>. Kvar skala har sin eigen kompetanse og si eiga lyskjegle. Formproduksjon er distribuert C↔K-ekspansjon utført av grammatikkoperasjonar over kompetanseskalaer.<sup class=\"footnote-ref\">22, 67</sup>",
             "children": []
           },
           {
@@ -806,7 +830,7 @@
       {
         "id": "6.3",
         "status": "t",
-        "text": "Ein stilart manglar kausal kraft;<sup class=\"footnote-ref\">9, 15, 53</sup> han er ikkje ei kraft, men eitmønsterminne. Stilarten fungerer som ein makroskala-attraktor som kanar lyskjeglene til agentane som observerer han. Han forenklar navigasjon ved å tilby eit gjenkjenneleg tyngdepunkt; men å formgje «i ein stil» utan å forstå trykka som genererte klynga, er ein kategorifeil.",
+        "text": "Ein <i>stilart</i> manglar kausal kraft; han er ikkje ei kraft, men eit <i>mønsterminne</i>. Stilarten fungerer som ein makroskala-attraktor som kanar lyskjeglene til agentane som observerer han.<sup class=\"footnote-ref\">9, 15, 53</sup>",
         "children": [
           {
             "id": "6.31",
@@ -908,6 +932,12 @@
         "id": "7.15",
         "status": "t",
         "text": "Ein designteori utan omgrep for kognitiv lyskjegle kan ikkje predikera sviktsignatur. Ho kan berre registrera han i ettertid.<sup class=\"footnote-ref\">21, 70</sup>",
+        "children": []
+      },
+      {
+        "id": "7.22",
+        "status": "a",
+        "text": "Konsekvensar som ein agent hadde kapasitet til å sjå men valde å ikkje representere, er tilskrivbare det valet.",
         "children": []
       },
       {

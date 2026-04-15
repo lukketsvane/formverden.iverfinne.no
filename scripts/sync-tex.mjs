@@ -111,47 +111,39 @@ function extractJsonSups(html) {
 
 // --- diff + patch ----------------------------------------------------------
 
-const additions = [];
+const textRewrites = [];
+const statusChanges = [];
 const newProps = [];
+
+// Build the canonical HTML for a tex prop body: convert markup, strip
+// \textsuperscript markers, then append a single <sup> with merged refs.
+function canonicalText(body) {
+  const sups = extractSups(body);
+  const bare = body.replace(/\\textsuperscript\{[^{}]*\}/g, '').replace(/\s+/g, ' ');
+  let html = texToHtml(bare);
+  const flat = Array.from(new Set(sups.flat())).sort((a, b) => Number(a) - Number(b));
+  if (flat.length) html += `<sup class="footnote-ref">${flat.join(', ')}</sup>`;
+  return html;
+}
 
 walk(json, (node) => {
   const tp = texProps.get(node.id);
   if (!tp) return;
-  const texSups = extractSups(tp.body);
-  const jsonSups = extractJsonSups(node.text);
 
-  // Build a flat added set. We only ADD refs that the tex has and json doesn't;
-  // we never remove existing ones (preserves any json-only annotations).
-  const texFlat = new Set(texSups.flat());
-  const jsonFlat = new Set(jsonSups.flat());
-  const toAdd = [...texFlat].filter(n => !jsonFlat.has(n));
-  if (toAdd.length === 0) return;
+  // Preserve any <img> tags the JSON carries (they don't live in the tex).
+  const imgs = Array.from(node.text.matchAll(/<img[^>]*\/?>/gi)).map(m => m[0]);
 
-  // If the json already has a <sup>, append to the last one.
-  if (jsonSups.length > 0) {
-    const lastSupRe = /<sup class="footnote-ref">([^<]*)<\/sup>/g;
-    let last = null, m;
-    while ((m = lastSupRe.exec(node.text)) !== null) last = m;
-    const merged = Array.from(new Set([...last[1].split(/[,\s]+/).filter(Boolean), ...toAdd]))
-      .sort((a, b) => Number(a) - Number(b));
-    const replacement = `<sup class="footnote-ref">${merged.join(', ')}</sup>`;
-    const start = last.index;
-    const end = start + last[0].length;
-    node.text = node.text.slice(0, start) + replacement + node.text.slice(end);
-  } else {
-    // No existing sup — append one at the end of the text (before any trailing HTML like <img>).
-    const sorted = Array.from(new Set(toAdd)).sort((a, b) => Number(a) - Number(b));
-    const tail = /<img[^>]*>\s*$/i.exec(node.text);
-    if (tail) {
-      const idx = tail.index;
-      node.text = node.text.slice(0, idx).replace(/\s*$/, '') +
-        `<sup class="footnote-ref">${sorted.join(', ')}</sup> ` +
-        node.text.slice(idx);
-    } else {
-      node.text = node.text.replace(/\s*$/, '') + `<sup class="footnote-ref">${sorted.join(', ')}</sup>`;
-    }
+  let nextText = canonicalText(tp.body);
+  if (imgs.length) nextText = nextText.trimEnd() + ' ' + imgs.join(' ');
+
+  if (nextText !== node.text) {
+    textRewrites.push(node.id);
+    node.text = nextText;
   }
-  additions.push({ id: node.id, added: toAdd });
+  if (tp.status !== node.status) {
+    statusChanges.push({ id: node.id, from: node.status, to: tp.status });
+    node.status = tp.status;
+  }
 });
 
 // Report tex props absent from json, and insert them next to their nearest sibling.
@@ -180,14 +172,7 @@ function findParent(nodes, parentId) {
 function buildText(id) {
   const tp = texProps.get(id);
   if (!tp) return '';
-  const sups = extractSups(tp.body);
-  // Strip all \textsuperscript{...} from body, convert to html.
-  const bare = tp.body.replace(/\\textsuperscript\{[^{}]*\}/g, '').replace(/\s+/g, ' ');
-  let html = texToHtml(bare);
-  // Append a trailing <sup> with all refs (flattened, unique, sorted).
-  const flat = Array.from(new Set(sups.flat())).sort((a, b) => Number(a) - Number(b));
-  if (flat.length) html += `<sup class="footnote-ref">${flat.join(', ')}</sup>`;
-  return html;
+  return canonicalText(tp.body);
 }
 const inserted = [];
 // Iterate in numerically-sorted order so parents are inserted before children.
@@ -240,8 +225,12 @@ while ((rm = refRe.exec(traktatTex)) !== null) {
 fs.writeFileSync(jsonPath, JSON.stringify(json, null, 2) + '\n');
 fs.writeFileSync(refsPath, JSON.stringify(refs, null, 2) + '\n');
 
-console.log(`Patched ${additions.length} propositions:`);
-for (const a of additions) console.log(`  ${a.id}  + [${a.added.join(', ')}]`);
+console.log(`Rewrote text on ${textRewrites.length} propositions:`);
+for (const id of textRewrites) console.log(`  ${id}`);
+if (statusChanges.length) {
+  console.log(`\nStatus changes:`);
+  for (const c of statusChanges) console.log(`  ${c.id}  ${c.from || '∅'} → ${c.to || '∅'}`);
+}
 if (inserted.length) {
   console.log(`\nInserted ${inserted.length} new propositions:`);
   for (const id of inserted) console.log(`  ${id}`);
