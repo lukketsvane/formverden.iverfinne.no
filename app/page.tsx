@@ -893,6 +893,7 @@ export default function Home() {
                   <figure className="my-4 md:my-6 pl-[3rem] md:pl-[4rem] ml-4 md:ml-6">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/regionar.png" alt="Tre regionar i formrommet – busette, opne og forbodne" className="w-full max-w-md" />
+                    <figcaption className="text-[10px] md:text-xs text-gray-400 font-mono mt-1">Dei tre regionane i formrommet</figcaption>
                   </figure>
                 </div>
               );
@@ -933,7 +934,7 @@ export default function Home() {
             aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
             className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-white border border-black/10 border-b-0 rounded-t px-3 py-0.5 text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
           >
-            {panelCollapsed ? '▲' : panelExpanded ? '▼' : '▲'}
+            {panelCollapsed ? '▲' : panelExpanded ? '▼' : '▼'}
           </button>
           {/* Drag handle bar */}
           <div className="flex justify-center pt-1.5 pb-0">
@@ -985,7 +986,7 @@ export default function Home() {
                 aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
                 className="text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
               >
-                {panelCollapsed ? '▲' : panelExpanded ? '▼' : '▲'}
+                {panelCollapsed ? '▲' : panelExpanded ? '▼' : '▼'}
               </button>
             </div>
           </div>
