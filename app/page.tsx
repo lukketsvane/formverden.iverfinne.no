@@ -699,7 +699,7 @@ export default function Home() {
     >
       <div
         ref={scrollContainerRef}
-        className="reader-scroll h-full w-full overflow-y-auto hide-scrollbar p-4 md:p-16 max-w-4xl mx-auto pb-[42vh] md:pb-[42vh]"
+        className="reader-scroll h-full w-full overflow-y-auto hide-scrollbar p-4 md:p-16 max-w-4xl mx-auto pb-[30vh] md:pb-[34vh]"
         onClick={handleContentClick}
       >
         <header className="mb-6 md:mb-8 shrink-0 flex items-start justify-between gap-4">
@@ -837,7 +837,7 @@ export default function Home() {
 
       <div
         className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto flex flex-col ${
-          panelCollapsed ? 'h-8' : 'h-[38vh] md:h-auto md:max-h-[38vh]'
+          panelCollapsed ? 'h-8' : 'h-[26vh] md:h-auto md:max-h-[30vh]'
         }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
@@ -848,12 +848,12 @@ export default function Home() {
         >
           {panelCollapsed ? '▲' : '▼'}
         </button>
-        <div className={`max-w-4xl mx-auto w-full px-6 md:px-16 pt-2 md:pt-3 ${panelCollapsed ? 'hidden' : ''}`}>
-          <h2 className="text-2xl md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
+        <div className={`max-w-4xl mx-auto w-full px-6 md:px-16 pt-1.5 md:pt-3 ${panelCollapsed ? 'hidden' : ''}`}>
+          <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
         </div>
         <div
           ref={panelRef}
-          className={`flex-1 min-h-0 max-w-4xl mx-auto w-full px-6 md:px-16 pt-1 pb-2 overflow-y-auto hide-scrollbar flex flex-col ${panelCollapsed ? 'hidden' : ''}`}
+          className={`flex-1 min-h-0 max-w-4xl mx-auto w-full px-6 md:px-16 pt-1 pb-1 overflow-y-auto hide-scrollbar flex flex-col text-[13px] md:text-base ${panelCollapsed ? 'hidden' : ''}`}
         >
           {activeTerm && ordliste[activeTerm] ? (
             <section>
@@ -962,7 +962,7 @@ export default function Home() {
           )}
         </div>
         {audioNode && !panelCollapsed && (
-          <div className="border-t border-black/10 max-w-4xl mx-auto w-full px-6 md:px-16 py-2">
+          <div className="border-t border-black/10 max-w-4xl mx-auto w-full px-6 md:px-16 py-1 md:py-2">
             <AudioPlayer
               src={audioUrlForNode(audioNode)}
               nodeId={audioNode.id}
