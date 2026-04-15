@@ -841,7 +841,7 @@ export default function Home() {
                 key={item.node.id}
                 data-pid={item.node.id}
                 ref={isSelected ? selectedRef : null}
-                className={`flex items-start py-1 cursor-pointer ${rowOpacity}`}
+                className={`flex items-start py-1 cursor-pointer transition-opacity duration-300 ease-out ${item.depth > 0 ? 'node-enter' : ''} ${rowOpacity}`}
                 onClick={() => {
                   // Single tap = select + toggle expansion + move audio cursor here.
                   // Suppress scroll-into-view since the user already chose where they're looking,
@@ -854,7 +854,7 @@ export default function Home() {
                   if (hasChildren) toggleExpand(item.node.id);
                 }}
               >
-                <div className={`flex items-baseline mr-4 md:mr-6 min-w-[3rem] md:min-w-[4rem] pt-0.5 gap-0.5 ${numberOpacity}`}>
+                <div className={`flex items-baseline mr-4 md:mr-6 min-w-[3rem] md:min-w-[4rem] pt-0.5 gap-0.5 transition-opacity duration-300 ease-out ${numberOpacity}`}>
                   <span className="text-base md:text-2xl font-bold text-black tabular-nums leading-none">
                     {item.node.id}
                   </span>
@@ -875,7 +875,7 @@ export default function Home() {
                 <div className="ml-3 md:ml-4 flex flex-col items-center justify-start gap-0.5 pt-2 shrink-0 w-3">
                   {item.depth === 0 ? (
                     computeSubDepth(item.node) > 0 && (
-                      <ChevronDown size={12} className="text-black/40" />
+                      <ChevronDown size={12} className={`text-black/40 transition-transform duration-200 ease-out ${expandedIds.has(item.node.id) ? 'rotate-180' : ''}`} />
                     )
                   ) : (
                     Array.from({ length: computeSubDepth(item.node) + 1 }).map((_, i) => (
@@ -890,7 +890,7 @@ export default function Home() {
               return (
                 <div key="1.4-group">
                   {row}
-                  <figure className="my-4 md:my-6 pl-[3rem] md:pl-[4rem] ml-4 md:ml-6">
+                  <figure className={`my-4 md:my-6 pl-[3rem] md:pl-[4rem] ml-4 md:ml-6 transition-opacity duration-300 ease-out ${rowOpacity}`}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/regionar.png" alt="Tre regionar i formrommet – busette, opne og forbodne" className="w-full max-w-md" />
                     <figcaption className="text-[10px] md:text-xs text-gray-400 font-mono mt-1">Dei tre regionane i formrommet</figcaption>
