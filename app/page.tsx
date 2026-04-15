@@ -630,10 +630,10 @@ export default function Home() {
           // is a descendant of it – this keeps children dimmed while the user
           // scrolls through a parent's subtree.
           if (selectedId) {
-            let anc: string | null | undefined = parentMap.get(topId);
-            while (anc) {
-              if (anc === selectedId) return;
-              anc = parentMap.get(anc) ?? null;
+            let ancestor = parentMap.get(topId);
+            while (ancestor) {
+              if (ancestor === selectedId) return;
+              ancestor = parentMap.get(ancestor);
             }
           }
           suppressScrollRef.current = true;
