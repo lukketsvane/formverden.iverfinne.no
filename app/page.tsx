@@ -753,6 +753,11 @@ export default function Home() {
 
         <Section data={foreord} onBlockClick={showBlockRefs} hideTitle sectionRef={foreordRef} />
 
+        <figure className="my-12 md:my-16">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/fencing.png" alt="Fencing – illustrasjon" className="w-full max-w-3xl mx-auto" />
+        </figure>
+
         <div className="flex flex-col gap-1">
           {visibleNodes.map((item, index) => {
             const isSelected = index === safeSelectedIndex;
@@ -823,6 +828,11 @@ export default function Home() {
         </div>
 
         <Section data={etterord} onBlockClick={showBlockRefs} sectionRef={etterordRef} />
+
+        <figure className="mt-16 md:mt-24">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/footer.png" alt="" className="w-full block" />
+        </figure>
       </div>
 
       <div

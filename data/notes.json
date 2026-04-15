@@ -1,6 +1,6 @@
 {
   "1.2": [
-    { "kind": "note", "text": "Objektet er udeleleg i den forstand at vidare dekomponering øydelegg den kausale kapasiteten me er interesserte i. Under det nivået finst det framleis fysikk; men ikkje formgjeving." }
+    { "kind": "note", "text": "Objektet er udeleleg i den forstand at vidare dekomponering øydelegg den kausale kapasiteten me er interesserte i. Under det nivået finst det framleis fysikk; men ikkje formgjeving. Den klassiske mereologien [71] definerer atomet formelt — det utan eigne deler; vår variant er operasjonell — det utan kausalt verksame deler i den valde klassen. Distinksjonen er substansiell, ikkje terminologisk: same fysisk gjenstand kan vere atom i éin klasse og samansett i ein annan." }
   ],
   "1.3": [
     { "kind": "note", "text": "Formrommet vart innført av Raup [10] for skjellgeometri og generalisert av Mitteroecker & Huttegger [20] til utviklingsbiologi. Me brukar det her substrat-uavhengig; rommet er definert av eigenskapar, ikkje av domene." }
@@ -17,7 +17,31 @@
   ],
   "2.14": [
     { "kind": "note", "text": "Gibson [12] definerer affordanse som relasjonell; ikkje ein eigenskap ved objektet åleine, men ved objektet-i-relasjon-til-agenten. Me utvider dette til å definere klassen sjølv gjennom affordansekonstellasjonen. Proposisjonen er flytta frå kapittel 1 til kapittel 2 fordi affordansestrukturen er operasjonelt knytt til seleksjonstrykk, ikkje til den ontologiske grunnstrukturen." },
+    { "kind": "note", "label": "forts.", "text": "Den semiotiske utvidinga av affordansomgrepet [56] har sin teoretiske rot i Hoffmeyer [73] si syntese av Bateson og Peirce. Hoffmeyer plasserer affordans i ei kjede objekt → mønster → teikn → tolking; Brier formaliserer dette for designkontekst. Vår bruk av «affordansestruktur» er nær Gibson [12] (objektivt relasjonell), men opnar for den semiotiske vidareføringa når klassen krev det." },
     { "kind": "falsifisering", "text": "Falsifisert dersom bruksmåten (ikkje stilen) predikerer meir formvariasjon enn alle andre variablar innanfor klassen." }
+  ],
+  "4.4": [
+    { "kind": "note", "text": "Nicheconstruction-teorien [79] formaliserer at organismar (eller agentar) modifiserer dei seleksjonstrykka som verkar på dei sjølv. Påstand 4.4 generaliserer dette til formverda: kvar realisert konfigurasjon endrar tilpassingslandskapet for den neste agenten. Distinksjonen mellom passiv navigasjon og aktiv landskapsutviding er fundamental: stiavhengigheit [14] gjev tidsmekanismen, nicheconstruction gjev den evolusjonsteoretiske parallellen." }
+  ],
+  "5.7": [
+    { "kind": "note", "text": "Kjerne-likninga er eit strukturelt skjema, ikkje ein prediksjonsmotor. Analogien er <i>F = ma</i> før kraftlova er kjend; likninga spesifiserer forma til forklaringa, ikkje forklaringa sjølv. Kvar historisk klasse fyller inn sin eigen L, sin eigen SG, sine eigne C(A), men skjemaet er delt." }
+  ],
+  "5.72": [
+    { "kind": "note", "text": "Reduksjonsteoremet klargjer tilhøvet til dei to kjeldetradisjonane. Stiny-Gips si formgrammatikkteori og Hatchuel-Weil si tanke-kunnskapsteori er ikkje to lesingar av den same prosessen; dei er den same prosessen sett under to ulike kollaps. At begge tradisjonane har utvikla seg uavhengig i fire tiår utan å møta kvarandre er difor naturleg: kvar har gjort sitt grensetilfelle så rikt som det kan bli. Samla gjev dei ikkje éin ny teori; dei gjev formen til den eksisterande." },
+    { "kind": "note", "label": "forts.", "text": "CK-tradisjonen har modnast gjennom tre tiår: frå dei opphavlege artiklane [16, 17] gjennom den kanoniske boka [74], til refleksive kritikkar av om CK er ein <i>engineering</i> eller meir generell teori [75], til moderne dataeksperiment med LLM-agentar [76]. Reduksjonsteoremet relaterer seg til heile denne tradisjonen — kvart steg i CK-modninga er framleis innanfor det same grensetilfellet av kjerne-likninga. Tilsvarande modning på Stiny-sida [11, 13, 18] gjer den parallelle påstanden gyldig: båe tradisjonane utviklar seg innanfor sitt eige grensetilfelle, ikkje på tvers." }
+  ],
+  "5.722": [
+    { "kind": "note", "text": "Eit domene som tidlegare tilhøyrde einten formgrammatikk eller tanke-kunnskap aleine, tilhøyrer no feltet deira ikkje-degenererte skjering. Praktiske konsekvensar: analysar som siterer berre éin av tradisjonane kvalifiserer seg sjølv som grensetilfelle." }
+  ],
+  "6.4": [
+    { "kind": "note", "text": "Nicheconstruction-teorien [79] formaliserer at organismar (eller agentar) modifiserer dei seleksjonstrykka som verkar på dei sjølv. Jf. 4.4." }
+  ],
+  "7.13": [
+    { "kind": "note", "text": "Geologi/biologi/design-parallellen er Bateson [72] sin «pattern that connects» — at same forklaringsmønsteret (mønster i residue ber spor av prosessen som produserte det) gjeld på tvers av domena. Bateson argumenterer for ein «nødvendig einskap» mellom natur og tanke; vi tek ein svakare stilling — same lesningsapparatet kan brukast, utan å hevde ontologisk einskap." }
+  ],
+  "7.15": [
+    { "kind": "note", "text": "Meta-teoremet bind 7.1 til 5.722. Sviktsignatur kan lesast berre av ein teori som både har eit generativt lag (for å forklare kva var mogleg) og eit kompetanselag (for å forklare kva var urepresentert). At ingen tidlegare designteori har både lag, er den historiske diagnosen meta-teoremet gjev." },
+    { "kind": "note", "label": "Michl-serien", "text": "Michl-serien [15, 77, 78] dekkjer 25 år: norsk røter [77], kanonisk midtpunkt [15], engelsk konsolidering [78]. Saman utgjer dei den teoretiske basen for traktaten sin form-følger-funksjon-kritikk." }
   ],
   "3.1": [
     { "kind": "note", "text": "Tilpassingslandskapet samlar Wrights [3] adaptive landscape og Waddingtons [7] epigenetiske landskap i éin definisjon. Wright skildra landskapet for populasjonar; Waddington for utviklingsprosessar. Me skildrar det for formverda." }
