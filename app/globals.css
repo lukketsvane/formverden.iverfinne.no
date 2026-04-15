@@ -123,4 +123,5 @@
 .text-gray-400 { color: var(--text-dim); }
 .border-black\/10 { border-color: var(--border-color); }
 .border-black\/20 { border-color: var(--border-color); }
+.bg-black\/40 { background-color: color-mix(in srgb, var(--foreground) 40%, transparent); }
 .bg-yellow-100 { background-color: var(--selection-bg); }

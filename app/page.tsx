@@ -401,7 +401,7 @@ export default function Home() {
     } catch {
       slug = window.location.pathname.replace(/^\/+|\/+$/g, '');
     }
-    if (!slug) slug = 'forord';
+    if (!slug || slug === 'null') slug = 'forord';
     const lower = slug.toLowerCase();
     if (lower === 'forord' || lower === 'føreord' || lower === 'foreord') {
       setSelectedId('forord');
@@ -428,11 +428,21 @@ export default function Home() {
       });
       setSelectedId(found.node.id);
       setAudioNodeId(found.node.id);
+    } else {
+      // Unknown slug — fall back to foreword so we don't end up at /null.
+      setSelectedId('forord');
+      window.history.replaceState(null, '', '/forord');
+      requestAnimationFrame(() => foreordRef.current?.scrollIntoView({ block: 'start' }));
     }
   }, [allNodesFlattened, expandAncestors, parentMap]);
 
   useEffect(() => {
     if (!didInitialRouteRef.current || !selectedId) return;
+    // Don't update the URL when the selection was driven by scrolling.
+    if (scrollDrivenRef.current) {
+      scrollDrivenRef.current = false;
+      return;
+    }
     const target = `/${selectedId}`;
     if (window.location.pathname !== target) {
       window.history.replaceState(null, '', target);
@@ -578,6 +588,8 @@ export default function Home() {
   const suppressScrollRef = useRef(false);
   // Track when we're scrolling programmatically so the IntersectionObserver doesn't fight back.
   const programmaticScrollUntilRef = useRef(0);
+  // Track scroll-driven selection so the URL doesn't update on scroll.
+  const scrollDrivenRef = useRef(false);
   useEffect(() => {
     if (suppressScrollRef.current) {
       suppressScrollRef.current = false;
@@ -615,6 +627,7 @@ export default function Home() {
         });
         if (topId && topId !== selectedId) {
           suppressScrollRef.current = true;
+          scrollDrivenRef.current = true;
           setSelectedId(topId);
         }
       },
@@ -626,10 +639,6 @@ export default function Home() {
   }, [visibleNodes, selectedId]);
 
   const selectedNode = visibleNodes[safeSelectedIndex]?.node;
-  const audioNode = useMemo(
-    () => allNodesFlattened.find(n => n.node.id === audioNodeId)?.node ?? null,
-    [allNodesFlattened, audioNodeId]
-  );
   const currentRefIds = useMemo(
     () => (selectedNode ? extractRefIds(selectedNode.text) : []),
     [selectedNode]
