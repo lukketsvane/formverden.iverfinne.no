@@ -32,6 +32,21 @@
     display: inline;
   }
 
+  .term {
+    border-bottom: 1px dotted rgba(0,0,0,0.35);
+    cursor: pointer;
+  }
+  .term:hover {
+    border-bottom-color: rgba(0,0,0,1);
+  }
+
+  .footnote-ref {
+    cursor: pointer;
+  }
+  .footnote-ref:hover {
+    color: rgba(0,0,0,1) !important;
+  }
+
   .math-symbol {
     font-family: "Cambria Math", "STIX Two Math", serif;
     padding: 0 0.2em;

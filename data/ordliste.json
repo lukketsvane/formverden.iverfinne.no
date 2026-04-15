@@ -1,0 +1,106 @@
+{
+  "affordanse": {
+    "term": "Affordanse",
+    "body": "Operasjonane eit materiale tillèt og hindrar (Gibson, 1979). Avgjer kva formoperasjonar som er moglege.",
+    "ref": "2.2",
+    "aliases": ["affordansar", "affordansestruktur", "affordansekonstellasjon"]
+  },
+  "agent": {
+    "term": "Agent",
+    "body": "Eit system definert av trippelet (måltilstand, avstandsmåling, justeringsmekanisme). Krev berre organisering; verken medvit, intensjon eller nervesystem (Rosenblueth et al., 1943; Wiener, 1948).",
+    "ref": "5.11",
+    "aliases": ["agenten", "agentar"]
+  },
+  "tankerommet": {
+    "term": "C (tankerommet)",
+    "body": "Alle former som er tenkelege men ikkje avgjorte. Svarar til dei opne regionane i formrommet.",
+    "ref": "1.44"
+  },
+  "formalgebra": {
+    "term": "Formalgebra",
+    "body": "Mengda av former lukka under union, differanse og transformasjon. Grunnlaget for formgrammatikken.",
+    "ref": "1.32",
+    "aliases": ["formalgebraen"]
+  },
+  "formgrammatikk": {
+    "term": "Formgrammatikk",
+    "body": "Trippelet SG = (S, R, ω). Reglar som opererer under innleiring; berre den noverande forma avgjer kva som fyrer.",
+    "ref": "5.3",
+    "aliases": ["formgrammatikken"]
+  },
+  "formrom": {
+    "term": "Formrom",
+    "body": "Mengda av alle moglege konfigurasjonar for objekt i ein klasse. Kvar akse er ein målbar eigenskap (Raup, 1966).",
+    "ref": "1.3",
+    "aliases": ["formrommet"]
+  },
+  "gradient": {
+    "term": "Gradient",
+    "body": "Retninga og styrken til endringa i sannsynsfordeling over formrommet. Seleksjonstrykket er ein gradient, inga regel.",
+    "ref": "2.1",
+    "aliases": ["gradienten", "gradientar"]
+  },
+  "innleiring": {
+    "term": "Innleiring",
+    "body": "Transformasjonen som viser at éi form finst i ei anna. Avgjer kva grammatikkreglar som kan fyre.",
+    "ref": "1.32",
+    "aliases": ["innleiringa", "innleiringsoperasjonen"]
+  },
+  "kunnskapsrommet": {
+    "term": "K (kunnskapsrommet)",
+    "body": "Alle former som er kjende å verke eller svikte. Svarar til dei busette og stadfesta forbodne regionane.",
+    "ref": "1.44"
+  },
+  "kanalisering": {
+    "term": "Kanalisering",
+    "body": "Robustheit mot forstyrringar. Bratte dalveggar = stabil form (Waddington, 1957).",
+    "ref": "3.2"
+  },
+  "kapasitet": {
+    "term": "Kapasitet",
+    "body": "Bredda på lyskjegla; kor mange aksar agenten kan representere. Skild frå omhug, som er kor mange han faktisk representerer.",
+    "ref": "5.6",
+    "aliases": ["kapasiteten"]
+  },
+  "klasse": {
+    "term": "Klasse",
+    "body": "Ei gruppe objekt som deler same affordansestruktur: dei tilbyr same konstellasjon av operasjonar til same konstellasjon av agentar.",
+    "ref": "2.14",
+    "aliases": ["klassen", "klassar"]
+  },
+  "lyskjegle": {
+    "term": "Kognitiv lyskjegle",
+    "body": "Delmengda av formrommet agenten kan representere og manipulere (Fields & Levin, 2022).",
+    "ref": "5.2",
+    "aliases": ["lyskjegla", "kognitiv lyskjegle"]
+  },
+  "multiskala-kompetanse": {
+    "term": "Multiskala-kompetanse",
+    "body": "Agens opererer samstundes på fleire skalaer, kvar med si eiga lyskjegle og sine eigne grammatikkreglar (Levin, 2022).",
+    "ref": "6.12"
+  },
+  "omhug": {
+    "term": "Omhug",
+    "body": "Mengda av aksar i formrommet agenten aktivt justerer for. Omhug er intelligensens innhald; intelligens er omhugen si form.",
+    "ref": "5.6",
+    "aliases": ["omhugen"]
+  },
+  "seleksjonstrykk": {
+    "term": "Seleksjonstrykk",
+    "body": "Ein gradient som endrar sannsynsfordelinga over formrommet (Wright, 1932).",
+    "ref": "2.1",
+    "aliases": ["seleksjonstrykket"]
+  },
+  "substrat": {
+    "term": "Substrat",
+    "body": "Det fysiske, algoritmiske eller sosiale systemet som realiserer agensen. Fungerer som ein null-ordens agent (Levin, 2022).",
+    "ref": "5.4",
+    "aliases": ["substratet", "substrata"]
+  },
+  "tilpassingslandskap": {
+    "term": "Tilpassingslandskap",
+    "body": "Vektorsummen av alle verksame seleksjonstrykk over formrommet (Wright, 1932; Waddington, 1957).",
+    "ref": "3.1",
+    "aliases": ["tilpassingslandskapet"]
+  }
+}

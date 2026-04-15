@@ -1,10 +1,67 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { Search, X } from 'lucide-react';
+import { Search, X, BookOpen, ChevronDown } from 'lucide-react';
 import traktatData from '@/data/traktat.json';
 import referencesData from '@/data/references.json';
 import notesData from '@/data/notes.json';
+import foreordData from '@/data/foreord.json';
+import etterordData from '@/data/etterord.json';
+import ordlisteData from '@/data/ordliste.json';
+
+interface GlossaryEntry {
+  term: string;
+  body: string;
+  ref: string;
+  aliases?: string[];
+}
+const ordliste = ordlisteData as Record<string, GlossaryEntry>;
+
+const termMatchers: { key: string; pattern: RegExp }[] = (() => {
+  const entries: { key: string; variants: string[] }[] = [];
+  for (const [key, entry] of Object.entries(ordliste)) {
+    const variants = [entry.term.replace(/\s*\([^)]*\)\s*/, '').toLowerCase(), ...(entry.aliases ?? [])];
+    entries.push({ key, variants: Array.from(new Set(variants)) });
+  }
+  entries.sort((a, b) => Math.max(...b.variants.map(v => v.length)) - Math.max(...a.variants.map(v => v.length)));
+  return entries.map(({ key, variants }) => ({
+    key,
+    pattern: new RegExp(`\\b(${variants.map(v => v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})\\b`, 'i'),
+  }));
+})();
+
+const statusDefs: Record<string, { name: string; body: string }> = {
+  d: { name: 'definisjon', body: 'Ein innføring av omgrep eller struktur som dei etterfølgjande proposisjonane byggjer på.' },
+  a: { name: 'postulat', body: 'Ein grunnsetning som ikkje er avleia frå andre proposisjonar, men som rammeverket kviler på.' },
+  t: { name: 'teorem', body: 'Ein påstand avleia frå definisjonar og postulat; falsifiserbar.' },
+  o: { name: 'observasjon', body: 'Ein empirisk påstand som er open for måling og test.' },
+  i: { name: 'illustrasjon', body: 'Eit eksempel som konkretiserer, ikkje utvidar, rammeverket.' },
+};
+
+function linkTerms(html: string): string {
+  const parts = html.split(/(<[^>]+>)/g);
+  return parts.map(part => {
+    if (part.startsWith('<') || !part) return part;
+    let out = part;
+    for (const { key, pattern } of termMatchers) {
+      out = out.replace(pattern, (match) => `<span class="term" data-term="${key}">${match}</span>`);
+    }
+    return out;
+  }).join('');
+}
+
+type Block =
+  | { type: 'paragraph'; text: string }
+  | { type: 'signature'; text: string }
+  | { type: 'stats'; items: { label: string; value: string; ref?: string }[] };
+
+interface SectionData {
+  title: string;
+  blocks: Block[];
+}
+
+const foreord = foreordData as SectionData;
+const etterord = etterordData as SectionData;
 
 const references = referencesData as Record<string, { text: string; doi?: string; url?: string }>;
 
@@ -59,6 +116,59 @@ function getVisibleNodes(nodes: Proposition[], expandedIds: Set<string>, depth =
     }
   }
   return result;
+}
+
+function Section({ data, onBlockClick, hideTitle, sectionRef }: { data: SectionData; onBlockClick: (id: string, text: string) => void; hideTitle?: boolean; sectionRef?: React.Ref<HTMLElement> }) {
+  return (
+    <section ref={sectionRef} className="my-16 md:my-24">
+      {!hideTitle && (
+        <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-black mb-6 md:mb-8">{data.title}</h2>
+      )}
+      <div className="flex flex-col gap-4 max-w-3xl">
+        {data.blocks.map((block, i) => {
+          const blockId = `${data.title} · §${i + 1}`;
+          if (block.type === 'paragraph') {
+            return (
+              <p
+                key={i}
+                className="text-base md:text-xl font-serif text-black leading-snug traktat-content cursor-pointer -mx-2 px-2 py-1 rounded"
+                onClick={() => onBlockClick(blockId, block.text)}
+                dangerouslySetInnerHTML={{ __html: linkTerms(block.text) }}
+              />
+            );
+          }
+          if (block.type === 'signature') {
+            return (
+              <p key={i} className="text-lg md:text-xl font-serif italic text-black text-right mt-4">
+                {block.text}
+              </p>
+            );
+          }
+          if (block.type === 'stats') {
+            return (
+              <dl key={i} className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-1 my-4 font-mono text-sm md:text-base">
+                {block.items.map((s, j) => (
+                  <div key={j} className="contents">
+                    <dt className="text-black">{s.label}</dt>
+                    <dd className="text-black tabular-nums whitespace-nowrap">
+                      {s.value}
+                      {s.ref && <sup className="footnote-ref text-[10px] text-gray-400 ml-1">{s.ref}</sup>}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            );
+          }
+          return null;
+        })}
+      </div>
+    </section>
+  );
+}
+
+function computeSubDepth(node: Proposition): number {
+  if (!node.children || node.children.length === 0) return 0;
+  return 1 + Math.max(...node.children.map(computeSubDepth));
 }
 
 function flattenAll(nodes: Proposition[], depth = 0, parentId: string | null = null): FlattenedNode[] {
@@ -123,6 +233,39 @@ export default function Home() {
       });
     }
   }, [parentMap]);
+
+  const foreordRef = useRef<HTMLElement>(null);
+  const etterordRef = useRef<HTMLElement>(null);
+  const didInitialRouteRef = useRef(false);
+
+  useEffect(() => {
+    if (didInitialRouteRef.current) return;
+    didInitialRouteRef.current = true;
+    const slug = decodeURIComponent(window.location.pathname.replace(/^\/+|\/+$/g, ''));
+    if (!slug) return;
+    const lower = slug.toLowerCase();
+    if (lower === 'forord' || lower === 'føreord' || lower === 'foreord') {
+      setTimeout(() => foreordRef.current?.scrollIntoView({ block: 'start' }), 0);
+      return;
+    }
+    if (lower === 'etterord') {
+      setTimeout(() => etterordRef.current?.scrollIntoView({ block: 'start' }), 0);
+      return;
+    }
+    const found = allNodesFlattened.find(n => n.node.id === slug);
+    if (found) {
+      expandAncestors(found.node.id);
+      setSelectedId(found.node.id);
+    }
+  }, [allNodesFlattened, expandAncestors]);
+
+  useEffect(() => {
+    if (!didInitialRouteRef.current) return;
+    const target = `/${selectedId}`;
+    if (window.location.pathname !== target) {
+      window.history.replaceState(null, '', target);
+    }
+  }, [selectedId]);
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -276,7 +419,10 @@ export default function Home() {
     () => (selectedNode ? extractRefIds(selectedNode.text) : []),
     [selectedNode]
   );
-  const currentNotes = selectedNode ? notes[selectedNode.id] ?? [] : [];
+  const currentNotes = useMemo(
+    () => (selectedNode ? notes[selectedNode.id] ?? [] : []),
+    [selectedNode]
+  );
 
   const [panel, setPanel] = useState<{ id: string; notes: Note[]; refIds: string[] } | null>(null);
   useEffect(() => {
@@ -285,15 +431,84 @@ export default function Home() {
     }
   }, [selectedNode, currentNotes, currentRefIds]);
 
+  const showBlockRefs = useCallback((id: string, text: string) => {
+    const refIds = extractRefIds(text);
+    if (refIds.length > 0) {
+      setPanel({ id, notes: [], refIds });
+    }
+  }, []);
+
+  const [glossaryOpen, setGlossaryOpen] = useState(false);
+  const [activeTerm, setActiveTerm] = useState<string | null>(null);
+  const [activeStatus, setActiveStatus] = useState<string | null>(null);
+  const [highlightRef, setHighlightRef] = useState<string | null>(null);
+  const [panelCollapsed, setPanelCollapsed] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  const handleContentClick = useCallback((e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+
+    const termEl = target.closest('[data-term]');
+    if (termEl) {
+      e.stopPropagation();
+      const key = termEl.getAttribute('data-term');
+      if (key && ordliste[key]) {
+        setActiveTerm(key);
+        setActiveStatus(null);
+        setPanelCollapsed(false);
+      }
+      return;
+    }
+
+    const statusEl = target.closest('[data-status]');
+    if (statusEl) {
+      e.stopPropagation();
+      const key = statusEl.getAttribute('data-status');
+      if (key && statusDefs[key.toLowerCase()]) {
+        setActiveStatus(key.toLowerCase());
+        setActiveTerm(null);
+        setPanelCollapsed(false);
+      }
+      return;
+    }
+
+    const refEl = target.closest('.footnote-ref');
+    if (refEl) {
+      e.stopPropagation();
+      const raw = refEl.textContent ?? '';
+      const first = raw.split(/[,\s]+/).filter(Boolean)[0];
+      if (first) {
+        setActiveTerm(null);
+        setActiveStatus(null);
+        setPanelCollapsed(false);
+        setHighlightRef(first);
+        setTimeout(() => {
+          const node = panelRef.current?.querySelector(`[data-ref-id="${first}"]`);
+          if (node) node.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }, 0);
+        setTimeout(() => setHighlightRef(null), 1500);
+      }
+      return;
+    }
+  }, []);
+
+  useEffect(() => {
+    setActiveTerm(null);
+    setActiveStatus(null);
+  }, [selectedId]);
+
   return (
     <main 
       className={`h-[100dvh] w-screen overflow-hidden bg-white text-black select-none touch-none ${showFootnotes ? 'show-footnotes' : 'hide-footnotes'}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="h-full w-full overflow-y-auto hide-scrollbar p-6 md:p-16 max-w-4xl mx-auto pb-[50vh]">
-        <header className="mb-8 shrink-0 flex items-start justify-between gap-4">
-          <h1 className="text-5xl font-serif font-bold tracking-tight text-black">formlære</h1>
+      <div
+        className="h-full w-full overflow-y-auto hide-scrollbar p-4 md:p-16 max-w-4xl mx-auto pb-[25vh] md:pb-[32vh]"
+        onClick={handleContentClick}
+      >
+        <header className="mb-6 md:mb-8 shrink-0 flex items-start justify-between gap-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-black">formlære</h1>
           <div className="flex items-center gap-2 pt-2">
             {searchOpen ? (
               <>
@@ -318,20 +533,31 @@ export default function Home() {
                 </button>
               </>
             ) : (
-              <button
-                onClick={() => {
-                  setSearchOpen(true);
-                  setTimeout(() => searchInputRef.current?.focus(), 0);
-                }}
-                className="text-black/60 hover:text-black"
-                aria-label="Søk"
-              >
-                <Search size={18} />
-              </button>
+              <>
+                <button
+                  onClick={() => setGlossaryOpen(true)}
+                  className="text-black/60 hover:text-black"
+                  aria-label="Ordliste"
+                >
+                  <BookOpen size={18} />
+                </button>
+                <button
+                  onClick={() => {
+                    setSearchOpen(true);
+                    setTimeout(() => searchInputRef.current?.focus(), 0);
+                  }}
+                  className="text-black/60 hover:text-black"
+                  aria-label="Søk"
+                >
+                  <Search size={18} />
+                </button>
+              </>
             )}
           </div>
         </header>
-        
+
+        <Section data={foreord} onBlockClick={showBlockRefs} hideTitle sectionRef={foreordRef} />
+
         <div className="flex flex-col gap-1">
           {visibleNodes.map((item, index) => {
             const isSelected = index === safeSelectedIndex;
@@ -349,44 +575,96 @@ export default function Home() {
                 key={item.node.id}
                 ref={isSelected ? selectedRef : null}
                 className={`flex items-start py-1 transition-opacity duration-75 cursor-pointer ${rowOpacity}`}
-                style={{ paddingLeft: `${item.depth * 24}px` }}
                 onClick={() => {
                   if (isSelected) toggleExpand(item.node.id);
                   else setSelectedId(item.node.id);
                 }}
               >
-                <div className={`flex flex-col items-end mr-6 min-w-[3.5rem] pt-0.5 ${numberOpacity}`}>
-                  <span className="text-2xl font-bold text-black tabular-nums leading-none">
+                <div className={`flex items-baseline mr-4 md:mr-6 min-w-[3rem] md:min-w-[4rem] pt-0.5 gap-0.5 ${numberOpacity}`}>
+                  <span className="text-base md:text-2xl font-bold text-black tabular-nums leading-none">
                     {item.node.id}
                   </span>
+                  {item.node.status && (
+                    <sup
+                      data-status={item.node.status}
+                      className="text-[10px] text-gray-400 font-mono font-bold uppercase cursor-pointer hover:text-black"
+                    >
+                      {item.node.status}
+                    </sup>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-xl font-serif text-black leading-snug traktat-content">
-                    {item.node.status && (
-                      <sup className="text-[10px] text-gray-400 font-mono font-bold mr-1 uppercase">
-                        {item.node.status}
-                      </sup>
-                    )}
-                    <span dangerouslySetInnerHTML={{ __html: cleanText }} />
+                  <div className="text-base md:text-xl font-serif text-black leading-snug traktat-content">
+                    <span dangerouslySetInnerHTML={{ __html: linkTerms(cleanText) }} />
                   </div>
+                </div>
+                <div className="ml-3 md:ml-4 flex flex-col items-center justify-start gap-0.5 pt-2 shrink-0 w-3">
+                  {item.depth === 0 ? (
+                    computeSubDepth(item.node) > 0 && (
+                      <ChevronDown size={12} className="text-black/40" />
+                    )
+                  ) : (
+                    Array.from({ length: computeSubDepth(item.node) + 1 }).map((_, i) => (
+                      <span key={i} className="w-1 h-1 rounded-full bg-black/40" />
+                    ))
+                  )}
                 </div>
               </div>
             );
           })}
         </div>
+
+        <Section data={etterord} onBlockClick={showBlockRefs} sectionRef={etterordRef} />
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 h-[45vh] bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto">
-        <div className="h-full max-w-4xl mx-auto px-6 md:px-16 py-6 overflow-y-auto hide-scrollbar">
-          {panel ? (
+      <div className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto transition-[height] duration-150 ${
+        panelCollapsed ? 'h-8' : 'h-[22vh] md:h-[28vh]'
+      }`}>
+        <button
+          onClick={() => setPanelCollapsed(v => !v)}
+          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-white border border-black/10 border-b-0 rounded-t px-3 py-0.5 text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
+          aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
+        >
+          {panelCollapsed ? '▲' : '▼'}
+        </button>
+        <div
+          ref={panelRef}
+          className={`h-full max-w-4xl mx-auto px-6 md:px-16 py-3 md:py-4 overflow-y-auto hide-scrollbar flex flex-col ${panelCollapsed ? 'hidden' : ''}`}
+        >
+          {activeTerm && ordliste[activeTerm] ? (
+            <section>
+              <div className="flex items-baseline justify-between mb-2">
+                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400">
+                  Definisjon · <button onClick={() => jumpToMatch(ordliste[activeTerm].ref)} className="underline decoration-dotted hover:decoration-solid">{ordliste[activeTerm].ref}</button>
+                </div>
+                <button onClick={() => setActiveTerm(null)} className="text-gray-400 hover:text-black" aria-label="Lukk definisjon"><X size={14} /></button>
+              </div>
+              <h3 className="font-serif text-xl md:text-2xl font-bold text-black mb-1">{ordliste[activeTerm].term}</h3>
+              <p className="font-serif text-sm md:text-base text-gray-800 leading-snug">{ordliste[activeTerm].body}</p>
+            </section>
+          ) : activeStatus && statusDefs[activeStatus] ? (
+            <section>
+              <div className="flex items-baseline justify-between mb-2">
+                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400">
+                  Status
+                </div>
+                <button onClick={() => setActiveStatus(null)} className="text-gray-400 hover:text-black" aria-label="Lukk status"><X size={14} /></button>
+              </div>
+              <h3 className="font-serif text-xl md:text-2xl font-bold text-black mb-1">
+                <span className="font-mono text-gray-400 mr-2">{activeStatus.toUpperCase()}</span>
+                {statusDefs[activeStatus].name}
+              </h3>
+              <p className="font-serif text-sm md:text-base text-gray-800 leading-snug">{statusDefs[activeStatus].body}</p>
+            </section>
+          ) : panel ? (
             <>
               {panel.notes.length > 0 && (
                 <section>
-                  <h2 className="text-5xl font-serif font-bold tracking-tight text-black mb-4">notat</h2>
-                  <ul className="flex flex-col gap-3 mb-6">
+                  <h2 className="text-2xl md:text-3xl font-serif font-bold tracking-tight text-black mb-2 md:mb-3">notat</h2>
+                  <ul className="flex flex-col gap-2">
                     {panel.notes.map((n, i) => (
-                      <li key={i} className="flex items-baseline gap-3 text-base font-serif text-gray-800 leading-snug">
-                        <span className="text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[5.5rem] shrink-0">
+                      <li key={i} className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
+                        <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">
                           {n.label ?? (n.kind === 'falsifisering' ? 'falsifisering' : 'notat')}
                         </span>
                         <span dangerouslySetInnerHTML={{ __html: n.text }} />
@@ -396,12 +674,11 @@ export default function Home() {
                 </section>
               )}
 
-              {panel.notes.length > 0 && panel.refIds.length > 0 && (
-                <hr className="border-t border-black/20 my-4" />
-              )}
-
               {panel.refIds.length > 0 && (
-                <section>
+                <section className="mt-auto pt-3">
+                  {panel.notes.length > 0 && (
+                    <hr className="border-t border-black/20 mb-3" />
+                  )}
                   <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400 mb-2">
                     Referansar · {panel.id}
                   </div>
@@ -415,7 +692,11 @@ export default function Home() {
                           ? `${ref.text} <a href="${ref.url}" target="_blank" rel="noopener noreferrer" class="underline decoration-dotted hover:decoration-solid">↗</a>`
                           : linkifyDoi(ref.text);
                       return (
-                        <li key={n} className="flex items-baseline gap-2 text-sm font-serif text-gray-700 leading-snug">
+                        <li
+                          key={n}
+                          data-ref-id={n}
+                          className={`flex items-baseline gap-2 text-sm font-serif text-gray-700 leading-snug transition-colors duration-300 rounded -mx-1 px-1 ${highlightRef === n ? 'bg-yellow-100' : ''}`}
+                        >
                           <span className="tabular-nums text-gray-400 font-mono font-bold min-w-[1.5rem] text-right">
                             {n}
                           </span>
@@ -428,10 +709,64 @@ export default function Home() {
               )}
             </>
           ) : (
-            <h2 className="text-5xl font-serif font-bold tracking-tight text-black/20">notat</h2>
+            <section>
+              <h2 className="text-2xl md:text-3xl font-serif font-bold tracking-tight text-black mb-2 md:mb-3">notat</h2>
+              <ul className="flex flex-col gap-2">
+                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
+                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">nummer</span>
+                  <span>Desimaltala angjev logisk vekt. n.1, n.2 osb. er utdjupingar av n; n.m1, n.m2 av n.m, og so vidare.</span>
+                </li>
+                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
+                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">status</span>
+                  <span>
+                    Kvar proposisjon har ein status:{' '}
+                    <span data-status="d" className="cursor-pointer underline decoration-dotted hover:decoration-solid">d definisjon</span>,{' '}
+                    <span data-status="a" className="cursor-pointer underline decoration-dotted hover:decoration-solid">a postulat</span>,{' '}
+                    <span data-status="t" className="cursor-pointer underline decoration-dotted hover:decoration-solid">t teorem</span>,{' '}
+                    <span data-status="o" className="cursor-pointer underline decoration-dotted hover:decoration-solid">o observasjon</span>,{' '}
+                    <span data-status="i" className="cursor-pointer underline decoration-dotted hover:decoration-solid">i illustrasjon</span>.
+                  </span>
+                </li>
+                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
+                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">djupne</span>
+                  <span>Prikkar til høgre viser djupna: éin prikk = bladnode, fleire prikkar = under-proposisjonar finst. Pil ned på hovudnivå.</span>
+                </li>
+              </ul>
+            </section>
           )}
         </div>
       </div>
+
+      {/* scroll padding adjustment wrapper is above */}
+
+      {glossaryOpen && (
+        <div className="fixed inset-0 bg-white z-50 overflow-y-auto hide-scrollbar">
+          <div className="max-w-4xl mx-auto px-6 md:px-16 py-6 md:py-12">
+            <div className="flex items-start justify-between mb-8">
+              <h2 className="text-5xl font-serif font-bold tracking-tight text-black">ordliste</h2>
+              <button
+                onClick={() => setGlossaryOpen(false)}
+                className="text-black/60 hover:text-black pt-3"
+                aria-label="Lukk ordliste"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <dl className="flex flex-col gap-5">
+              {Object.entries(ordliste).map(([key, entry]) => (
+                <div key={key} className="flex flex-col gap-1">
+                  <dt className="font-serif text-xl font-bold text-black">
+                    {entry.term}
+                    <span className="ml-2 text-xs font-mono font-normal text-gray-400">[{entry.ref}]</span>
+                  </dt>
+                  <dd className="font-serif text-base text-gray-800 leading-snug">{entry.body}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      )}
+
     </main>
   );
 }

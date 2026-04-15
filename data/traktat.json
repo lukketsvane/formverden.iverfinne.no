@@ -240,7 +240,7 @@
               {
                 "id": "1.443",
                 "status": "t",
-                "text": "Grensa mellom C og det utenkjelege er usynleg innanfrå. Ein kan ikkje vite kva ein ikkje kan tenkje. <img src=\"https://i.ibb.co/1YFtDBK2/ck-teori-table.png\" alt=\"C-K-operator\" class=\"mt-4 max-w-full\" />",
+                "text": "Grensa mellom C og det utenkjelege er usynleg innanfrå. Ein kan ikkje vite kva ein ikkje kan tenkje. <img src=\"/ck-teori_table.png\" alt=\"C-K-operator\" class=\"mt-4 max-w-full\" />",
                 "children": []
               }
             ]
@@ -531,7 +531,7 @@
               {
                 "id": "5.111",
                 "status": "t",
-                "text": "Definisjonen er substrat-uavhengig. Eit kvart system som oppfyller vilkåra er ein agent. <img src=\"https://i.ibb.co/0pkq7VpM/agent.png\" alt=\"Agent definisjon\" class=\"mt-4 max-w-full\" />",
+                "text": "Definisjonen er substrat-uavhengig. Eit kvart system som oppfyller vilkåra er ein agent. <img src=\"/agent.png\" alt=\"Agent definisjon\" class=\"mt-4 max-w-full\" />",
                 "children": []
               }
             ]
@@ -568,7 +568,7 @@
               {
                 "id": "5.125",
                 "status": "i",
-                "text": "Designaren: representasjonen strekk seg forbi agentens eigne behov. <img src=\"https://i.ibb.co/mVKnhbF1/termometer-arkitekt.png\" alt=\"Agent-hierarki\" class=\"mt-4 max-w-full\" />",
+                "text": "Designaren: representasjonen strekk seg forbi agentens eigne behov. <img src=\"/termometer-arkitekt.png\" alt=\"Agent-hierarki\" class=\"mt-4 max-w-full\" />",
                 "children": []
               },
               {
@@ -617,12 +617,12 @@
       {
         "id": "5.3",
         "status": "d",
-        "text": "Konfigurasjonar lukka under union, differanse og transformasjon utgjer ein formalgebra.<sup class=\"footnote-ref\">11, 13, 18</sup>",
+        "text": "Konfigurasjonar lukka under union, differanse og transformasjon utgjer ein formalgebra.<sup class=\"footnote-ref\">11, 13, 18</sup> <img src=\"/shape-grammar.png\" alt=\"Shape grammar – illustrasjon\" class=\"mt-4 max-w-full\" />",
         "children": [
           {
             "id": "5.301",
             "status": "d",
-            "text": "Formgrammatikkenutfører diskrete overgangar i denne geometrien. Reglar fyrer på innleiring: agenten gjenkjenner ei delform inne i heilforma. Inndatageometrien er einaste premiss. <img src=\"https://i.ibb.co/zyV2sZ1/formgrammatikk-table.png\" alt=\"Formgrammatikk\" class=\"mt-4 max-w-full\" />",
+            "text": "Formgrammatikkenutfører diskrete overgangar i denne geometrien. Reglar fyrer på innleiring: agenten gjenkjenner ei delform inne i heilforma. Inndatageometrien er einaste premiss. <img src=\"/formgrammatikk_table.png\" alt=\"Formgrammatikk\" class=\"mt-4 max-w-full\" />",
             "children": []
           },
           {

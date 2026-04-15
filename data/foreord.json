@@ -1,0 +1,29 @@
+{
+  "title": "føreord",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Kvifor har ting den forma dei har?"
+    },
+    {
+      "type": "paragraph",
+      "text": "I over hundre år har svaret vore ein variant av Sullivans formel: <i>form følgjer funksjon</i>. Michl<sup class=\"footnote-ref\">15</sup> har vist at formelen var ufalsifiserbar; ho forklarte alt, og difor ingenting. Kubler<sup class=\"footnote-ref\">9</sup> kom nær; han såg at former ordnar seg i sekvensar, men han skildra rørsla utan å identifisere kreftene. Semper<sup class=\"footnote-ref\">1</sup> kopla materialteknikk, form og kulturell meining i éin systematisk analyse, men disiplinen arva ikkje syntesen; han arva splittinga. Thompson<sup class=\"footnote-ref\">2</sup> viste at biologisk form følgjer fysiske krefter, men designteori tok aldri steget frå biologi til artefakt. Desse tradisjonane har skildra formverda stykkevis. Ingen har sameint dei."
+    },
+    {
+      "type": "paragraph",
+      "text": "Svaret kan samanfattast i éi setning: <b><i>form er ein posisjon i eit rom av moglegheiter, forma av samtidige seleksjonstrykk, navigert av agentar på fleire skalaer.</i></b> Rammeverket er falsifiserbart; vilkåra for å felle det er lista i notata."
+    },
+    {
+      "type": "paragraph",
+      "text": "Rammeverket kviler på tre pilarar frå tre uavhengige tradisjonar. <b>Formgrammatikken</b> til Stiny og Gips<sup class=\"footnote-ref\">11</sup> gjev det generative laget; ein kompetanse for å operere direkte på geometri, der reglar fyrer på den noverande forma og konstruksjonshistoria er irrelevant. <b>Tanke–kunnskapsteorien</b> til Hatchuel og Weil<sup class=\"footnote-ref\">16</sup><sup class=\"footnote-ref\">17</sup> formaliserer den epistemiske navigasjonen; skiljet mellom det avgjorte og det uavgjorte, mellom det tenkelege og det kjende. Det substrat-uavhengige <b>agensrammeverket</b> til Levin og Fields<sup class=\"footnote-ref\">21</sup><sup class=\"footnote-ref\">22</sup> gjev den ontologiske grunnen; ein agent er definert av trippelet måltilstand, avstandsmåling, justering, utan krav om medvit, og kompetanse skalerer frå molekylnettverk til kontinent. At tre domene uavhengig av kvarandre har konvergert om same trippel; kybernetikk, utviklingsbiologi og maskinlæring; stadfestar at definisjonen grip noko reelt."
+    },
+    {
+      "type": "paragraph",
+      "text": "Proposisjonane er haldne opp mot eit datasett på om lag 2 300 europeiske stolar (1280–2024) frå Nasjonalmuseet og Victoria and Albert Museum, inkludert fullstendig mesh-geometri rekonstruert frå museumsbilete. Tala er illustrasjonar, ikkje premissar. Men stolane gjev proposisjonane ein empirisk berøringsflate; dei tvingar rammeverket til å gjere arbeid, ikkje berre deklarere prinsipp."
+    },
+    {
+      "type": "signature",
+      "text": "Oslo, april 2026"
+    }
+  ]
+}

@@ -8,6 +8,11 @@ const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif'
 export const metadata: Metadata = {
   title: 'formlære',
   description: 'Formlære',
+  manifest: '/manifest.webmanifest',
+  icons: {
+    icon: [{ url: '/gemini-svg.svg', type: 'image/svg+xml' }],
+    apple: '/gemini-svg.svg',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
