@@ -626,6 +626,16 @@ export default function Home() {
           }
         });
         if (topId && topId !== selectedId) {
+          // Don't override the current selection if the topmost visible node
+          // is a descendant of it – this keeps children dimmed while the user
+          // scrolls through a parent's subtree.
+          if (selectedId) {
+            let anc: string | null | undefined = parentMap.get(topId);
+            while (anc) {
+              if (anc === selectedId) return;
+              anc = parentMap.get(anc) ?? null;
+            }
+          }
           suppressScrollRef.current = true;
           scrollDrivenRef.current = true;
           setSelectedId(topId);
@@ -636,7 +646,7 @@ export default function Home() {
     const els = root.querySelectorAll<HTMLElement>('[data-pid]');
     els.forEach(el => io.observe(el));
     return () => io.disconnect();
-  }, [visibleNodes, selectedId]);
+  }, [visibleNodes, selectedId, parentMap]);
 
   const selectedNode = visibleNodes[safeSelectedIndex]?.node;
   const currentRefIds = useMemo(
@@ -849,9 +859,17 @@ export default function Home() {
                   // explicit pick with whatever node happens to sit topmost in the viewport.
                   suppressScrollRef.current = true;
                   programmaticScrollUntilRef.current = Date.now() + 800;
-                  if (!isSelected) setSelectedId(item.node.id);
+                  if (!isSelected) {
+                    setSelectedId(item.node.id);
+                    // When first selecting a node, ensure it's expanded so its
+                    // children appear (dimmed). Only toggle on re-click.
+                    if (hasChildren && !expandedIds.has(item.node.id)) {
+                      toggleExpand(item.node.id);
+                    }
+                  } else {
+                    if (hasChildren) toggleExpand(item.node.id);
+                  }
                   setAudioNodeId(item.node.id);
-                  if (hasChildren) toggleExpand(item.node.id);
                 }}
               >
                 <div className={`flex items-baseline mr-4 md:mr-6 min-w-[3rem] md:min-w-[4rem] pt-0.5 gap-0.5 transition-opacity duration-300 ease-out ${numberOpacity}`}>
