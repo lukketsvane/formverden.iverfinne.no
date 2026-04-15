@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { Search, X, BookOpen, ChevronDown, Play, Pause, Volume2, VolumeX, RotateCcwSquare, RotateCwSquare } from 'lucide-react';
+import { Search, X, BookOpen, ChevronDown, Play, Pause, RotateCcwSquare, RotateCwSquare, ExternalLink } from 'lucide-react';
 import traktatData from '@/data/traktat.json';
 import referencesData from '@/data/references.json';
 import notesData from '@/data/notes.json';
@@ -189,24 +189,20 @@ function audioUrlForNode(node: { id: string; status?: string }): string {
 
 const PLAYBACK_RATES = [1, 1.25, 1.5, 2, 0.75];
 
-function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
+function AudioPlayer({ src, nodeId, onEnded }: { src: string; nodeId: string; onEnded: () => void }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [autoplay, setAutoplay] = useState(false);
   const [rateIdx, setRateIdx] = useState(0);
-  const [volume, setVolume] = useState(1);
-  const [muted, setMuted] = useState(false);
   const [available, setAvailable] = useState(true);
-  const autoplayRef = useRef(autoplay);
-  autoplayRef.current = autoplay;
+  // If the user was playing when a track advanced, keep playing on the next.
+  const wasPlayingRef = useRef(false);
 
   useEffect(() => {
     setAvailable(true);
     const el = audioRef.current;
     if (!el) return;
     el.playbackRate = PLAYBACK_RATES[rateIdx];
-    el.volume = muted ? 0 : volume;
-    if (autoplayRef.current) {
+    if (wasPlayingRef.current) {
       el.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     } else {
       setIsPlaying(false);
@@ -218,11 +214,6 @@ function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
     const el = audioRef.current;
     if (el) el.playbackRate = PLAYBACK_RATES[rateIdx];
   }, [rateIdx]);
-
-  useEffect(() => {
-    const el = audioRef.current;
-    if (el) el.volume = muted ? 0 : volume;
-  }, [volume, muted]);
 
   const togglePlay = () => {
     const el = audioRef.current;
@@ -237,78 +228,81 @@ function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
 
   const skip = (s: number) => {
     const el = audioRef.current;
-    if (!el || !isFinite(el.duration)) {
-      if (el) el.currentTime = Math.max(0, el.currentTime + s);
+    if (!el) return;
+    if (!isFinite(el.duration)) {
+      el.currentTime = Math.max(0, el.currentTime + s);
       return;
     }
     el.currentTime = Math.max(0, Math.min(el.duration, el.currentTime + s));
   };
 
-  if (!available) {
-    return (
-      <audio
-        ref={audioRef}
-        src={src}
-        onError={() => setAvailable(false)}
-        onLoadedData={() => setAvailable(true)}
-        preload="none"
-        className="hidden"
-      />
-    );
-  }
+  const share = async () => {
+    if (typeof window === 'undefined') return;
+    const url = `${window.location.origin}/${nodeId}`;
+    const nav = window.navigator;
+    try {
+      if (nav && typeof (nav as Navigator & { share?: (d: { title?: string; url: string }) => Promise<void> }).share === 'function') {
+        await (nav as Navigator & { share: (d: { title?: string; url: string }) => Promise<void> }).share({ title: `formlære · ${nodeId}`, url });
+        return;
+      }
+      if (nav && nav.clipboard) {
+        await nav.clipboard.writeText(url);
+      }
+    } catch { /* user cancelled or unsupported */ }
+  };
 
   return (
-    <div className="flex items-center gap-1 text-black/70">
+    <div className="flex items-center justify-between gap-2 sm:gap-4 text-black/70 w-full">
       <audio
         ref={audioRef}
         src={src}
-        onEnded={() => { setIsPlaying(false); if (autoplay) onEnded(); }}
+        onEnded={() => { wasPlayingRef.current = true; setIsPlaying(false); onEnded(); }}
         onError={() => setAvailable(false)}
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
+        onLoadedData={() => setAvailable(true)}
+        onPlay={() => { wasPlayingRef.current = true; setIsPlaying(true); }}
+        onPause={() => { wasPlayingRef.current = false; setIsPlaying(false); }}
         preload="metadata"
       />
-      <button onClick={() => skip(-10)} aria-label="Hopp 10s tilbake" className="hover:text-black p-1 -m-1">
-        <RotateCcwSquare size={16} />
-      </button>
-      <button onClick={togglePlay} aria-label={isPlaying ? 'Pause' : 'Spel'} className="hover:text-black p-1 -m-0.5">
-        {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-      </button>
-      <button onClick={() => skip(10)} aria-label="Hopp 10s fram" className="hover:text-black p-1 -m-1">
-        <RotateCwSquare size={16} />
-      </button>
       <button
         onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
-        className="font-mono text-[10px] px-1.5 py-0.5 rounded hover:bg-black/5 tabular-nums"
-        aria-label="Hastigheit"
+        className="font-mono text-sm px-1 py-0.5 tabular-nums hover:text-black"
+        aria-label={`Hastigheit ${PLAYBACK_RATES[rateIdx]}×`}
+        disabled={!available}
       >
-        {PLAYBACK_RATES[rateIdx]}×
+        {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}×
       </button>
       <button
-        onClick={() => setAutoplay(a => !a)}
-        className={`font-mono text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider ${autoplay ? 'bg-black text-white' : 'hover:bg-black/5 text-black/50'}`}
-        aria-label="Autospel"
-        title="Autospel: gå til neste når lyden er ferdig"
+        onClick={() => skip(-10)}
+        aria-label="Hopp 10s tilbake"
+        className="hover:text-black p-1 disabled:opacity-30"
+        disabled={!available}
       >
-        auto
+        <RotateCcwSquare size={22} strokeWidth={1.75} />
       </button>
       <button
-        onClick={() => setMuted(m => !m)}
-        className="hover:text-black p-1 -m-1 hidden sm:inline-flex"
-        aria-label={muted ? 'Slå på lyd' : 'Demp'}
+        onClick={togglePlay}
+        aria-label={isPlaying ? 'Pause' : 'Spel'}
+        className="text-black p-1 disabled:opacity-30"
+        disabled={!available}
       >
-        {muted || volume === 0 ? <VolumeX size={14} /> : <Volume2 size={14} />}
+        {isPlaying ? <Pause size={32} strokeWidth={1.75} fill="currentColor" /> : <Play size={32} strokeWidth={1.75} fill="currentColor" />}
       </button>
-      <input
-        type="range"
-        min={0}
-        max={1}
-        step={0.05}
-        value={muted ? 0 : volume}
-        onChange={e => { setMuted(false); setVolume(Number(e.target.value)); }}
-        className="w-12 hidden sm:block accent-black"
-        aria-label="Volum"
-      />
+      <button
+        onClick={() => skip(10)}
+        aria-label="Hopp 10s fram"
+        className="hover:text-black p-1 disabled:opacity-30"
+        disabled={!available}
+      >
+        <RotateCwSquare size={22} strokeWidth={1.75} />
+      </button>
+      <button
+        onClick={share}
+        aria-label="Del lenkje"
+        title="Del lenkje"
+        className="p-1 hover:text-black"
+      >
+        <ExternalLink size={20} strokeWidth={1.75} />
+      </button>
     </div>
   );
 }
@@ -690,7 +684,7 @@ export default function Home() {
     >
       <div
         ref={scrollContainerRef}
-        className="reader-scroll h-full w-full overflow-y-auto hide-scrollbar p-4 md:p-16 max-w-4xl mx-auto pb-[28vh] md:pb-[33vh]"
+        className="reader-scroll h-full w-full overflow-y-auto hide-scrollbar p-4 md:p-16 max-w-4xl mx-auto pb-[42vh] md:pb-[42vh]"
         onClick={handleContentClick}
       >
         <header className="mb-6 md:mb-8 shrink-0 flex items-start justify-between gap-4">
@@ -809,8 +803,8 @@ export default function Home() {
       </div>
 
       <div
-        className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto ${
-          panelCollapsed ? 'h-8' : 'h-[28vh] md:h-auto md:max-h-[30vh]'
+        className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto flex flex-col ${
+          panelCollapsed ? 'h-8' : 'h-[38vh] md:h-auto md:max-h-[38vh]'
         }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
@@ -821,27 +815,12 @@ export default function Home() {
         >
           {panelCollapsed ? '▲' : '▼'}
         </button>
-        <div className={`max-w-4xl mx-auto px-6 md:px-16 pt-2 md:pt-3 ${panelCollapsed ? 'hidden' : ''}`}>
-          <div className="flex items-center justify-between gap-3">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
-            {selectedNode && (
-              <AudioPlayer
-                src={audioUrlForNode(selectedNode)}
-                onEnded={() => {
-                  const idx = allNodesFlattened.findIndex(n => n.node.id === selectedId);
-                  if (idx !== -1 && idx < allNodesFlattened.length - 1) {
-                    const nextNode = allNodesFlattened[idx + 1];
-                    expandAncestors(nextNode.node.id);
-                    setSelectedId(nextNode.node.id);
-                  }
-                }}
-              />
-            )}
-          </div>
+        <div className={`max-w-4xl mx-auto w-full px-6 md:px-16 pt-2 md:pt-3 ${panelCollapsed ? 'hidden' : ''}`}>
+          <h2 className="text-2xl md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
         </div>
         <div
           ref={panelRef}
-          className={`h-[calc(28vh-3.5rem)] md:h-auto md:max-h-[24vh] max-w-4xl mx-auto px-6 md:px-16 pt-1 pb-3 md:pb-4 overflow-y-auto hide-scrollbar flex flex-col ${panelCollapsed ? 'hidden' : ''}`}
+          className={`flex-1 min-h-0 max-w-4xl mx-auto w-full px-6 md:px-16 pt-1 pb-2 overflow-y-auto hide-scrollbar flex flex-col ${panelCollapsed ? 'hidden' : ''}`}
         >
           {activeTerm && ordliste[activeTerm] ? (
             <section>
@@ -949,9 +928,23 @@ export default function Home() {
             </section>
           )}
         </div>
+        {selectedNode && !panelCollapsed && (
+          <div className="border-t border-black/10 max-w-4xl mx-auto w-full px-6 md:px-16 py-2">
+            <AudioPlayer
+              src={audioUrlForNode(selectedNode)}
+              nodeId={selectedNode.id}
+              onEnded={() => {
+                const idx = allNodesFlattened.findIndex(n => n.node.id === selectedId);
+                if (idx !== -1 && idx < allNodesFlattened.length - 1) {
+                  const nextNode = allNodesFlattened[idx + 1];
+                  expandAncestors(nextNode.node.id);
+                  setSelectedId(nextNode.node.id);
+                }
+              }}
+            />
+          </div>
+        )}
       </div>
-
-      {/* scroll padding adjustment wrapper is above */}
 
       {glossaryOpen && (
         <div className="fixed inset-0 bg-white z-50 overflow-y-auto hide-scrollbar">
