@@ -843,7 +843,16 @@ export default function Home() {
           >
             <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
           </button>
-          <div className="flex items-baseline gap-2">
+          <div className="flex items-baseline gap-3">
+            {selectedNode && (
+              <button
+                onClick={() => setPanelCollapsed(v => !v)}
+                aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
+                className="font-mono text-sm tabular-nums text-black/70 hover:text-black"
+              >
+                {selectedNode.id}
+              </button>
+            )}
             {selectedNode && (
               <button
                 onClick={() => sharePropLink(selectedNode.id)}
@@ -857,14 +866,9 @@ export default function Home() {
             <button
               onClick={() => setPanelCollapsed(v => !v)}
               aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-              className="flex items-baseline gap-2 text-gray-500"
+              className="text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
             >
-              {selectedNode && (
-                <span className="font-mono text-xs tabular-nums text-black/70">{selectedNode.id}</span>
-              )}
-              <span className="text-[10px] font-mono uppercase tracking-wider">
-                {panelCollapsed ? '▲' : '▼'}
-              </span>
+              {panelCollapsed ? '▲' : '▼'}
             </button>
           </div>
         </div>
