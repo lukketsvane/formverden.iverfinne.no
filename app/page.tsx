@@ -189,7 +189,22 @@ function audioUrlForNode(node: { id: string; status?: string }): string {
 
 const PLAYBACK_RATES = [1, 1.25, 1.5, 2, 0.75];
 
-function AudioPlayer({ src, nodeId, onEnded }: { src: string; nodeId: string; onEnded: () => void }) {
+async function sharePropLink(nodeId: string) {
+  if (typeof window === 'undefined') return;
+  const url = `${window.location.origin}/${nodeId}`;
+  const nav = window.navigator;
+  try {
+    if (nav && typeof (nav as Navigator & { share?: (d: { title?: string; url: string }) => Promise<void> }).share === 'function') {
+      await (nav as Navigator & { share: (d: { title?: string; url: string }) => Promise<void> }).share({ title: `formlære · ${nodeId}`, url });
+      return;
+    }
+    if (nav && nav.clipboard) {
+      await nav.clipboard.writeText(url);
+    }
+  } catch { /* user cancelled or unsupported */ }
+}
+
+function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [rateIdx, setRateIdx] = useState(0);
@@ -236,25 +251,9 @@ function AudioPlayer({ src, nodeId, onEnded }: { src: string; nodeId: string; on
     el.currentTime = Math.max(0, Math.min(el.duration, el.currentTime + s));
   };
 
-  const share = async () => {
-    if (typeof window === 'undefined') return;
-    const url = `${window.location.origin}/${nodeId}`;
-    const nav = window.navigator;
-    try {
-      if (nav && typeof (nav as Navigator & { share?: (d: { title?: string; url: string }) => Promise<void> }).share === 'function') {
-        await (nav as Navigator & { share: (d: { title?: string; url: string }) => Promise<void> }).share({ title: `formlære · ${nodeId}`, url });
-        return;
-      }
-      if (nav && nav.clipboard) {
-        await nav.clipboard.writeText(url);
-      }
-    } catch { /* user cancelled or unsupported */ }
-  };
-
   // Layout tuned for iOS thumb reach:
-  //   [ 1.0× ]          [ ⏪ ⏩ ]   [ ▶ ]   [ ↗ ]
-  //   speed sits on the far left (rarely touched); skip pair, play, and
-  //   share cluster in the bottom-right thumb zone on iPhone.
+  //   [ 1.0× ]          [ ⏪ ⏩ ]   [ ▶ ]
+  //   speed far left; skip pair then play in the right-hand thumb zone.
   return (
     <div className="flex items-center text-black/70 w-full">
       <audio
@@ -301,14 +300,6 @@ function AudioPlayer({ src, nodeId, onEnded }: { src: string; nodeId: string; on
         disabled={!available}
       >
         {isPlaying ? <Pause size={34} strokeWidth={1.75} fill="currentColor" /> : <Play size={34} strokeWidth={1.75} fill="currentColor" />}
-      </button>
-      <button
-        onClick={share}
-        aria-label="Del lenkje"
-        title="Del lenkje"
-        className="p-2 ml-2 hover:text-black"
-      >
-        <ExternalLink size={20} strokeWidth={1.75} />
       </button>
     </div>
   );
@@ -834,21 +825,39 @@ export default function Home() {
         }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
-        <button
-          onClick={() => setPanelCollapsed(v => !v)}
-          aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-          className="max-w-4xl mx-auto w-full px-6 md:px-16 pt-1.5 md:pt-3 pb-1 flex items-baseline justify-between gap-3 text-left"
-        >
-          <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
-          <span className="flex items-baseline gap-2 text-gray-500">
+        <div className="max-w-4xl mx-auto w-full px-6 md:px-16 pt-1.5 md:pt-3 pb-1 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setPanelCollapsed(v => !v)}
+              aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
+              className="text-left"
+            >
+              <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
+            </button>
+            {selectedNode && (
+              <button
+                onClick={() => sharePropLink(selectedNode.id)}
+                aria-label="Del lenkje"
+                title="Del lenkje"
+                className="p-1 -m-1 text-black/50 hover:text-black"
+              >
+                <ExternalLink size={16} strokeWidth={1.75} />
+              </button>
+            )}
+          </div>
+          <button
+            onClick={() => setPanelCollapsed(v => !v)}
+            aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
+            className="flex items-baseline gap-2 text-gray-500"
+          >
             {selectedNode && (
               <span className="font-mono text-xs tabular-nums text-black/70">{selectedNode.id}</span>
             )}
             <span className="text-[10px] font-mono uppercase tracking-wider">
               {panelCollapsed ? '▲' : '▼'}
             </span>
-          </span>
-        </button>
+          </button>
+        </div>
         <div
           ref={panelRef}
           className={`flex-1 min-h-0 max-w-4xl mx-auto w-full px-6 md:px-16 pt-1 pb-1 overflow-y-auto hide-scrollbar flex flex-col text-[13px] md:text-base ${panelCollapsed ? 'hidden' : ''}`}
@@ -963,7 +972,6 @@ export default function Home() {
           <div className="border-t border-black/10 max-w-4xl mx-auto w-full px-6 md:px-16 py-1 md:py-2">
             <AudioPlayer
               src={audioUrlForNode(audioNode)}
-              nodeId={audioNode.id}
               onEnded={() => {
                 // Auto-advance the audio cursor only — do not yank the user's
                 // scroll position or the notes panel.
