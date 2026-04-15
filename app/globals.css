@@ -2,10 +2,14 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
-  body {
+  html, body {
     @apply bg-white text-black antialiased overflow-hidden;
+    height: 100vh;
     height: 100dvh;
     width: 100vw;
+    /* Disable iOS overscroll bounce that competes with the inner reader scroll. */
+    overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
   }
 }
 
@@ -61,9 +65,10 @@
     scrollbar-width: none;
   }
 
-  /* Remove all default animations and transitions for instant feel */
-  * {
-    animation: none !important;
-    transition: none !important;
+  /* iOS smooth momentum scrolling for the reader pane. */
+  .reader-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: auto;
   }
 }

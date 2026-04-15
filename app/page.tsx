@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { Search, X, BookOpen, ChevronDown } from 'lucide-react';
+import { Search, X, BookOpen, ChevronDown, Play, Pause, Volume2, VolumeX, RotateCcwSquare, RotateCwSquare } from 'lucide-react';
 import traktatData from '@/data/traktat.json';
 import referencesData from '@/data/references.json';
 import notesData from '@/data/notes.json';
@@ -182,8 +182,139 @@ function flattenAll(nodes: Proposition[], depth = 0, parentId: string | null = n
   return result;
 }
 
+function audioUrlForNode(node: { id: string; status?: string }): string {
+  const s = node.status ?? '';
+  return `/audio/tts-enceladius/${node.id}${s}.wav`;
+}
+
+const PLAYBACK_RATES = [1, 1.25, 1.5, 2, 0.75];
+
+function AudioPlayer({ src, onEnded }: { src: string; onEnded: () => void }) {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [autoplay, setAutoplay] = useState(false);
+  const [rateIdx, setRateIdx] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [muted, setMuted] = useState(false);
+  const [available, setAvailable] = useState(true);
+  const autoplayRef = useRef(autoplay);
+  autoplayRef.current = autoplay;
+
+  useEffect(() => {
+    setAvailable(true);
+    const el = audioRef.current;
+    if (!el) return;
+    el.playbackRate = PLAYBACK_RATES[rateIdx];
+    el.volume = muted ? 0 : volume;
+    if (autoplayRef.current) {
+      el.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    } else {
+      setIsPlaying(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [src]);
+
+  useEffect(() => {
+    const el = audioRef.current;
+    if (el) el.playbackRate = PLAYBACK_RATES[rateIdx];
+  }, [rateIdx]);
+
+  useEffect(() => {
+    const el = audioRef.current;
+    if (el) el.volume = muted ? 0 : volume;
+  }, [volume, muted]);
+
+  const togglePlay = () => {
+    const el = audioRef.current;
+    if (!el) return;
+    if (el.paused) {
+      el.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    } else {
+      el.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const skip = (s: number) => {
+    const el = audioRef.current;
+    if (!el || !isFinite(el.duration)) {
+      if (el) el.currentTime = Math.max(0, el.currentTime + s);
+      return;
+    }
+    el.currentTime = Math.max(0, Math.min(el.duration, el.currentTime + s));
+  };
+
+  if (!available) {
+    return (
+      <audio
+        ref={audioRef}
+        src={src}
+        onError={() => setAvailable(false)}
+        onLoadedData={() => setAvailable(true)}
+        preload="none"
+        className="hidden"
+      />
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-1 text-black/70">
+      <audio
+        ref={audioRef}
+        src={src}
+        onEnded={() => { setIsPlaying(false); if (autoplay) onEnded(); }}
+        onError={() => setAvailable(false)}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        preload="metadata"
+      />
+      <button onClick={() => skip(-10)} aria-label="Hopp 10s tilbake" className="hover:text-black p-1 -m-1">
+        <RotateCcwSquare size={16} />
+      </button>
+      <button onClick={togglePlay} aria-label={isPlaying ? 'Pause' : 'Spel'} className="hover:text-black p-1 -m-0.5">
+        {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+      </button>
+      <button onClick={() => skip(10)} aria-label="Hopp 10s fram" className="hover:text-black p-1 -m-1">
+        <RotateCwSquare size={16} />
+      </button>
+      <button
+        onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
+        className="font-mono text-[10px] px-1.5 py-0.5 rounded hover:bg-black/5 tabular-nums"
+        aria-label="Hastigheit"
+      >
+        {PLAYBACK_RATES[rateIdx]}×
+      </button>
+      <button
+        onClick={() => setAutoplay(a => !a)}
+        className={`font-mono text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider ${autoplay ? 'bg-black text-white' : 'hover:bg-black/5 text-black/50'}`}
+        aria-label="Autospel"
+        title="Autospel: gå til neste når lyden er ferdig"
+      >
+        auto
+      </button>
+      <button
+        onClick={() => setMuted(m => !m)}
+        className="hover:text-black p-1 -m-1 hidden sm:inline-flex"
+        aria-label={muted ? 'Slå på lyd' : 'Demp'}
+      >
+        {muted || volume === 0 ? <VolumeX size={14} /> : <Volume2 size={14} />}
+      </button>
+      <input
+        type="range"
+        min={0}
+        max={1}
+        step={0.05}
+        value={muted ? 0 : volume}
+        onChange={e => { setMuted(false); setVolume(Number(e.target.value)); }}
+        className="w-12 hidden sm:block accent-black"
+        aria-label="Volum"
+      />
+    </div>
+  );
+}
+
 export default function Home() {
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(['1', '1.3', '1.31']));
   const [selectedId, setSelectedId] = useState<string>((traktatData as Proposition[])[0].id);
   const [showFootnotes, setShowFootnotes] = useState(false);
 
@@ -241,23 +372,38 @@ export default function Home() {
   useEffect(() => {
     if (didInitialRouteRef.current) return;
     didInitialRouteRef.current = true;
-    const slug = decodeURIComponent(window.location.pathname.replace(/^\/+|\/+$/g, ''));
+    let slug = '';
+    try {
+      slug = decodeURIComponent(window.location.pathname.replace(/^\/+|\/+$/g, ''));
+    } catch {
+      slug = window.location.pathname.replace(/^\/+|\/+$/g, '');
+    }
     if (!slug) return;
     const lower = slug.toLowerCase();
     if (lower === 'forord' || lower === 'føreord' || lower === 'foreord') {
-      setTimeout(() => foreordRef.current?.scrollIntoView({ block: 'start' }), 0);
+      requestAnimationFrame(() => foreordRef.current?.scrollIntoView({ block: 'start' }));
       return;
     }
     if (lower === 'etterord') {
-      setTimeout(() => etterordRef.current?.scrollIntoView({ block: 'start' }), 0);
+      requestAnimationFrame(() => etterordRef.current?.scrollIntoView({ block: 'start' }));
       return;
     }
     const found = allNodesFlattened.find(n => n.node.id === slug);
     if (found) {
-      expandAncestors(found.node.id);
+      // Expand the target's ancestors AND the target itself (so its children show as context),
+      // then select. The [selectedId] effect will scroll it into view.
+      setExpandedIds(prev => {
+        const next = new Set(prev);
+        let p: string | null | undefined = found.node.id;
+        while (p) {
+          next.add(p);
+          p = parentMap.get(p);
+        }
+        return next;
+      });
       setSelectedId(found.node.id);
     }
-  }, [allNodesFlattened, expandAncestors]);
+  }, [allNodesFlattened, expandAncestors, parentMap]);
 
   useEffect(() => {
     if (!didInitialRouteRef.current) return;
@@ -384,35 +530,74 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [visibleNodes, safeSelectedIndex, expandedIds, toggleExpand, selectedId, allNodesFlattened, expandAncestors, searchOpen]);
 
-  const touchStart = useRef<{ x: number, y: number } | null>(null);
+  // Horizontal swipes only — vertical is reserved for native iOS scroll.
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
   };
-
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (!touchStart.current) return;
-    const touchEnd = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
-    const dx = touchEnd.x - touchStart.current.x;
-    const dy = touchEnd.y - touchStart.current.y;
-    
-    if (Math.abs(dx) > 40 || Math.abs(dy) > 40) {
-      if (Math.abs(dx) > Math.abs(dy)) {
-        if (dx > 0) window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
-        else window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
-      } else {
-        if (dy > 0) window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
-        else window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
-      }
-    }
+    const dx = e.changedTouches[0].clientX - touchStart.current.x;
+    const dy = e.changedTouches[0].clientY - touchStart.current.y;
     touchStart.current = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 2) {
+      if (dx > 0) window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+      else window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    }
   };
 
   const selectedRef = useRef<HTMLDivElement>(null);
+  // Suppress programmatic scroll-into-view when the selection change came from the user's own scroll
+  // (IntersectionObserver) or a tap on a visible row.
+  const suppressScrollRef = useRef(false);
+  // Track when we're scrolling programmatically so the IntersectionObserver doesn't fight back.
+  const programmaticScrollUntilRef = useRef(0);
   useEffect(() => {
+    if (suppressScrollRef.current) {
+      suppressScrollRef.current = false;
+      return;
+    }
     if (selectedRef.current) {
-      selectedRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
+      programmaticScrollUntilRef.current = Date.now() + 600;
+      selectedRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
     }
   }, [selectedId]);
+
+  // Scroll-driven panel updates: as the user reads, update the selected node so the
+  // notes/references panel follows along. Suppress while we're programmatically scrolling.
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const root = scrollContainerRef.current;
+    if (!root) return;
+    if (typeof IntersectionObserver === 'undefined') return;
+
+    const visibleMap = new Map<string, IntersectionObserverEntry>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (Date.now() < programmaticScrollUntilRef.current) return;
+        entries.forEach(e => {
+          const id = (e.target as HTMLElement).dataset.pid;
+          if (id) visibleMap.set(id, e);
+        });
+        let topId: string | null = null;
+        let topY = Infinity;
+        visibleMap.forEach((e, id) => {
+          if (e.isIntersecting) {
+            const y = e.boundingClientRect.top;
+            if (y < topY && y >= 0) { topY = y; topId = id; }
+          }
+        });
+        if (topId && topId !== selectedId) {
+          suppressScrollRef.current = true;
+          setSelectedId(topId);
+        }
+      },
+      { root, rootMargin: '-25% 0px -55% 0px', threshold: [0, 0.25, 0.75, 1] }
+    );
+    const els = root.querySelectorAll<HTMLElement>('[data-pid]');
+    els.forEach(el => io.observe(el));
+    return () => io.disconnect();
+  }, [visibleNodes, selectedId]);
 
   const selectedNode = visibleNodes[safeSelectedIndex]?.node;
   const currentRefIds = useMemo(
@@ -498,13 +683,14 @@ export default function Home() {
   }, [selectedId]);
 
   return (
-    <main 
-      className={`h-[100dvh] w-screen overflow-hidden bg-white text-black select-none touch-none ${showFootnotes ? 'show-footnotes' : 'hide-footnotes'}`}
+    <main
+      className={`h-[100dvh] w-screen overflow-hidden bg-white text-black ${showFootnotes ? 'show-footnotes' : 'hide-footnotes'}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       <div
-        className="h-full w-full overflow-y-auto hide-scrollbar p-4 md:p-16 max-w-4xl mx-auto pb-[25vh] md:pb-[32vh]"
+        ref={scrollContainerRef}
+        className="reader-scroll h-full w-full overflow-y-auto hide-scrollbar p-4 md:p-16 max-w-4xl mx-auto pb-[28vh] md:pb-[33vh]"
         onClick={handleContentClick}
       >
         <header className="mb-6 md:mb-8 shrink-0 flex items-start justify-between gap-4">
@@ -570,14 +756,19 @@ export default function Home() {
             // Remove double superscript from text if it's already there
             const cleanText = item.node.text.replace(/^(<sup>[a-z]<\/sup>\s*)+/i, '');
 
+            const hasChildren = !!(item.node.children && item.node.children.length > 0);
             return (
               <div
                 key={item.node.id}
+                data-pid={item.node.id}
                 ref={isSelected ? selectedRef : null}
-                className={`flex items-start py-1 transition-opacity duration-75 cursor-pointer ${rowOpacity}`}
+                className={`flex items-start py-1 cursor-pointer ${rowOpacity}`}
                 onClick={() => {
-                  if (isSelected) toggleExpand(item.node.id);
-                  else setSelectedId(item.node.id);
+                  // Single tap = select + toggle expansion (no double-tap on mobile).
+                  // Suppress scroll-into-view since the user already chose where they're looking.
+                  suppressScrollRef.current = true;
+                  if (!isSelected) setSelectedId(item.node.id);
+                  if (hasChildren) toggleExpand(item.node.id);
                 }}
               >
                 <div className={`flex items-baseline mr-4 md:mr-6 min-w-[3rem] md:min-w-[4rem] pt-0.5 gap-0.5 ${numberOpacity}`}>
@@ -617,9 +808,12 @@ export default function Home() {
         <Section data={etterord} onBlockClick={showBlockRefs} sectionRef={etterordRef} />
       </div>
 
-      <div className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto transition-[height] duration-150 ${
-        panelCollapsed ? 'h-8' : 'h-[22vh] md:h-[28vh]'
-      }`}>
+      <div
+        className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto ${
+          panelCollapsed ? 'h-8' : 'h-[28vh] md:h-auto md:max-h-[30vh]'
+        }`}
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
         <button
           onClick={() => setPanelCollapsed(v => !v)}
           className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-white border border-black/10 border-b-0 rounded-t px-3 py-0.5 text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
@@ -627,40 +821,61 @@ export default function Home() {
         >
           {panelCollapsed ? '▲' : '▼'}
         </button>
+        <div className={`max-w-4xl mx-auto px-6 md:px-16 pt-2 md:pt-3 ${panelCollapsed ? 'hidden' : ''}`}>
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
+            {selectedNode && (
+              <AudioPlayer
+                src={audioUrlForNode(selectedNode)}
+                onEnded={() => {
+                  const idx = allNodesFlattened.findIndex(n => n.node.id === selectedId);
+                  if (idx !== -1 && idx < allNodesFlattened.length - 1) {
+                    const nextNode = allNodesFlattened[idx + 1];
+                    expandAncestors(nextNode.node.id);
+                    setSelectedId(nextNode.node.id);
+                  }
+                }}
+              />
+            )}
+          </div>
+        </div>
         <div
           ref={panelRef}
-          className={`h-full max-w-4xl mx-auto px-6 md:px-16 py-3 md:py-4 overflow-y-auto hide-scrollbar flex flex-col ${panelCollapsed ? 'hidden' : ''}`}
+          className={`h-[calc(28vh-3.5rem)] md:h-auto md:max-h-[24vh] max-w-4xl mx-auto px-6 md:px-16 pt-1 pb-3 md:pb-4 overflow-y-auto hide-scrollbar flex flex-col ${panelCollapsed ? 'hidden' : ''}`}
         >
           {activeTerm && ordliste[activeTerm] ? (
             <section>
-              <div className="flex items-baseline justify-between mb-2">
-                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400">
-                  Definisjon · <button onClick={() => jumpToMatch(ordliste[activeTerm].ref)} className="underline decoration-dotted hover:decoration-solid">{ordliste[activeTerm].ref}</button>
-                </div>
-                <button onClick={() => setActiveTerm(null)} className="text-gray-400 hover:text-black" aria-label="Lukk definisjon"><X size={14} /></button>
+              <div className="flex items-baseline justify-end mb-1">
+                <button onClick={() => setActiveTerm(null)} className="text-gray-400 hover:text-black" aria-label="Lukk"><X size={14} /></button>
               </div>
-              <h3 className="font-serif text-xl md:text-2xl font-bold text-black mb-1">{ordliste[activeTerm].term}</h3>
-              <p className="font-serif text-sm md:text-base text-gray-800 leading-snug">{ordliste[activeTerm].body}</p>
+              <ul className="flex flex-col gap-2">
+                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
+                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">definisjon</span>
+                  <span>
+                    <b className="text-black">{ordliste[activeTerm].term}.</b> {ordliste[activeTerm].body}{' '}
+                    <button onClick={() => jumpToMatch(ordliste[activeTerm].ref)} className="text-gray-400 font-mono text-xs underline decoration-dotted hover:decoration-solid hover:text-black ml-1">[{ordliste[activeTerm].ref}]</button>
+                  </span>
+                </li>
+              </ul>
             </section>
           ) : activeStatus && statusDefs[activeStatus] ? (
             <section>
-              <div className="flex items-baseline justify-between mb-2">
-                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400">
-                  Status
-                </div>
-                <button onClick={() => setActiveStatus(null)} className="text-gray-400 hover:text-black" aria-label="Lukk status"><X size={14} /></button>
+              <div className="flex items-baseline justify-end mb-1">
+                <button onClick={() => setActiveStatus(null)} className="text-gray-400 hover:text-black" aria-label="Lukk"><X size={14} /></button>
               </div>
-              <h3 className="font-serif text-xl md:text-2xl font-bold text-black mb-1">
-                <span className="font-mono text-gray-400 mr-2">{activeStatus.toUpperCase()}</span>
-                {statusDefs[activeStatus].name}
-              </h3>
-              <p className="font-serif text-sm md:text-base text-gray-800 leading-snug">{statusDefs[activeStatus].body}</p>
+              <ul className="flex flex-col gap-2">
+                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
+                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">status</span>
+                  <span>
+                    <b className="text-black">{activeStatus.toUpperCase()} · {statusDefs[activeStatus].name}.</b> {statusDefs[activeStatus].body}
+                  </span>
+                </li>
+              </ul>
             </section>
           ) : panel ? (
             <>
               {panel.notes.length > 0 && (
                 <section>
-                  <h2 className="text-2xl md:text-3xl font-serif font-bold tracking-tight text-black mb-2 md:mb-3">notat</h2>
                   <ul className="flex flex-col gap-2">
                     {panel.notes.map((n, i) => (
                       <li key={i} className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
@@ -675,7 +890,7 @@ export default function Home() {
               )}
 
               {panel.refIds.length > 0 && (
-                <section className="mt-auto pt-3">
+                <section className="pt-3">
                   {panel.notes.length > 0 && (
                     <hr className="border-t border-black/20 mb-3" />
                   )}
@@ -710,7 +925,6 @@ export default function Home() {
             </>
           ) : (
             <section>
-              <h2 className="text-2xl md:text-3xl font-serif font-bold tracking-tight text-black mb-2 md:mb-3">notat</h2>
               <ul className="flex flex-col gap-2">
                 <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
                   <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">nummer</span>
