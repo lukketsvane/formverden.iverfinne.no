@@ -868,7 +868,7 @@ export default function Home() {
           <button
             onClick={() => setPanelCollapsed(v => !v)}
             aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-            className="text-left flex items-baseline gap-2 md:gap-4"
+            className="text-left flex items-baseline gap-1 md:gap-2"
           >
             <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">proposisjon</h2>
             {selectedNode && (
