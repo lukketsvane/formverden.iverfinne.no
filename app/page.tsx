@@ -770,8 +770,11 @@ export default function Home() {
                 className={`flex items-start py-1 cursor-pointer ${rowOpacity}`}
                 onClick={() => {
                   // Single tap = select + toggle expansion + move audio cursor here.
-                  // Suppress scroll-into-view since the user already chose where they're looking.
+                  // Suppress scroll-into-view since the user already chose where they're looking,
+                  // AND block the IntersectionObserver briefly so it doesn't overwrite the
+                  // explicit pick with whatever node happens to sit topmost in the viewport.
                   suppressScrollRef.current = true;
+                  programmaticScrollUntilRef.current = Date.now() + 800;
                   if (!isSelected) setSelectedId(item.node.id);
                   setAudioNodeId(item.node.id);
                   if (hasChildren) toggleExpand(item.node.id);
