@@ -317,6 +317,9 @@ function AudioPlayer({ src, nodeId, onEnded }: { src: string; nodeId: string; on
 export default function Home() {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(['1', '1.3', '1.31']));
   const [selectedId, setSelectedId] = useState<string>((traktatData as Proposition[])[0].id);
+  // Audio has its own cursor. Scrolling never changes it — only explicit taps
+  // on a row or the natural end-of-track auto-advance do.
+  const [audioNodeId, setAudioNodeId] = useState<string>((traktatData as Proposition[])[0].id);
   const [showFootnotes, setShowFootnotes] = useState(false);
 
   const allNodesFlattened = useMemo(() => flattenAll(traktatData as Proposition[]), []);
@@ -403,6 +406,7 @@ export default function Home() {
         return next;
       });
       setSelectedId(found.node.id);
+      setAudioNodeId(found.node.id);
     }
   }, [allNodesFlattened, expandAncestors, parentMap]);
 
@@ -601,6 +605,10 @@ export default function Home() {
   }, [visibleNodes, selectedId]);
 
   const selectedNode = visibleNodes[safeSelectedIndex]?.node;
+  const audioNode = useMemo(
+    () => allNodesFlattened.find(n => n.node.id === audioNodeId)?.node ?? null,
+    [allNodesFlattened, audioNodeId]
+  );
   const currentRefIds = useMemo(
     () => (selectedNode ? extractRefIds(selectedNode.text) : []),
     [selectedNode]
@@ -758,20 +766,28 @@ export default function Home() {
             const cleanText = item.node.text.replace(/^(<sup>[a-z]<\/sup>\s*)+/i, '');
 
             const hasChildren = !!(item.node.children && item.node.children.length > 0);
+            const isAudioNode = item.node.id === audioNodeId;
             return (
               <div
                 key={item.node.id}
                 data-pid={item.node.id}
                 ref={isSelected ? selectedRef : null}
-                className={`flex items-start py-1 cursor-pointer ${rowOpacity}`}
+                className={`flex items-start py-1 cursor-pointer ${rowOpacity} ${isAudioNode ? 'relative' : ''}`}
                 onClick={() => {
-                  // Single tap = select + toggle expansion (no double-tap on mobile).
+                  // Single tap = select + toggle expansion + move audio cursor here.
                   // Suppress scroll-into-view since the user already chose where they're looking.
                   suppressScrollRef.current = true;
                   if (!isSelected) setSelectedId(item.node.id);
+                  setAudioNodeId(item.node.id);
                   if (hasChildren) toggleExpand(item.node.id);
                 }}
               >
+                {isAudioNode && (
+                  <span
+                    className="absolute -left-1 top-2 bottom-2 w-0.5 bg-black rounded-full"
+                    aria-hidden
+                  />
+                )}
                 <div className={`flex items-baseline mr-4 md:mr-6 min-w-[3rem] md:min-w-[4rem] pt-0.5 gap-0.5 ${numberOpacity}`}>
                   <span className="text-base md:text-2xl font-bold text-black tabular-nums leading-none">
                     {item.node.id}
@@ -935,17 +951,17 @@ export default function Home() {
             </section>
           )}
         </div>
-        {selectedNode && !panelCollapsed && (
+        {audioNode && !panelCollapsed && (
           <div className="border-t border-black/10 max-w-4xl mx-auto w-full px-6 md:px-16 py-2">
             <AudioPlayer
-              src={audioUrlForNode(selectedNode)}
-              nodeId={selectedNode.id}
+              src={audioUrlForNode(audioNode)}
+              nodeId={audioNode.id}
               onEnded={() => {
-                const idx = allNodesFlattened.findIndex(n => n.node.id === selectedId);
+                // Auto-advance the audio cursor only — do not yank the user's
+                // scroll position or the notes panel.
+                const idx = allNodesFlattened.findIndex(n => n.node.id === audioNode.id);
                 if (idx !== -1 && idx < allNodesFlattened.length - 1) {
-                  const nextNode = allNodesFlattened[idx + 1];
-                  expandAncestors(nextNode.node.id);
-                  setSelectedId(nextNode.node.id);
+                  setAudioNodeId(allNodesFlattened[idx + 1].node.id);
                 }
               }}
             />
