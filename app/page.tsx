@@ -667,7 +667,38 @@ export default function Home() {
   const [activeStatus, setActiveStatus] = useState<string | null>(null);
   const [highlightRef, setHighlightRef] = useState<string | null>(null);
   const [panelCollapsed, setPanelCollapsed] = useState(false);
+  const [panelExpanded, setPanelExpanded] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  // Drag-to-expand/collapse the footer panel
+  const panelDragStart = useRef<{ y: number; state: 'collapsed' | 'default' | 'expanded' } | null>(null);
+  const handlePanelTouchStart = useCallback((e: React.TouchEvent) => {
+    const state = panelCollapsed ? 'collapsed' : panelExpanded ? 'expanded' : 'default';
+    panelDragStart.current = { y: e.touches[0].clientY, state };
+  }, [panelCollapsed, panelExpanded]);
+  const handlePanelTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!panelDragStart.current) return;
+    const dy = e.changedTouches[0].clientY - panelDragStart.current.y;
+    const startState = panelDragStart.current.state;
+    panelDragStart.current = null;
+    const threshold = 50;
+    if (dy < -threshold) {
+      // Swiped up
+      if (startState === 'collapsed') {
+        setPanelCollapsed(false);
+        setPanelExpanded(false);
+      } else if (startState === 'default') {
+        setPanelExpanded(true);
+      }
+    } else if (dy > threshold) {
+      // Swiped down
+      if (startState === 'expanded') {
+        setPanelExpanded(false);
+      } else if (startState === 'default') {
+        setPanelCollapsed(true);
+      }
+    }
+  }, []);
 
   const handleContentClick = useCallback((e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -805,7 +836,7 @@ export default function Home() {
             const cleanText = item.node.text.replace(/^(<sup>[a-z]<\/sup>\s*)+/i, '');
 
             const hasChildren = !!(item.node.children && item.node.children.length > 0);
-            return (
+            const row = (
               <div
                 key={item.node.id}
                 data-pid={item.node.id}
@@ -854,6 +885,21 @@ export default function Home() {
                 </div>
               </div>
             );
+
+            if (item.node.id === '1.4') {
+              return (
+                <div key="1.4-group">
+                  {row}
+                  <figure className="my-4 md:my-6 pl-[3rem] md:pl-[4rem] ml-4 md:ml-6">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/regionar.png" alt="Tre regionar i formrommet – busette, opne og forbodne" className="w-full max-w-md" />
+                    <figcaption className="text-[10px] md:text-xs text-gray-400 font-mono mt-1">Dei tre regionane i formrommet</figcaption>
+                  </figure>
+                </div>
+              );
+            }
+
+            return row;
           })}
         </div>
 
@@ -866,60 +912,83 @@ export default function Home() {
       </div>
 
       <div
-        className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto flex flex-col ${
-          panelCollapsed ? 'h-10' : 'h-[26vh] md:h-auto md:max-h-[30vh]'
+        className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto flex flex-col transition-[height,max-height] duration-200 ${
+          panelCollapsed
+            ? 'h-10'
+            : panelExpanded
+              ? 'h-[80vh] md:h-[80vh] md:max-h-[80vh]'
+              : 'h-[26vh] md:h-auto md:max-h-[30vh]'
         }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
-        <button
-          onClick={() => setPanelCollapsed(v => !v)}
-          aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-white border border-black/10 border-b-0 rounded-t px-3 py-0.5 text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
+        <div
+          onTouchStart={handlePanelTouchStart}
+          onTouchEnd={handlePanelTouchEnd}
+          className="touch-none"
         >
-          {panelCollapsed ? '▲' : '▼'}
-        </button>
-        <div className="max-w-4xl mx-auto w-full px-6 md:px-16 pt-1.5 md:pt-3 pb-1 flex items-baseline justify-between gap-3">
           <button
-            onClick={() => setPanelCollapsed(v => !v)}
+            onClick={() => {
+              if (panelExpanded) { setPanelExpanded(false); }
+              else { setPanelCollapsed(v => !v); }
+            }}
             aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-            className="text-left flex items-baseline gap-1 md:gap-2"
+            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-white border border-black/10 border-b-0 rounded-t px-3 py-0.5 text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
           >
-            <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">proposisjon</h2>
-            {selectedNode && (
-              <span className="font-mono text-xl md:text-4xl font-bold tabular-nums text-black leading-none">
-                {selectedNode.id}
-              </span>
-            )}
+            {panelCollapsed ? '▲' : panelExpanded ? '▼' : '▼'}
           </button>
-          <div className="flex items-baseline gap-3">
-            {selectedNode && (
-              <button
-                onClick={() => sharePropLink(selectedNode.id)}
-                aria-label="Del lenkje"
-                title="Del lenkje"
-                className="text-black/50 hover:text-black relative top-1 p-1 -m-1"
-              >
-                <ExternalLink size={28} strokeWidth={1.75} />
-              </button>
-            )}
-            {panelCollapsed && mounted && audioNode && (
-              <div className="ml-1 border-l border-black/10 pl-2">
-                <AudioControls 
-                  isPlaying={isPlaying} 
-                  togglePlay={togglePlay} 
-                  skip={audioSkip} 
-                  available={audioAvailable} 
-                  compact 
-                />
-              </div>
-            )}
+          {/* Drag handle bar */}
+          <div className="flex justify-center pt-1.5 pb-0">
+            <div className="w-8 h-1 rounded-full bg-black/20" />
+          </div>
+          <div className="max-w-4xl mx-auto w-full px-6 md:px-16 pt-0.5 md:pt-2 pb-1 flex items-baseline justify-between gap-3">
             <button
-              onClick={() => setPanelCollapsed(v => !v)}
+              onClick={() => {
+                if (panelExpanded) { setPanelExpanded(false); }
+                else { setPanelCollapsed(v => !v); }
+              }}
               aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-              className="text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
+              className="text-left flex items-baseline gap-1 md:gap-2"
             >
-              {panelCollapsed ? '▲' : '▼'}
+              <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">proposisjon</h2>
+              {selectedNode && (
+                <span className="font-mono text-xl md:text-4xl font-bold tabular-nums text-black leading-none">
+                  {selectedNode.id}
+                </span>
+              )}
             </button>
+            <div className="flex items-baseline gap-3">
+              {selectedNode && (
+                <button
+                  onClick={() => sharePropLink(selectedNode.id)}
+                  aria-label="Del lenkje"
+                  title="Del lenkje"
+                  className="text-black/50 hover:text-black relative top-1 p-1 -m-1"
+                >
+                  <ExternalLink size={28} strokeWidth={1.75} />
+                </button>
+              )}
+              {panelCollapsed && mounted && audioNode && (
+                <div className="ml-1 border-l border-black/10 pl-2">
+                  <AudioControls 
+                    isPlaying={isPlaying} 
+                    togglePlay={togglePlay} 
+                    skip={audioSkip} 
+                    available={audioAvailable} 
+                    compact 
+                  />
+                </div>
+              )}
+              <button
+                onClick={() => {
+                  if (panelExpanded) { setPanelExpanded(false); }
+                  else { setPanelCollapsed(v => !v); }
+                }}
+                aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
+                className="text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
+              >
+                {panelCollapsed ? '▲' : panelExpanded ? '▼' : '▼'}
+              </button>
+            </div>
           </div>
         </div>
         <div
@@ -959,10 +1028,10 @@ export default function Home() {
             <>
               {panel.notes.length > 0 && (
                 <section>
-                  <ul className="flex flex-col gap-2">
+                  <ul className="flex flex-col gap-3">
                     {panel.notes.map((n, i) => (
-                      <li key={i} className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
-                        <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">
+                      <li key={i} className="flex flex-col gap-0.5 text-sm md:text-base font-serif text-gray-800 leading-snug">
+                        <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider">
                           {n.label ?? (n.kind === 'falsifisering' ? 'falsifisering' : 'notat')}
                         </span>
                         <span dangerouslySetInnerHTML={{ __html: n.text }} />
