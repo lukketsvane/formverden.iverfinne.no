@@ -771,13 +771,12 @@ export default function Home() {
             const cleanText = item.node.text.replace(/^(<sup>[a-z]<\/sup>\s*)+/i, '');
 
             const hasChildren = !!(item.node.children && item.node.children.length > 0);
-            const isAudioNode = item.node.id === audioNodeId;
             return (
               <div
                 key={item.node.id}
                 data-pid={item.node.id}
                 ref={isSelected ? selectedRef : null}
-                className={`flex items-start py-1 cursor-pointer ${rowOpacity} ${isAudioNode ? 'relative' : ''}`}
+                className={`flex items-start py-1 cursor-pointer ${rowOpacity}`}
                 onClick={() => {
                   // Single tap = select + toggle expansion + move audio cursor here.
                   // Suppress scroll-into-view since the user already chose where they're looking.
@@ -787,12 +786,6 @@ export default function Home() {
                   if (hasChildren) toggleExpand(item.node.id);
                 }}
               >
-                {isAudioNode && (
-                  <span
-                    className="absolute -left-1 top-2 bottom-2 w-0.5 bg-black rounded-full"
-                    aria-hidden
-                  />
-                )}
                 <div className={`flex items-baseline mr-4 md:mr-6 min-w-[3rem] md:min-w-[4rem] pt-0.5 gap-0.5 ${numberOpacity}`}>
                   <span className="text-base md:text-2xl font-bold text-black tabular-nums leading-none">
                     {item.node.id}
