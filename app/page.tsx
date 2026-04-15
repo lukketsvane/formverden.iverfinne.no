@@ -251,8 +251,12 @@ function AudioPlayer({ src, nodeId, onEnded }: { src: string; nodeId: string; on
     } catch { /* user cancelled or unsupported */ }
   };
 
+  // Layout tuned for iOS thumb reach:
+  //   [ 1.0× ]          [ ⏪ ⏩ ]   [ ▶ ]   [ ↗ ]
+  //   speed sits on the far left (rarely touched); skip pair, play, and
+  //   share cluster in the bottom-right thumb zone on iPhone.
   return (
-    <div className="flex items-center justify-between gap-2 sm:gap-4 text-black/70 w-full">
+    <div className="flex items-center text-black/70 w-full">
       <audio
         ref={audioRef}
         src={src}
@@ -271,35 +275,38 @@ function AudioPlayer({ src, nodeId, onEnded }: { src: string; nodeId: string; on
       >
         {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}×
       </button>
-      <button
-        onClick={() => skip(-10)}
-        aria-label="Hopp 10s tilbake"
-        className="hover:text-black p-1 disabled:opacity-30"
-        disabled={!available}
-      >
-        <RotateCcwSquare size={22} strokeWidth={1.75} />
-      </button>
+      <div className="flex-1" />
+      <div className="flex items-center gap-1">
+        <button
+          onClick={() => skip(-10)}
+          aria-label="Hopp 10s tilbake"
+          className="hover:text-black p-2 disabled:opacity-30"
+          disabled={!available}
+        >
+          <RotateCcwSquare size={22} strokeWidth={1.75} />
+        </button>
+        <button
+          onClick={() => skip(10)}
+          aria-label="Hopp 10s fram"
+          className="hover:text-black p-2 disabled:opacity-30"
+          disabled={!available}
+        >
+          <RotateCwSquare size={22} strokeWidth={1.75} />
+        </button>
+      </div>
       <button
         onClick={togglePlay}
         aria-label={isPlaying ? 'Pause' : 'Spel'}
-        className="text-black p-1 disabled:opacity-30"
+        className="text-black p-2 ml-3 disabled:opacity-30"
         disabled={!available}
       >
-        {isPlaying ? <Pause size={32} strokeWidth={1.75} fill="currentColor" /> : <Play size={32} strokeWidth={1.75} fill="currentColor" />}
-      </button>
-      <button
-        onClick={() => skip(10)}
-        aria-label="Hopp 10s fram"
-        className="hover:text-black p-1 disabled:opacity-30"
-        disabled={!available}
-      >
-        <RotateCwSquare size={22} strokeWidth={1.75} />
+        {isPlaying ? <Pause size={34} strokeWidth={1.75} fill="currentColor" /> : <Play size={34} strokeWidth={1.75} fill="currentColor" />}
       </button>
       <button
         onClick={share}
         aria-label="Del lenkje"
         title="Del lenkje"
-        className="p-1 hover:text-black"
+        className="p-2 ml-2 hover:text-black"
       >
         <ExternalLink size={20} strokeWidth={1.75} />
       </button>
