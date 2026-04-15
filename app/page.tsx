@@ -867,20 +867,16 @@ export default function Home() {
           <button
             onClick={() => setPanelCollapsed(v => !v)}
             aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-            className="text-left"
+            className="text-left flex items-baseline gap-2 md:gap-4"
           >
-            <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">notat</h2>
+            <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">proposisjon</h2>
+            {selectedNode && (
+              <span className="font-mono text-xl md:text-4xl font-bold tabular-nums text-black leading-none">
+                {selectedNode.id}
+              </span>
+            )}
           </button>
           <div className="flex items-baseline gap-3">
-            {selectedNode && (
-              <button
-                onClick={() => setPanelCollapsed(v => !v)}
-                aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-                className="font-mono text-sm tabular-nums text-black/70 hover:text-black"
-              >
-                {selectedNode.id}
-              </button>
-            )}
             {selectedNode && (
               <button
                 onClick={() => sharePropLink(selectedNode.id)}
