@@ -1,9 +1,38 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --text-muted: #6b7280;
+  --text-dim: #9ca3af;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --border-active: rgba(0, 0, 0, 1);
+  --panel-bg: rgba(255, 255, 255, 0.95);
+  --selection-bg: #fef9c3;
+}
+
+[data-theme='dark'] {
+  --background: #121212;
+  --foreground: #e5e5e5;
+  --text-muted: #a3a3a3;
+  --text-dim: #737373;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-active: rgba(255, 255, 255, 0.8);
+  --panel-bg: rgba(18, 18, 18, 0.95);
+  --selection-bg: #3f3f17;
+}
+
 @layer base {
   html, body {
-    @apply bg-white text-black antialiased overflow-hidden;
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply antialiased overflow-hidden transition-colors duration-300;
     height: 100vh;
     height: 100dvh;
     width: 100vw;
@@ -19,11 +48,13 @@
   }
 
   .traktat-content .note {
-    @apply block mt-2 text-lg font-serif italic text-gray-500 leading-relaxed;
+    @apply block mt-2 text-lg font-serif italic leading-relaxed;
+    color: var(--text-muted);
   }
 
   .traktat-content b {
-    @apply font-bold text-black;
+    @apply font-bold;
+    color: var(--foreground);
   }
 
   .traktat-content i {
@@ -31,30 +62,31 @@
   }
 
   .traktat-content sup {
-    @apply text-[10px] text-gray-400 font-mono font-bold mr-1;
+    @apply text-[10px] font-mono font-bold mr-1;
+    color: var(--text-dim);
     vertical-align: super;
     display: inline;
   }
 
   .term {
-    border-bottom: 1px dotted rgba(0,0,0,0.35);
+    border-bottom: 1px dotted var(--text-dim);
     cursor: pointer;
   }
   .term:hover {
-    border-bottom-color: rgba(0,0,0,1);
+    border-bottom-color: var(--foreground);
   }
 
   .footnote-ref {
     cursor: pointer;
   }
   .footnote-ref:hover {
-    color: rgba(0,0,0,1) !important;
+    color: var(--foreground) !important;
   }
 
   .math-symbol {
     font-family: "Cambria Math", "STIX Two Math", serif;
     padding: 0 0.2em;
-    @apply text-gray-700;
+    color: var(--text-muted);
   }
 
   .hide-scrollbar::-webkit-scrollbar {
@@ -72,3 +104,19 @@
     scroll-behavior: auto;
   }
 }
+
+/* Override utility classes that we've switched to variables */
+.bg-white { background-color: var(--background); }
+.bg-white\/95 { background-color: var(--panel-bg); }
+.text-black { color: var(--foreground); }
+.text-black\/70 { color: var(--text-muted); }
+.text-black\/60 { color: var(--text-muted); }
+.text-black\/50 { color: var(--text-dim); }
+.text-black\/40 { color: var(--text-dim); }
+.text-gray-800 { color: var(--foreground); }
+.text-gray-700 { color: var(--text-muted); }
+.text-gray-500 { color: var(--text-muted); }
+.text-gray-400 { color: var(--text-dim); }
+.border-black\/10 { border-color: var(--border-color); }
+.border-black\/20 { border-color: var(--border-color); }
+.bg-yellow-100 { background-color: var(--selection-bg); }
