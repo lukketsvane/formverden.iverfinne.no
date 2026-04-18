@@ -204,6 +204,67 @@ function audioUrlForNode(node: { id: string; status?: string }): string {
 
 const PLAYBACK_RATES = [1, 1.25, 1.5, 2, 0.75];
 
+async function sharePropLink(nodeId: string) {
+  if (typeof window === 'undefined') return;
+  const url = `${window.location.origin}/${nodeId}`;
+  const nav = window.navigator;
+  try {
+    if (nav && typeof (nav as Navigator & { share?: (d: { title?: string; url: string }) => Promise<void> }).share === 'function') {
+      await (nav as Navigator & { share: (d: { title?: string; url: string }) => Promise<void> }).share({ title: `formlære · ${nodeId}`, url });
+      return;
+    }
+    if (nav && nav.clipboard) {
+      await nav.clipboard.writeText(url);
+    }
+  } catch { /* user cancelled or unsupported */ }
+}
+
+function AudioControls({ 
+  isPlaying, 
+  togglePlay, 
+  skip, 
+  available, 
+  compact = false 
+}: { 
+  isPlaying: boolean; 
+  togglePlay: () => void; 
+  skip: (s: number) => void; 
+  available: boolean;
+  compact?: boolean;
+}) {
+  const iconSize = compact ? 20 : 22;
+  const playSize = compact ? 24 : 34;
+  
+  return (
+    <div className="flex items-center gap-0.5 md:gap-1">
+      <button
+        onClick={(e) => { e.stopPropagation(); skip(-10); }}
+        aria-label="Hopp 10s tilbake"
+        className="hover:text-[var(--foreground)] p-1 md:p-2 disabled:opacity-30 transition-colors"
+        disabled={!available}
+      >
+        <RotateCcwSquare size={iconSize} strokeWidth={1.75} />
+      </button>
+      <button
+        onClick={(e) => { e.stopPropagation(); skip(10); }}
+        aria-label="Hopp 10s fram"
+        className="hover:text-[var(--foreground)] p-1 md:p-2 disabled:opacity-30 transition-colors"
+        disabled={!available}
+      >
+        <RotateCwSquare size={iconSize} strokeWidth={1.75} />
+      </button>
+      <button
+        onClick={(e) => { e.stopPropagation(); togglePlay(); }}
+        aria-label={isPlaying ? 'Pause' : 'Spel'}
+        className="text-[var(--foreground)] p-1 md:p-2 ml-0.5 md:ml-3 disabled:opacity-30 transition-colors"
+        disabled={!available}
+      >
+        {isPlaying ? <Pause size={playSize} strokeWidth={1.75} fill="currentColor" /> : <Play size={playSize} strokeWidth={1.75} fill="currentColor" />}
+      </button>
+    </div>
+  );
+}
+
 export default function Home() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
@@ -751,6 +812,11 @@ export default function Home() {
     setActiveTerm(null);
     setActiveStatus(null);
   }, [selectedId]);
+
+  const selectedNode = useMemo(
+    () => allNodesFlattened.find(n => n.node.id === selectedId)?.node ?? null,
+    [allNodesFlattened, selectedId]
+  );
 
   return (
     <>
