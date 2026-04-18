@@ -1131,27 +1131,22 @@ export default function Home() {
         {mounted && currentAudioNode && !panelCollapsed && (
           <div className="border-t border-[var(--border-color)] w-full">
             <div className="max-w-4xl mx-auto px-6 md:px-16 py-2 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-8 h-8 rounded-full bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center font-serif italic text-xs">
-                  N
-                </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
-                    className="font-mono text-xs tracking-wider uppercase px-2 py-1 rounded hover:bg-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors"
-                    aria-label={`Hastigheit ${PLAYBACK_RATES[rateIdx]}×`}
-                    disabled={!audioAvailable}
-                  >
-                    {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}x
-                  </button>
-                  <button
-                    onClick={toggleTheme}
-                    className="p-1.5 text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors rounded-full hover:bg-[var(--border-color)]"
-                    aria-label={theme === 'dark' ? 'Byt til lyst tema' : 'Byt til mørkt tema'}
-                  >
-                    {theme === 'dark' ? <Sun size={16} strokeWidth={2} /> : <Moon size={16} strokeWidth={2} />}
-                  </button>
-                </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
+                  className="font-mono text-xs tracking-wider uppercase px-2 py-1 rounded hover:bg-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors"
+                  aria-label={`Hastigheit ${PLAYBACK_RATES[rateIdx]}×`}
+                  disabled={!audioAvailable}
+                >
+                  {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}x
+                </button>
+                <button
+                  onClick={toggleTheme}
+                  className="p-1.5 text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors rounded-full hover:bg-[var(--border-color)]"
+                  aria-label={theme === 'dark' ? 'Byt til lyst tema' : 'Byt til mørkt tema'}
+                >
+                  {theme === 'dark' ? <Sun size={16} strokeWidth={2} /> : <Moon size={16} strokeWidth={2} />}
+                </button>
               </div>
               
               <AudioControls 
