@@ -127,7 +127,7 @@ function Section({
   pid
 }: { 
   data: SectionData; 
-  onBlockClick: (id: string, text: string) => void; 
+  onBlockClick: (id: string, text: string, rawId: string) => void; 
   hideTitle?: boolean; 
   sectionRef?: React.Ref<HTMLElement>;
   pid?: string;
@@ -140,12 +140,14 @@ function Section({
       <div className="flex flex-col gap-4 max-w-3xl">
         {data.blocks.map((block, i) => {
           const blockId = pid ? `${pid} · §${i + 1}` : `${data.title} · §${i + 1}`;
+          const rawId = pid ? `${pid}-${i}` : '';
           if (block.type === 'paragraph') {
             return (
               <p
                 key={i}
-                className="text-base md:text-xl font-serif text-black leading-snug traktat-content cursor-pointer -mx-2 px-2 py-1 rounded"
-                onClick={() => onBlockClick(blockId, block.text)}
+                id={rawId || undefined}
+                className="text-base md:text-xl font-serif text-black leading-snug traktat-content cursor-pointer -mx-2 px-2 py-1 rounded hover:bg-[var(--border-color)] transition-colors"
+                onClick={() => onBlockClick(blockId, block.text, rawId)}
                 dangerouslySetInnerHTML={{ __html: linkTerms(block.text) }}
               />
             );
@@ -202,67 +204,6 @@ function audioUrlForNode(node: { id: string; status?: string }): string {
 
 const PLAYBACK_RATES = [1, 1.25, 1.5, 2, 0.75];
 
-async function sharePropLink(nodeId: string) {
-  if (typeof window === 'undefined') return;
-  const url = `${window.location.origin}/${nodeId}`;
-  const nav = window.navigator;
-  try {
-    if (nav && typeof (nav as Navigator & { share?: (d: { title?: string; url: string }) => Promise<void> }).share === 'function') {
-      await (nav as Navigator & { share: (d: { title?: string; url: string }) => Promise<void> }).share({ title: `formlære · ${nodeId}`, url });
-      return;
-    }
-    if (nav && nav.clipboard) {
-      await nav.clipboard.writeText(url);
-    }
-  } catch { /* user cancelled or unsupported */ }
-}
-
-function AudioControls({ 
-  isPlaying, 
-  togglePlay, 
-  skip, 
-  available, 
-  compact = false 
-}: { 
-  isPlaying: boolean; 
-  togglePlay: () => void; 
-  skip: (s: number) => void; 
-  available: boolean;
-  compact?: boolean;
-}) {
-  const iconSize = compact ? 20 : 22;
-  const playSize = compact ? 24 : 34;
-  
-  return (
-    <div className="flex items-center gap-0.5 md:gap-1">
-      <button
-        onClick={(e) => { e.stopPropagation(); skip(-10); }}
-        aria-label="Hopp 10s tilbake"
-        className="hover:text-black p-1 md:p-2 disabled:opacity-30 transition-colors"
-        disabled={!available}
-      >
-        <RotateCcwSquare size={iconSize} strokeWidth={1.75} />
-      </button>
-      <button
-        onClick={(e) => { e.stopPropagation(); skip(10); }}
-        aria-label="Hopp 10s fram"
-        className="hover:text-black p-1 md:p-2 disabled:opacity-30 transition-colors"
-        disabled={!available}
-      >
-        <RotateCwSquare size={iconSize} strokeWidth={1.75} />
-      </button>
-      <button
-        onClick={(e) => { e.stopPropagation(); togglePlay(); }}
-        aria-label={isPlaying ? 'Pause' : 'Spel'}
-        className="text-black p-1 md:p-2 ml-0.5 md:ml-3 disabled:opacity-30 transition-colors"
-        disabled={!available}
-      >
-        {isPlaying ? <Pause size={playSize} strokeWidth={1.75} fill="currentColor" /> : <Play size={playSize} strokeWidth={1.75} fill="currentColor" />}
-      </button>
-    </div>
-  );
-}
-
 export default function Home() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
@@ -274,12 +215,9 @@ export default function Home() {
     const initial = saved || (systemDark ? 'dark' : 'light');
     setTheme(initial);
 
-    // Sync with system live
     const mql = window.matchMedia('(prefers-color-scheme: dark)');
     const onChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('theme')) {
-        setTheme(e.matches ? 'dark' : 'light');
-      }
+      if (!localStorage.getItem('theme')) setTheme(e.matches ? 'dark' : 'light');
     };
     mql.addEventListener('change', onChange);
     return () => mql.removeEventListener('change', onChange);
@@ -299,7 +237,7 @@ export default function Home() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   
   // Audio State
-  const [currentAudioNodeId, setAudioNodeId] = useState<string>((traktatData as Proposition[])[0].id);
+  const [currentAudioNodeId, setAudioNodeId] = useState<string>('forord-0');
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [rateIdx, setRateIdx] = useState(0);
@@ -310,12 +248,55 @@ export default function Home() {
 
   const allNodesFlattened = useMemo(() => flattenAll(traktatData as Proposition[]), []);
 
+  const fullLinearSequence = useMemo(() => {
+    const seq: { id: string, type: 'forord' | 'etterord' | 'prop', text: string }[] = [];
+    let fp = 0;
+    foreord.blocks.forEach(b => {
+      if (b.type === 'paragraph') seq.push({ id: `forord-${fp++}`, type: 'forord', text: b.text });
+    });
+    allNodesFlattened.forEach(n => {
+      seq.push({ id: n.node.id, type: 'prop', text: n.node.text });
+    });
+    let ep = 0;
+    etterord.blocks.forEach(b => {
+      if (b.type === 'paragraph') seq.push({ id: `etterord-${ep++}`, type: 'etterord', text: b.text });
+    });
+    return seq;
+  }, [allNodesFlattened]);
+
+  const visibleLinearSequence = useMemo(() => {
+    const seq: { id: string, displayId: string, sectionId: string, isProp: boolean, depth: number }[] = [];
+    let fp = 0;
+    foreord.blocks.forEach(b => {
+      if (b.type === 'paragraph') {
+        seq.push({ id: `forord-${fp}`, displayId: `forord · §${fp + 1}`, sectionId: 'forord', isProp: false, depth: 0 });
+        fp++;
+      }
+    });
+    getVisibleNodes(traktatData as Proposition[], expandedIds).forEach(n => {
+      seq.push({ id: n.node.id, displayId: n.node.id, sectionId: n.node.id, isProp: true, depth: n.depth });
+    });
+    let ep = 0;
+    etterord.blocks.forEach(b => {
+      if (b.type === 'paragraph') {
+        seq.push({ id: `etterord-${ep}`, displayId: `etterord · §${ep + 1}`, sectionId: 'etterord', isProp: false, depth: 0 });
+        ep++;
+      }
+    });
+    return seq;
+  }, [expandedIds]);
+
   const currentAudioNode = useMemo(
     () => {
       if (!mounted) return null;
-      return allNodesFlattened.find(n => n.node.id === currentAudioNodeId)?.node ?? null;
+      const f = fullLinearSequence.find(n => n.id === currentAudioNodeId);
+      if (!f) return null;
+      if (f.type === 'prop') {
+        return allNodesFlattened.find(n => n.node.id === currentAudioNodeId)?.node ?? null;
+      }
+      return { id: f.id, text: f.text }; // mock node for audio URL
     },
-    [allNodesFlattened, currentAudioNodeId, mounted]
+    [allNodesFlattened, fullLinearSequence, currentAudioNodeId, mounted]
   );
 
   useEffect(() => {
@@ -355,11 +336,11 @@ export default function Home() {
   const onAudioEnded = useCallback(() => {
     wasPlayingRef.current = true;
     setIsPlaying(false);
-    const idx = allNodesFlattened.findIndex(n => n.node.id === currentAudioNodeId);
-    if (idx !== -1 && idx < allNodesFlattened.length - 1) {
-      setAudioNodeId(allNodesFlattened[idx + 1].node.id);
+    const idx = fullLinearSequence.findIndex(n => n.id === currentAudioNodeId);
+    if (idx !== -1 && idx < fullLinearSequence.length - 1) {
+      setAudioNodeId(fullLinearSequence[idx + 1].id);
     }
-  }, [allNodesFlattened, currentAudioNodeId]);
+  }, [fullLinearSequence, currentAudioNodeId]);
 
   const parentMap = useMemo(() => {
     const map = new Map<string, string | null>();
@@ -374,9 +355,10 @@ export default function Home() {
   }, [expandedIds]);
 
   const safeSelectedIndex = useMemo(() => {
-    const idx = visibleNodes.findIndex(n => n.node.id === selectedId);
-    return idx;
-  }, [visibleNodes, selectedId]);
+    const idx = visibleLinearSequence.findIndex(n => n.id === currentAudioNodeId);
+    return idx !== -1 ? idx : 0;
+  }, [visibleLinearSequence, currentAudioNodeId]);
+
   const toggleExpand = useCallback((id: string) => {
     setExpandedIds(prev => {
       const next = new Set(prev);
@@ -419,25 +401,24 @@ export default function Home() {
       slug = window.location.pathname.replace(/^\/+|\/+$/g, '');
     }
 
-    // Strip "traktat/" prefix if present to get the actual ID
     slug = slug.replace(/^traktat\//i, '');
     if (!slug || slug === 'traktat') slug = 'forord';
 
     const lower = slug.toLowerCase();
     if (lower === 'forord' || lower === 'føreord' || lower === 'foreord') {
       setSelectedId('forord');
+      setAudioNodeId('forord-0');
       requestAnimationFrame(() => foreordRef.current?.scrollIntoView({ block: 'start' }));
       return;
     }
     if (lower === 'etterord') {
       setSelectedId('etterord');
+      setAudioNodeId('etterord-0');
       requestAnimationFrame(() => etterordRef.current?.scrollIntoView({ block: 'start' }));
       return;
     }
     const found = allNodesFlattened.find(n => n.node.id === slug);
     if (found) {
-      // Expand the target's ancestors AND the target itself (so its children show as context),
-      // then select. The [selectedId] effect will scroll it into view.
       setExpandedIds(prev => {
         const next = new Set(prev);
         let p: string | null | undefined = found.node.id;
@@ -466,7 +447,7 @@ export default function Home() {
 
   const searchMatches = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-    if (q.length < 2) return [] as FlattenedNode[];
+    if (q.length < 2) return [] as { node: { id: string } }[];
     return allNodesFlattened.filter(n =>
       n.node.id.toLowerCase().includes(q) ||
       stripHtml(n.node.text).toLowerCase().includes(q)
@@ -476,6 +457,7 @@ export default function Home() {
   const jumpToMatch = useCallback((nodeId: string) => {
     expandAncestors(nodeId);
     setSelectedId(nodeId);
+    setAudioNodeId(nodeId);
   }, [expandAncestors]);
 
   useEffect(() => {
@@ -510,63 +492,91 @@ export default function Home() {
         return;
       }
 
-      const currentVisible = visibleNodes[safeSelectedIndex];
+      if (e.key.toLowerCase() === 'a') {
+        setExpandedIds(new Set(allNodesFlattened.filter(n => n.node.children && n.node.children.length > 0).map(n => n.node.id)));
+        return;
+      }
+
+      const currentVisible = visibleLinearSequence[safeSelectedIndex];
       if (!currentVisible) return;
 
       switch (e.key) {
         case 'ArrowDown': {
-          const next = visibleNodes[safeSelectedIndex + 1];
-          if (next) setSelectedId(next.node.id);
+          const next = visibleLinearSequence[safeSelectedIndex + 1];
+          if (next) {
+            setSelectedId(next.sectionId);
+            setAudioNodeId(next.id);
+          }
           break;
         }
         case 'ArrowUp': {
-          const prev = visibleNodes[safeSelectedIndex - 1];
-          if (prev) setSelectedId(prev.node.id);
+          const prev = visibleLinearSequence[safeSelectedIndex - 1];
+          if (prev) {
+            setSelectedId(prev.sectionId);
+            setAudioNodeId(prev.id);
+          }
           break;
         }
         case 'ArrowRight': {
-          if (currentVisible.node.children && currentVisible.node.children.length > 0) {
-            if (!expandedIds.has(currentVisible.node.id)) {
-              toggleExpand(currentVisible.node.id);
-            } else {
-              const next = visibleNodes[safeSelectedIndex + 1];
-              if (next) setSelectedId(next.node.id);
+          if (currentVisible.isProp) {
+            const propNode = allNodesFlattened.find(n => n.node.id === currentVisible.id);
+            if (propNode && propNode.node.children && propNode.node.children.length > 0) {
+              if (!expandedIds.has(propNode.node.id)) {
+                toggleExpand(propNode.node.id);
+              } else {
+                const next = visibleLinearSequence[safeSelectedIndex + 1];
+                if (next) {
+                  setSelectedId(next.sectionId);
+                  setAudioNodeId(next.id);
+                }
+              }
             }
           }
           break;
         }
         case 'ArrowLeft': {
-          if (expandedIds.has(currentVisible.node.id)) {
-            toggleExpand(currentVisible.node.id);
-          } else if (currentVisible.parentId) {
-            setSelectedId(currentVisible.parentId);
+          if (currentVisible.isProp) {
+            const propNode = allNodesFlattened.find(n => n.node.id === currentVisible.id);
+            if (propNode) {
+              if (expandedIds.has(propNode.node.id)) {
+                toggleExpand(propNode.node.id);
+              } else if (propNode.parentId) {
+                setSelectedId(propNode.parentId);
+                setAudioNodeId(propNode.parentId);
+              }
+            }
           }
           break;
         }
         case 'Enter':
         case ' ': {
-          if (currentVisible.node.children && currentVisible.node.children.length > 0) {
-            toggleExpand(currentVisible.node.id);
+          if (currentVisible.isProp) {
+            const propNode = allNodesFlattened.find(n => n.node.id === currentVisible.id);
+            if (propNode && propNode.node.children && propNode.node.children.length > 0) {
+              toggleExpand(propNode.node.id);
+            }
           }
           break;
         }
         case 'n':
         case 'N': {
-          const globalIdx = allNodesFlattened.findIndex(n => n.node.id === selectedId);
-          if (globalIdx !== -1 && globalIdx < allNodesFlattened.length - 1) {
-            const nextNode = allNodesFlattened[globalIdx + 1];
-            expandAncestors(nextNode.node.id);
-            setSelectedId(nextNode.node.id);
+          const globalIdx = fullLinearSequence.findIndex(n => n.id === currentAudioNodeId);
+          if (globalIdx !== -1 && globalIdx < fullLinearSequence.length - 1) {
+            const nextNode = fullLinearSequence[globalIdx + 1];
+            expandAncestors(nextNode.id);
+            setSelectedId(nextNode.type === 'prop' ? nextNode.id : nextNode.type);
+            setAudioNodeId(nextNode.id);
           }
           break;
         }
         case 'b':
         case 'B': {
-          const globalIdx = allNodesFlattened.findIndex(n => n.node.id === selectedId);
+          const globalIdx = fullLinearSequence.findIndex(n => n.id === currentAudioNodeId);
           if (globalIdx > 0) {
-            const prevNode = allNodesFlattened[globalIdx - 1];
-            expandAncestors(prevNode.node.id);
-            setSelectedId(prevNode.node.id);
+            const prevNode = fullLinearSequence[globalIdx - 1];
+            expandAncestors(prevNode.id);
+            setSelectedId(prevNode.type === 'prop' ? prevNode.id : prevNode.type);
+            setAudioNodeId(prevNode.id);
           }
           break;
         }
@@ -575,9 +585,8 @@ export default function Home() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [visibleNodes, safeSelectedIndex, expandedIds, toggleExpand, selectedId, allNodesFlattened, expandAncestors, searchOpen]);
+  }, [visibleLinearSequence, safeSelectedIndex, expandedIds, toggleExpand, currentAudioNodeId, allNodesFlattened, expandAncestors, searchOpen, fullLinearSequence]);
 
-  // Horizontal swipes only — vertical is reserved for native iOS scroll.
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -594,10 +603,7 @@ export default function Home() {
   };
 
   const selectedRef = useRef<HTMLDivElement>(null);
-  // Suppress programmatic scroll-into-view when the selection change came from the user's own scroll
-  // (IntersectionObserver) or a tap on a visible row.
   const suppressScrollRef = useRef(false);
-  // Track when we're scrolling programmatically.
   const programmaticScrollUntilRef = useRef(0);
   useEffect(() => {
     if (suppressScrollRef.current) {
@@ -608,30 +614,37 @@ export default function Home() {
       programmaticScrollUntilRef.current = Date.now() + 600;
       selectedRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
     }
-  }, [selectedId]);
-
-  const selectedNode = visibleNodes[safeSelectedIndex]?.node;
-  const currentRefIds = useMemo(
-    () => (selectedNode ? extractRefIds(selectedNode.text) : []),
-    [selectedNode]
-  );
-  const currentNotes = useMemo(
-    () => (selectedNode ? notes[selectedNode.id] ?? [] : []),
-    [selectedNode]
-  );
+  }, [currentAudioNodeId]);
 
   const [panel, setPanel] = useState<{ id: string; notes: Note[]; refIds: string[] } | null>(null);
   useEffect(() => {
-    if (selectedNode && (currentNotes.length > 0 || currentRefIds.length > 0)) {
-      setPanel({ id: selectedNode.id, notes: currentNotes, refIds: currentRefIds });
+    const pNode = allNodesFlattened.find(n => n.node.id === currentAudioNodeId)?.node;
+    if (pNode) {
+      const pNotes = notes[pNode.id] ?? [];
+      const pRefIds = extractRefIds(pNode.text);
+      if (pNotes.length > 0 || pRefIds.length > 0) {
+        setPanel({ id: pNode.id, notes: pNotes, refIds: pRefIds });
+        return;
+      }
+    } else {
+      const fNode = fullLinearSequence.find(n => n.id === currentAudioNodeId);
+      if (fNode) {
+        const pRefIds = extractRefIds(fNode.text);
+        if (pRefIds.length > 0) {
+          const displayId = fNode.type === 'forord' ? `forord · §${parseInt(fNode.id.split('-')[1]) + 1}` : `etterord · §${parseInt(fNode.id.split('-')[1]) + 1}`;
+          setPanel({ id: displayId, notes: [], refIds: pRefIds });
+          return;
+        }
+      }
     }
-  }, [selectedNode, currentNotes, currentRefIds]);
+    setPanel(null);
+  }, [currentAudioNodeId, allNodesFlattened, fullLinearSequence]);
 
-  const showBlockRefs = useCallback((id: string, text: string) => {
-    const refIds = extractRefIds(text);
-    if (refIds.length > 0) {
-      setPanel({ id, notes: [], refIds });
-    }
+  const showBlockRefs = useCallback((displayId: string, text: string, rawId: string) => {
+    const sectionId = displayId.split(' · ')[0];
+    setSelectedId(sectionId);
+    setAudioNodeId(rawId);
+    setPanelCollapsed(false);
   }, []);
 
   const [glossaryOpen, setGlossaryOpen] = useState(false);
@@ -890,100 +903,88 @@ export default function Home() {
       </div>
 
       <div
-        className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-black/10 pointer-events-auto flex flex-col ${
-          panelCollapsed ? 'h-10' : 'h-[26vh] md:h-auto md:max-h-[30vh]'
+        className={`fixed bottom-0 left-0 right-0 bg-[var(--panel-bg)] backdrop-blur-md border-t border-[var(--border-color)] pointer-events-auto flex flex-col transition-all duration-300 ${
+          panelCollapsed ? 'h-10' : 'h-[32vh] md:h-auto md:max-h-[38vh]'
         }`}
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
         <button
           onClick={() => setPanelCollapsed(v => !v)}
           aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-white border border-black/10 border-b-0 rounded-t px-3 py-0.5 text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
+          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-[var(--panel-bg)] border border-[var(--border-color)] border-b-0 rounded-t px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--text-dim)] hover:text-[var(--foreground)] transition-colors"
         >
           {panelCollapsed ? '▲' : '▼'}
         </button>
-        <div className="max-w-4xl mx-auto w-full px-6 md:px-16 pt-1.5 md:pt-3 pb-1 flex items-baseline justify-between gap-3">
+        
+        <div className="max-w-4xl mx-auto w-full px-6 md:px-16 pt-3 md:pt-5 pb-2 flex items-baseline justify-between gap-4">
           <button
             onClick={() => setPanelCollapsed(v => !v)}
             aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-            className="text-left flex items-baseline gap-1 md:gap-2"
+            className="text-left flex items-baseline gap-2 group"
           >
             {selectedId === 'forord' || selectedId === 'etterord' ? (
-              <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none lowercase">
+              <h2 className="text-2xl md:text-4xl font-serif font-black tracking-tighter text-[var(--foreground)] leading-none lowercase group-hover:opacity-80 transition-opacity">
                 {selectedId}
               </h2>
             ) : (
               <>
-                <h2 className="text-lg md:text-3xl font-serif font-bold tracking-tight text-black leading-none">proposisjon</h2>
+                <h2 className="text-2xl md:text-4xl font-serif font-black tracking-tighter text-[var(--foreground)] leading-none">proposisjon</h2>
                 {selectedNode && (
-                  <span className="font-mono text-xl md:text-4xl font-bold tabular-nums text-black leading-none">
+                  <span className="font-mono text-3xl md:text-5xl font-bold tabular-nums text-[var(--foreground)] leading-none ml-1">
                     {selectedNode.id}
                   </span>
                 )}
               </>
             )}
           </button>
-          <div className="flex items-baseline gap-3">
+          
+          <div className="flex items-center gap-3">
             {selectedNode && (
               <button
                 onClick={() => sharePropLink(selectedNode.id)}
                 aria-label="Del lenkje"
                 title="Del lenkje"
-                className="text-black/50 hover:text-black relative top-1 p-1 -m-1"
+                className="text-[var(--text-dim)] hover:text-[var(--foreground)] transition-colors"
               >
-                <ExternalLink size={28} strokeWidth={1.75} />
+                <ExternalLink size={20} strokeWidth={1.5} />
               </button>
-            )}
-            {panelCollapsed && mounted && currentAudioNode && (
-              <div className="ml-1 border-l border-black/10 pl-2">
-                <AudioControls 
-                  isPlaying={isPlaying} 
-                  togglePlay={togglePlay} 
-                  skip={audioSkip} 
-                  available={audioAvailable} 
-                  compact 
-                />
-              </div>
             )}
             <button
               onClick={() => setPanelCollapsed(v => !v)}
               aria-label={panelCollapsed ? 'Opne panel' : 'Lukk panel'}
-              className="text-[10px] font-mono uppercase tracking-wider text-gray-500 hover:text-black"
+              className="text-[10px] font-mono uppercase tracking-widest text-[var(--text-dim)] hover:text-[var(--foreground)] transition-colors ml-2"
             >
               {panelCollapsed ? '▲' : '▼'}
             </button>
           </div>
         </div>
+
         <div
           ref={panelRef}
-          className={`flex-1 min-h-0 max-w-4xl mx-auto w-full px-6 md:px-16 pt-1 pb-1 overflow-y-auto hide-scrollbar flex flex-col text-[13px] md:text-base ${panelCollapsed ? 'hidden' : ''}`}
+          className={`flex-1 min-h-0 max-w-4xl mx-auto w-full px-6 md:px-16 pb-2 overflow-y-auto hide-scrollbar flex flex-col text-[13px] md:text-base ${panelCollapsed ? 'hidden' : ''}`}
         >
           {activeTerm && ordliste[activeTerm] ? (
             <section>
-              <div className="flex items-baseline justify-end mb-1">
-                <button onClick={() => setActiveTerm(null)} className="text-gray-400 hover:text-black" aria-label="Lukk"><X size={14} /></button>
+              <div className="flex items-baseline justify-between mb-2">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-[var(--text-dim)]">Definisjon</span>
+                <button onClick={() => setActiveTerm(null)} className="text-[var(--text-dim)] hover:text-[var(--foreground)]"><X size={14} /></button>
               </div>
               <ul className="flex flex-col gap-2">
-                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
-                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">definisjon</span>
-                  <span>
-                    <b className="text-black">{ordliste[activeTerm].term}.</b> {ordliste[activeTerm].body}{' '}
-                    <button onClick={() => jumpToMatch(ordliste[activeTerm].ref)} className="text-gray-400 font-mono text-xs underline decoration-dotted hover:decoration-solid hover:text-black ml-1">[{ordliste[activeTerm].ref}]</button>
-                  </span>
+                <li className="font-serif text-[var(--foreground)] leading-relaxed">
+                  <b>{ordliste[activeTerm].term}.</b> {ordliste[activeTerm].body}{' '}
+                  <button onClick={() => jumpToMatch(ordliste[activeTerm].ref)} className="text-[var(--text-dim)] font-mono text-xs underline decoration-dotted hover:decoration-solid hover:text-[var(--foreground)] ml-1">[{ordliste[activeTerm].ref}]</button>
                 </li>
               </ul>
             </section>
           ) : activeStatus && statusDefs[activeStatus] ? (
             <section>
-              <div className="flex items-baseline justify-end mb-1">
-                <button onClick={() => setActiveStatus(null)} className="text-gray-400 hover:text-black" aria-label="Lukk"><X size={14} /></button>
+              <div className="flex items-baseline justify-between mb-2">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-[var(--text-dim)]">Status</span>
+                <button onClick={() => setActiveStatus(null)} className="text-[var(--text-dim)] hover:text-[var(--foreground)]"><X size={14} /></button>
               </div>
               <ul className="flex flex-col gap-2">
-                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
-                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">status</span>
-                  <span>
-                    <b className="text-black">{activeStatus.toUpperCase()} · {statusDefs[activeStatus].name}.</b> {statusDefs[activeStatus].body}
-                  </span>
+                <li className="font-serif text-[var(--foreground)] leading-relaxed">
+                  <b>{activeStatus.toUpperCase()} · {statusDefs[activeStatus].name}.</b> {statusDefs[activeStatus].body}
                 </li>
               </ul>
             </section>
@@ -991,13 +992,13 @@ export default function Home() {
             <>
               {panel.notes.length > 0 && (
                 <section>
-                  <ul className="flex flex-col gap-2">
+                  <ul className="flex flex-col gap-3">
                     {panel.notes.map((n, i) => (
-                      <li key={i} className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
-                        <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">
+                      <li key={i} className="flex flex-col gap-1">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-[var(--text-dim)]">
                           {n.label ?? (n.kind === 'falsifisering' ? 'falsifisering' : 'notat')}
                         </span>
-                        <span dangerouslySetInnerHTML={{ __html: n.text }} />
+                        <span className="font-serif text-[var(--foreground)] leading-relaxed" dangerouslySetInnerHTML={{ __html: n.text }} />
                       </li>
                     ))}
                   </ul>
@@ -1005,14 +1006,14 @@ export default function Home() {
               )}
 
               {panel.refIds.length > 0 && (
-                <section className="pt-3">
+                <section className="pt-4">
                   {panel.notes.length > 0 && (
-                    <hr className="border-t border-black/20 mb-3" />
+                    <hr className="border-t border-[var(--border-color)] mb-4" />
                   )}
-                  <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400 mb-2">
+                  <div className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-[var(--text-dim)] mb-3">
                     Referansar · {panel.id}
                   </div>
-                  <ol className="flex flex-col gap-1.5">
+                  <ol className="flex flex-col gap-2">
                     {panel.refIds.map((n) => {
                       const ref = references[n];
                       if (!ref) return null;
@@ -1025,9 +1026,9 @@ export default function Home() {
                         <li
                           key={n}
                           data-ref-id={n}
-                          className={`flex items-baseline gap-2 text-sm font-serif text-gray-700 leading-snug transition-colors duration-300 rounded -mx-1 px-1 ${highlightRef === n ? 'bg-yellow-100' : ''}`}
+                          className={`flex items-start gap-3 font-serif text-[var(--text-muted)] leading-relaxed transition-colors duration-300 rounded -mx-2 px-2 py-1 ${highlightRef === n ? 'bg-[var(--selection-bg)] text-[var(--foreground)]' : ''}`}
                         >
-                          <span className="tabular-nums text-gray-400 font-mono font-bold min-w-[1.5rem] text-right">
+                          <span className="tabular-nums text-[var(--text-dim)] font-mono font-bold text-xs mt-1 w-5 shrink-0 text-right">
                             {n}
                           </span>
                           <span dangerouslySetInnerHTML={{ __html: body }} />
@@ -1040,14 +1041,14 @@ export default function Home() {
             </>
           ) : (
             <section>
-              <ul className="flex flex-col gap-2">
-                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
-                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">nummer</span>
-                  <span>Desimaltala angjev logisk vekt. n.1, n.2 osb. er utdjupingar av n; n.m1, n.m2 av n.m, og so vidare.</span>
+              <ul className="flex flex-col gap-4">
+                <li className="flex flex-col gap-1">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-[var(--text-dim)]">nummer</span>
+                  <span className="font-serif text-[var(--text-muted)] leading-relaxed">Desimaltala angjev logisk vekt. n.1, n.2 osb. er utdjupingar av n; n.m1, n.m2 av n.m, og so vidare.</span>
                 </li>
-                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
-                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">status</span>
-                  <span>
+                <li className="flex flex-col gap-1">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-[var(--text-dim)]">status</span>
+                  <span className="font-serif text-[var(--text-muted)] leading-relaxed">
                     Kvar proposisjon har ein status:{' '}
                     <span data-status="d" className="cursor-pointer underline decoration-dotted hover:decoration-solid">d definisjon</span>,{' '}
                     <span data-status="a" className="cursor-pointer underline decoration-dotted hover:decoration-solid">a postulat</span>,{' '}
@@ -1056,35 +1057,37 @@ export default function Home() {
                     <span data-status="i" className="cursor-pointer underline decoration-dotted hover:decoration-solid">i illustrasjon</span>.
                   </span>
                 </li>
-                <li className="flex items-baseline gap-2 md:gap-3 text-sm md:text-base font-serif text-gray-800 leading-snug">
-                  <span className="text-[9px] md:text-[10px] text-gray-400 font-mono font-bold uppercase tracking-wider min-w-[4.5rem] md:min-w-[5.5rem] shrink-0">djupne</span>
-                  <span>Prikkar til høgre viser djupna: éin prikk = bladnode, fleire prikkar = under-proposisjonar finst. Pil ned på hovudnivå.</span>
-                </li>
               </ul>
             </section>
           )}
         </div>
+        
         {mounted && currentAudioNode && !panelCollapsed && (
-          <div className="border-t border-black/10 max-w-4xl mx-auto w-full px-6 md:px-16 py-1 md:py-2">
-            <div className="flex items-center text-black/70 w-full">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
-                  className="font-mono text-sm px-1 py-0.5 tabular-nums hover:text-black transition-colors"
-                  aria-label={`Hastigheit ${PLAYBACK_RATES[rateIdx]}×`}
-                  disabled={!audioAvailable}
-                >
-                  {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}×
-                </button>
-                <button
-                  onClick={toggleTheme}
-                  className="p-1 hover:text-black transition-colors"
-                  aria-label={theme === 'dark' ? 'Byt til lyst tema' : 'Byt til mørkt tema'}
-                >
-                  {theme === 'dark' ? <Sun size={18} strokeWidth={1.75} /> : <Moon size={18} strokeWidth={1.75} />}
-                </button>
+          <div className="border-t border-[var(--border-color)] w-full">
+            <div className="max-w-4xl mx-auto px-6 md:px-16 py-2 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-8 h-8 rounded-full bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center font-serif italic text-xs">
+                  N
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setRateIdx((rateIdx + 1) % PLAYBACK_RATES.length)}
+                    className="font-mono text-xs tracking-wider uppercase px-2 py-1 rounded hover:bg-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors"
+                    aria-label={`Hastigheit ${PLAYBACK_RATES[rateIdx]}×`}
+                    disabled={!audioAvailable}
+                  >
+                    {PLAYBACK_RATES[rateIdx].toFixed(PLAYBACK_RATES[rateIdx] % 1 === 0 ? 1 : 2)}x
+                  </button>
+                  <button
+                    onClick={toggleTheme}
+                    className="p-1.5 text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors rounded-full hover:bg-[var(--border-color)]"
+                    aria-label={theme === 'dark' ? 'Byt til lyst tema' : 'Byt til mørkt tema'}
+                  >
+                    {theme === 'dark' ? <Sun size={16} strokeWidth={2} /> : <Moon size={16} strokeWidth={2} />}
+                  </button>
+                </div>
               </div>
-              <div className="flex-1" />
+              
               <AudioControls 
                 isPlaying={isPlaying} 
                 togglePlay={togglePlay} 
