@@ -1,0 +1,1 @@
+<iframe src="https://claude.site/public/artifacts/45d53afc-004d-4193-b9a0-703ee05f65e5/embed" title="index.html" width="100%" height="600" frameborder="0" allow="clipboard-write" allowfullscreen></iframe>

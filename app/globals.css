@@ -7,25 +7,25 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #000000;
-  --text-muted: #6b7280;
-  --text-dim: #9ca3af;
-  --border-color: rgba(0, 0, 0, 0.1);
-  --border-active: rgba(0, 0, 0, 1);
-  --panel-bg: rgba(255, 255, 255, 0.95);
-  --selection-bg: #fef9c3;
+  --background: #F5F2EA;
+  --foreground: #3C2A21;
+  --text-muted: #5C4B43;
+  --text-dim: #8B7E74;
+  --border-color: rgba(60, 42, 33, 0.1);
+  --border-active: rgba(60, 42, 33, 1);
+  --panel-bg: rgba(245, 242, 234, 0.95);
+  --selection-bg: #EAE3D2;
 }
 
 [data-theme='dark'] {
-  --background: #121212;
-  --foreground: #e5e5e5;
-  --text-muted: #a3a3a3;
-  --text-dim: #737373;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-active: rgba(255, 255, 255, 0.8);
-  --panel-bg: rgba(18, 18, 18, 0.95);
-  --selection-bg: #3f3f17;
+  --background: #1A120B;
+  --foreground: #D5CEA3;
+  --text-muted: #B4B4B4;
+  --text-dim: #7C7C7C;
+  --border-color: rgba(213, 206, 163, 0.1);
+  --border-active: rgba(213, 206, 163, 0.8);
+  --panel-bg: rgba(26, 18, 11, 0.95);
+  --selection-bg: #3C2A21;
 }
 
 [data-theme='dark'] img {

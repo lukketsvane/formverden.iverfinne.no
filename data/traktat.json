@@ -336,7 +336,7 @@
               {
                 "id": "2.131",
                 "status": "t",
-                "text": "Omgrepet «suboptimal» føreset ein referanse. Utan eit spesifikt trykksett er det ikkje falsifiserbart.",
+                "text": "Omgrepet «suboptimal» føreset ein referanse. Utan eit spesifikt trykksett er det tomt.",
                 "children": []
               }
             ]
@@ -549,7 +549,7 @@
               {
                 "id": "5.111",
                 "status": "t",
-                "text": "Definisjonen er substrat-uavhengig. Eit kvart system som oppfyller vilkåra er ein agent. <img src=\"/agent.png\" alt=\"Agent definisjon\" class=\"mt-4 max-w-full\" />",
+                "text": "Definisjonen er substrat-uavhengig. Eit kvart system som oppfyller vilkåra er ein agent.<sup class=\"footnote-ref\">88, 89</sup> <img src=\"/agent.png\" alt=\"Agent definisjon\" class=\"mt-4 max-w-full\" />",
                 "children": []
               }
             ]
@@ -615,7 +615,7 @@
       {
         "id": "5.2",
         "status": "d",
-        "text": "<b>Kognitiv lyskjegle</b> er delmengda av formrommet agenten kan representere og manipulere. Alt utanfor lyskjegla manglar kausal eksistens for agenten. Lyskjegler spenner frå cellulær millisekundrespons til tiårslang konsensus.<sup class=\"footnote-ref\">21</sup>",
+        "text": "<b>Kognitiv lyskjegle</b> er delmengda av formrommet agenten kan representere og manipulere. Alt utanfor lyskjegla manglar kausal eksistens for agenten. Lyskjegler spenner frå cellulær millisekundrespons til tiårslang konsensus.<sup class=\"footnote-ref\">21, 85, 90</sup>",
         "children": [
           {
             "id": "5.21",
@@ -667,12 +667,12 @@
       {
         "id": "5.4",
         "status": "d",
-        "text": "Substratet fungerer som ein <i>null-ordens agent</i>. Det vetoar konfigurasjonar og gjev resonans til andre gjennom ufravikelege avgrensingar.<sup class=\"footnote-ref\">26, 81</sup>",
+        "text": "Substratet fungerer som ein <i>null-ordens agent</i>. Det vetoar konfigurasjonar og gjev resonans til andre gjennom ufravikelege avgrensingar.<sup class=\"footnote-ref\">26, 81, 92, 93</sup>",
         "children": [
           {
             "id": "5.41",
             "status": "i",
-            "text": "Biologisk vev navigerer via bioelektrisk polarisering; menneskeleg praksis via materiell friksjon; ein slimsopp via oscillerande samandragingar; ein språkmodell via vektoriell merksemd.<sup class=\"footnote-ref\">22, 24</sup>",
+            "text": "Biologisk vev navigerer via bioelektrisk polarisering; menneskeleg praksis via materiell friksjon; ein slimsopp via oscillerande samandragingar; ein språkmodell via vektoriell merksemd.<sup class=\"footnote-ref\">22, 24, 85</sup>",
             "children": []
           }
         ]
@@ -703,7 +703,7 @@
           {
             "id": "5.62",
             "status": "d",
-            "text": "Kompetanse er evna til å navigere mot stabile posisjonar i landskapet. Kompetansen veks med omhugen. Intelligens er denne kompetansen; omhug er intelligensens innhald.<sup class=\"footnote-ref\">23</sup>",
+            "text": "Kompetanse er evna til å navigere mot stabile posisjonar i landskapet. Kompetansen veks med omhugen. Intelligens er denne kompetansen; omhug er intelligensens innhald.<sup class=\"footnote-ref\">23, 86, 91</sup>",
             "children": []
           },
           {
@@ -747,6 +747,12 @@
         "children": []
       },
       {
+        "id": "5.65",
+        "status": "d",
+        "text": "<b>Liv</b> er den prosessen der eit system opprettheld og utvidar si eiga lyskjegle over tid.<sup class=\"footnote-ref\">85, 89</sup>",
+        "children": []
+      },
+      {
         "id": "5.71",
         "status": "o",
         "text": "Likninga er eit strukturelt skjema. Ho namngjev komponentane som er naudsynte og saman tilstrekkelege. Ho spesifiserer ikkje den funksjonelle forma til L, kva reglar i R som fyrer, eller dimensjonaliteten av C(A).",
@@ -756,6 +762,48 @@
         "id": "5.72",
         "status": "t",
         "text": "<b>Reduksjon.</b> Likninga reduserer til to grensetilfelle:<sup class=\"footnote-ref\">11, 17</sup>",
+        "children": []
+      },
+      {
+        "id": "5.212",
+        "status": "d",
+        "text": "Ei form er i lyskjegla dersom det finst ei handlingsregel slik at informasjonstapet mellom det agenten observerer og det agenten predikerer internt, er under ein terskel \\(\\varepsilon\\).<sup class=\"footnote-ref\">86</sup>",
+        "children": []
+      },
+      {
+        "id": "5.213",
+        "status": "t",
+        "text": "Informasjonstapet er eit mål på uvissa introdusert når agentens interne modell vert brukt til å representere observasjonane.",
+        "children": []
+      },
+      {
+        "id": "5.401",
+        "status": "t",
+        "text": "Substratet har to lag: strukturparametrar (den initiale konfigurasjonen) og funksjonsparametrar (kompetansereglane som opererer på konfigurasjonen). Under støy akselererer funksjonsparametra navigasjonen i formrommet.<sup class=\"footnote-ref\">92</sup>",
+        "children": []
+      },
+      {
+        "id": "5.621",
+        "status": "d",
+        "text": "Kompetanse er kvantifiserbar. Søkeeffektiviteten \\(K = \\log_{10}(\\tau_{\\mathrm{blind}} / \\tau_{\\mathrm{agent}})\\) er talet på storleiksordnar av arbeid agentens politikk sparar relativt til tilfeldig vandring. \\(K = 0\\) er fråvær av navigasjon; \\(K > 0\\) er kompetanse.<sup class=\"footnote-ref\">86</sup>",
+        "children": []
+      },
+      {
+        "id": "5.651",
+        "status": "t",
+        "text": "Eit system er levande i den grad det aktivt motverkar reduksjon av lyskjegla.",
+        "children": []
+      },
+      {
+        "id": "5.652",
+        "status": "t",
+        "text": "Død er den irreversible kollapsen av lyskjegla til det tomme.",
+        "children": []
+      },
+      {
+        "id": "5.653",
+        "status": "t",
+        "text": "Grensa mellom levande og ikkje-levande er ikkje ontologisk. Alle persistente system minimerer variasjonell fri energi og er formelt Bayesianske aktørar. Skilnaden er i grad, ikkje i slag.<sup class=\"footnote-ref\">89</sup>",
         "children": []
       },
       {
@@ -804,7 +852,7 @@
           {
             "id": "6.12",
             "status": "t",
-            "text": "Agens er <i>multiskalar</i>. Kvar skala har sin eigen kompetanse og si eiga lyskjegle. Formproduksjon er distribuert C↔K-ekspansjon utført av grammatikkoperasjonar over kompetanseskalaer.<sup class=\"footnote-ref\">22, 67</sup>",
+            "text": "Agens er <i>multiskalar</i>. Kvar skala har sin eigen kompetanse og si eiga lyskjegle. Formproduksjon er distribuert C↔K-ekspansjon utført av grammatikkoperasjonar over kompetanseskalaer.<sup class=\"footnote-ref\">22, 67, 85, 87</sup>",
             "children": []
           },
           {
@@ -816,15 +864,27 @@
           {
             "id": "6.14",
             "status": "t",
-            "text": "Designaren er aldri åleine i landskapet. Ho navigerer i eit felt av konkurrerande agens frå mikrobielt vev til marknadskrefter. Kompetansen hennar ligg i å koordinere uavhengige lyskjegler til eit stabilt form-optimum.<sup class=\"footnote-ref\">66, 67</sup>",
+            "text": "Designaren er aldri åleine i landskapet. Ho navigerer i eit felt av konkurrerande agens frå mikrobielt vev til marknadskrefter. Kompetansen hennar ligg i å koordinere uavhengige lyskjegler til eit stabilt form-optimum.<sup class=\"footnote-ref\">66, 67, 93</sup>",
             "children": []
           }
         ]
       },
       {
+        "id": "6.01",
+        "status": "d",
+        "text": "Ein <b>formgjevar</b> er ein agent som navigerer formrommet. Cella, bia, treet, handverkaren og ingeniøren er formgjevarar; det er substratet til agensen som varierer, ikkje strukturen.",
+        "children": []
+      },
+      {
         "id": "6.2",
         "status": "o",
         "text": "Tett samanbinding etablerer globale tilbakekoplingssløyfer; heilskapen vert sjølv ein agent.<sup class=\"footnote-ref\">66</sup>",
+        "children": []
+      },
+      {
+        "id": "6.02",
+        "status": "d",
+        "text": "Ein <b>designar</b> er ein formgjevar vis måltilstand inkluderer målsetningane til agentar som sjølv ikkje har tilgang til navigasjonsrommet. Differentia specifica er den stilte tilliten; designaren navigerer på vegne av andre som vil leve med forma.",
         "children": []
       },
       {
@@ -863,6 +923,24 @@
         "id": "6.5",
         "status": "t",
         "text": "Inga form er endeleg. Kvar balanse vert med tida suboptimal. Berre den generative strukturen varer; formrom, trykk, landskap, agentar. Formene er flyktige spor; grammatikken er stabil.<sup class=\"footnote-ref\">60, 61</sup>",
+        "children": []
+      },
+      {
+        "id": "6.021",
+        "status": "t",
+        "text": "Alle designarar er formgjevarar. Ikkje alle formgjevarar er designarar. Cella navigerer på sine eigne vegner innanfor sin eigen lyskjegle; ho representerer ikkje sine framtidige brukarar fordi ho ikkje har slike. Designaren gjer nettopp det.",
+        "children": []
+      },
+      {
+        "id": "6.022",
+        "status": "t",
+        "text": "Designaren har kapasitet til å nekte navigasjonen. Andre formgjevarar har ikkje slik kapasitet; cella byggjer det ho byggjer, treet veks der det veks. Ansvaret følgjer av asymmetrien i valfridom, ikkje av ein asymmetri i innsikt.",
+        "children": []
+      },
+      {
+        "id": "6.121",
+        "status": "t",
+        "text": "Evolusjonære overgangar i individualitet er den biologiske mekanismen for skalasprang. Djup interaksjonsstruktur; ikkje symmetrisk samspel; er vilkåret for at eit system av agentar vert éin agent.<sup class=\"footnote-ref\">87</sup>",
         "children": []
       }
     ]
@@ -906,7 +984,7 @@
       {
         "id": "7.2",
         "status": "a",
-        "text": "Dersom designaren kunne ha representert fleire aksar men valde å ikkje gjere det, er dei resulterande sviktane tilskrivbare det valet.<sup class=\"footnote-ref\">68, 69</sup>",
+        "text": "Å utvide lyskjegla er ei etisk handling. Å snevra ho er å overlevere delar av formverda til krefter ingen representerer.<sup class=\"footnote-ref\">68, 90</sup>",
         "children": [
           {
             "id": "7.21",
@@ -956,6 +1034,67 @@
         "id": "7.153",
         "status": "t",
         "text": "Sviktsignaturen er difor ikkje ein empirisk bonus; han er prøvesteinen på at teorien faktisk forklarar form. Ein teori som ikkje predikerer sviktsignatur forklarer ikkje form; ho katalogiserer han.",
+        "children": []
+      },
+      {
+        "id": "7.201",
+        "status": "t",
+        "text": "Konsekvensane er borna av dei som lever med forma, ikkje av den som formgav ho.",
+        "children": []
+      },
+      {
+        "id": "7.202",
+        "status": "a",
+        "text": "Dersom designaren kunne ha representert fleire aksar men valde å ikkje gjere det, er dei resulterande sviktane tilskrivbare det valet.<sup class=\"footnote-ref\">68, 69</sup>",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "status": "",
+    "text": "Forma er ei sannsynsfordeling over formrommet.",
+    "children": [
+      {
+        "id": "8.1",
+        "status": "d",
+        "text": "Den <b>generative modellen</b> for ei form F realisert av agentar \\{A\\textsubscript{i}\\} som navigerer i eit landskap L med grammatikk SG er:<sup class=\"footnote-ref\">86, 89</sup>",
+        "children": []
+      },
+      {
+        "id": "8.2",
+        "status": "t",
+        "text": "Modellen sameinar tre komponentar: grammatikk (moglegheitsrommet \\(L(\\mathrm{SG})\\)), landskap (preferansen \\(\\hat{L}_i\\)) og lyskjegle (representasjonen \\(C(A_i)\\)).",
+        "children": []
+      },
+      {
+        "id": "8.3",
+        "status": "t",
+        "text": "Grensetilfella til modellen er:<sup class=\"footnote-ref\">92</sup>",
+        "children": []
+      },
+      {
+        "id": "8.11",
+        "status": "t",
+        "text": "\\(\\hat{L}_i\\) er agent \\(i\\) sitt estimat av tilpassingslandskapet. \\(w_i \\geq 0\\) er agentens relative innverknad med \\(\\sum_i w_i = 1\\).",
+        "children": []
+      },
+      {
+        "id": "8.12",
+        "status": "t",
+        "text": "Proporsjonalitetskonstanten følgjer av kravet om at P summerer til éin over domenet \\(L(\\mathrm{SG}) \\cap (\\bigcap_i C(A_i))\\).",
+        "children": []
+      },
+      {
+        "id": "8.21",
+        "status": "t",
+        "text": "Dei tre komponentane er ikkje uavhengige. Lyskjegla avgrensar kva del av grammatikkens språk som er tilgjengeleg. Landskapet avgrensar kva del av det tilgjengelege som er sannsynleg.",
+        "children": []
+      },
+      {
+        "id": "8.31",
+        "status": "t",
+        "text": "Formlære er ikkje eit alternativ til formgrammatikk-teorien eller tanke–kunnskapsteorien. Det er ei sameining som viser deira plass som degenererte grensetilfelle av proposisjon 8.1.",
         "children": []
       }
     ]
