@@ -23,10 +23,9 @@ export default function Home() {
             <span className="italic">tilpassing.</span>
           </h1>
           <p className="text-xl md:text-3xl font-serif leading-tight max-w-2xl text-[var(--text-muted)]">
-            Ikkje funksjon. Funksjon er éi av fem krefter som verkar på forma. 
+            Ikkje funksjon. Å rekne funksjon som ei eiga kraft er gamaldags og baklengs.
             Her samlar me teorien, empirien og verktøya for å tenkje om form på nytt.
-          </p>
-        </section>
+          </p>        </section>
 
         {/* Navigation Sections */}
         <section className="border-t border-[var(--border-color)] pt-12">
