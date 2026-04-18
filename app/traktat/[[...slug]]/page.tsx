@@ -311,11 +311,15 @@ export default function Home() {
   const allNodesFlattened = useMemo(() => flattenAll(traktatData as Proposition[]), []);
 
   const currentAudioNode = useMemo(
-    () => allNodesFlattened.find(n => n.node.id === currentAudioNodeId)?.node ?? null,
-    [allNodesFlattened, currentAudioNodeId]
+    () => {
+      if (!mounted) return null;
+      return allNodesFlattened.find(n => n.node.id === currentAudioNodeId)?.node ?? null;
+    },
+    [allNodesFlattened, currentAudioNodeId, mounted]
   );
 
   useEffect(() => {
+    if (!mounted) return;
     setAudioAvailable(true);
     const el = audioRef.current;
     if (!el) return;
@@ -325,7 +329,7 @@ export default function Home() {
     } else {
       setIsPlaying(false);
     }
-  }, [currentAudioNodeId, rateIdx]);
+  }, [currentAudioNodeId, rateIdx, mounted]);
 
   const togglePlay = useCallback(() => {
     const el = audioRef.current;
@@ -593,7 +597,7 @@ export default function Home() {
   // Suppress programmatic scroll-into-view when the selection change came from the user's own scroll
   // (IntersectionObserver) or a tap on a visible row.
   const suppressScrollRef = useRef(false);
-  // Track when we're scrolling programmatically so the IntersectionObserver doesn't fight back.
+  // Track when we're scrolling programmatically.
   const programmaticScrollUntilRef = useRef(0);
   useEffect(() => {
     if (suppressScrollRef.current) {
@@ -605,42 +609,6 @@ export default function Home() {
       selectedRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
     }
   }, [selectedId]);
-
-  // Scroll-driven panel updates: as the user reads, update the selected node so the
-  // notes/references panel follows along. Suppress while we're programmatically scrolling.
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const root = scrollContainerRef.current;
-    if (!root) return;
-    if (typeof IntersectionObserver === 'undefined') return;
-
-    const visibleMap = new Map<string, IntersectionObserverEntry>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (Date.now() < programmaticScrollUntilRef.current) return;
-        entries.forEach(e => {
-          const id = (e.target as HTMLElement).dataset.pid;
-          if (id) visibleMap.set(id, e);
-        });
-        let topId: string | null = null;
-        let topY = Infinity;
-        visibleMap.forEach((e, id) => {
-          if (e.isIntersecting) {
-            const y = e.boundingClientRect.top;
-            if (y < topY && y >= 0) { topY = y; topId = id; }
-          }
-        });
-        if (topId && topId !== selectedId) {
-          suppressScrollRef.current = true;
-          setSelectedId(topId);
-        }
-      },
-      { root, rootMargin: '-25% 0px -55% 0px', threshold: [0, 0.25, 0.75, 1] }
-    );
-    const els = root.querySelectorAll<HTMLElement>('[data-pid]');
-    els.forEach(el => io.observe(el));
-    return () => io.disconnect();
-  }, [visibleNodes, selectedId]);
 
   const selectedNode = visibleNodes[safeSelectedIndex]?.node;
   const currentRefIds = useMemo(
@@ -779,7 +747,6 @@ export default function Home() {
       onTouchEnd={handleTouchEnd}
     >
       <div
-        ref={scrollContainerRef}
         className="reader-scroll h-full w-full overflow-y-auto hide-scrollbar p-4 md:p-16 max-w-4xl mx-auto pb-[30vh] md:pb-[34vh]"
         onClick={handleContentClick}
         onMouseMove={handleContentMouseMove}

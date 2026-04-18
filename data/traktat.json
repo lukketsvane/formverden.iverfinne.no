@@ -94,6 +94,12 @@
                 "status": "t",
                 "text": "To konfigurasjonar med same objekt men ulik struktur er ulike former.",
                 "children": []
+              },
+              {
+                "id": "1.2141",
+                "status": "t",
+                "text": "To konfigurasjonar med ulike objekt men same struktur deler form.",
+                "children": []
               }
             ]
           },
@@ -257,12 +263,6 @@
         "id": "1.444",
         "status": "t",
         "text": "Operasjonane mellom C og K spenner ut fire retningar:",
-        "children": []
-      },
-      {
-        "id": "1.2141",
-        "status": "t",
-        "text": "To konfigurasjonar med ulike objekt men same struktur deler form.",
         "children": []
       }
     ]

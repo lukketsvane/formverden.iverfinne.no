@@ -36,12 +36,11 @@
   html, body {
     background-color: var(--background);
     color: var(--foreground);
-    @apply antialiased overflow-hidden transition-colors duration-300;
-    height: 100vh;
-    height: 100dvh;
+    @apply antialiased transition-colors duration-300;
+    min-height: 100%;
     width: 100vw;
-    /* Disable iOS overscroll bounce that competes with the inner reader scroll. */
-    overscroll-behavior: none;
+    /* Allow native overscroll bounce but keep it controlled. */
+    overscroll-behavior-y: auto;
     -webkit-text-size-adjust: 100%;
   }
 }
