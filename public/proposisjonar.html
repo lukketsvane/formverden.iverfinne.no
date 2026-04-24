@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proposisjonar — Formlære</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 18px; line-height: 1.55;
+    color: #111; background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+  :root {
+    --ink: #111; --ink-soft: #555; --ink-mute: #888;
+    --rule-soft: #ddd;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    --pad: 32px;
+  }
+  a { color: inherit; border-bottom: 1px solid #bbb; text-decoration: none; }
+  a:hover { border-bottom-color: #111; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255,255,255,.96); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule-soft);
+    padding: 14px var(--pad);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 14px;
+  }
+  .topbar__left { font-weight: 600; letter-spacing: .02em; }
+  .topbar__right { display: flex; gap: 20px; }
+  .topbar__right button, .topbar__right a {
+    font-size: 13px; letter-spacing: .08em; text-transform: lowercase;
+    color: var(--ink-soft); border-bottom: 1px solid transparent;
+  }
+  .topbar__right button:hover, .topbar__right a:hover { color: #111; border-bottom-color: #111; }
+  .topbar__right a { border-bottom: 1px solid var(--ink-soft); }
+
+  /* Hero */
+  .hero {
+    max-width: 880px; margin: 0 auto;
+    padding: 100px var(--pad) 60px;
+  }
+  .hero__kicker {
+    font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 30px;
+  }
+  .hero__title {
+    font-size: clamp(60px, 11vw, 140px); line-height: .95;
+    letter-spacing: -.02em; font-weight: 500;
+    margin: 0 0 20px;
+  }
+  .hero__sub {
+    font-size: clamp(20px, 2.6vw, 28px); font-style: italic;
+    max-width: 640px; line-height: 1.3; margin: 0 0 40px;
+    text-wrap: balance;
+  }
+  .hero__desc {
+    max-width: 580px; font-size: 17px; line-height: 1.6;
+    color: var(--ink);
+    padding-top: 18px; border-top: 1px solid #111;
+  }
+  .hero__desc p { margin: 0 0 12px; }
+  .hero__legend {
+    margin-top: 30px;
+    display: flex; flex-wrap: wrap; gap: 16px 28px;
+    font-size: 13px; color: var(--ink-soft);
+  }
+  .hero__legend .ltag {
+    font-family: var(--mono); font-size: 11px;
+    display: inline-block; width: 18px;
+    color: #111; font-weight: 500;
+  }
+
+  /* Chapter */
+  .chap {
+    max-width: 880px; margin: 0 auto;
+    padding: 70px var(--pad) 30px;
+  }
+  .chap__head { border-top: 1px solid #111; padding-top: 20px; margin-bottom: 40px; }
+  .chap__num {
+    font-family: var(--mono); font-size: 12px;
+    letter-spacing: .12em; color: var(--ink-soft); margin-bottom: 12px;
+  }
+  .chap__main {
+    font-size: clamp(32px, 4.5vw, 48px); font-weight: 500;
+    line-height: 1.1; letter-spacing: -.01em;
+    margin: 0; text-wrap: balance;
+  }
+
+  /* Proposition tree */
+  .props { list-style: none; padding: 0; margin: 0; }
+  .prop {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    display: grid;
+    grid-template-columns: 58px 20px 1fr;
+    gap: 16px; align-items: baseline;
+    transition: background .15s;
+  }
+  .prop:hover { background: #fafafa; }
+  .prop__num {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--ink); letter-spacing: .02em;
+    font-variant-numeric: tabular-nums;
+    padding-top: 2px;
+  }
+  .prop__tag {
+    font-family: var(--mono); font-size: 10px;
+    color: var(--ink-mute); text-transform: uppercase;
+    letter-spacing: .1em; padding-top: 3px;
+  }
+  .prop__text {
+    font-size: 17px; line-height: 1.55; color: var(--ink);
+    text-wrap: pretty;
+  }
+  .prop__text strong { font-weight: 600; }
+  .prop__cont {
+    margin-top: 8px; font-size: 15px; line-height: 1.55;
+    color: var(--ink-soft); font-style: italic;
+    padding-left: 14px; border-left: 1px solid var(--rule-soft);
+  }
+
+  /* Depth shading — more indent for deeper nums */
+  .prop[data-depth="2"] .prop__num { color: var(--ink-soft); }
+  .prop[data-depth="3"] { padding-left: 28px; }
+  .prop[data-depth="3"] .prop__num { color: var(--ink-soft); font-size: 12px; }
+  .prop[data-depth="3"] .prop__text { font-size: 15.5px; color: #222; }
+  .prop[data-depth="4"] { padding-left: 56px; }
+  .prop[data-depth="4"] .prop__num { color: var(--ink-mute); font-size: 11px; }
+  .prop[data-depth="4"] .prop__text { font-size: 14.5px; color: #333; }
+
+  /* Main-level: larger */
+  .prop[data-depth="1"] { padding: 22px 0; border-top: 1px solid #111; border-bottom-width: 0; margin-top: 28px; }
+  .prop[data-depth="1"] .prop__num { font-size: 16px; font-weight: 500; }
+  .prop[data-depth="1"] .prop__text { font-size: 22px; font-style: italic; line-height: 1.35; font-family: "EB Garamond", serif; }
+
+  /* Collapse toggle */
+  .prop.has-children > .prop__num::after {
+    content: "+"; display: inline-block; margin-left: 6px;
+    color: var(--ink-mute); font-family: var(--mono); font-size: 11px;
+    transition: transform .2s;
+  }
+  .prop.has-children.is-open > .prop__num::after { content: "−"; }
+  .prop__num-btn {
+    display: inline-block; cursor: pointer;
+    font-family: var(--mono); font-size: inherit;
+    color: inherit; letter-spacing: inherit;
+  }
+  .prop__num-btn:hover { color: #000; }
+
+  /* Child collapse */
+  .prop[data-parent].is-hidden { display: none; }
+
+  /* Type-tag color coding (subtle) */
+  .tag-d { color: #222 !important; font-weight: 500; }
+  .tag-a { color: #222 !important; font-weight: 500; }
+  .tag-t { color: var(--ink-mute); }
+  .tag-o { color: var(--ink-mute); }
+  .tag-i { color: var(--ink-mute); font-style: italic; }
+
+  /* Table within prop text */
+  /* Reference superscripts in prop text */
+  .prop__refs { color: var(--ink-mute); font-size: .72em; vertical-align: super; line-height: 0; margin-left: 1px; letter-spacing: .02em; }
+  .prop__refs a { color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor; cursor: pointer; }
+  .prop__refs a:hover { color: #c44; }
+
+  /* Notat-blokker */
+  .prop__note {
+    display: none;
+    margin-top: 10px; padding: 12px 14px 12px 16px;
+    border-left: 2px solid #bbb;
+    background: #f7f4ec;
+    font-size: 13.5px; line-height: 1.55; color: #333;
+    font-family: "EB Garamond", serif;
+  }
+  .prop__note p { margin: 0 0 8px 0; }
+  .prop__note p:last-child { margin-bottom: 0; }
+  .prop.note-open .prop__note { display: block; }
+  .prop__note-toggle {
+    display: inline-block; margin-left: 6px;
+    background: none; padding: 2px 6px;
+    font: 10px/1 "Inter", system-ui, sans-serif;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-mute); cursor: pointer;
+    border: 1px solid #ccc; border-radius: 2px;
+    vertical-align: middle;
+  }
+  .prop__note-toggle:hover { color: var(--ink); border-color: #888; }
+  .prop.note-open .prop__note-toggle { color: var(--ink); border-color: #666; background: #eee; }
+
+  /* Reference popover (click on superscript) */
+  .refpop {
+    position: fixed; z-index: 1000; max-width: 440px;
+    background: #fff; border: 1px solid #111; border-radius: 2px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.18);
+    padding: 14px 16px; font-size: 13px; line-height: 1.5;
+    font-family: "EB Garamond", serif; color: var(--ink);
+  }
+  .refpop__num { display: inline-block; font-family: "Inter", sans-serif; font-size: 10px; letter-spacing: .1em; color: var(--ink-mute); margin-bottom: 6px; }
+  .refpop__body em { font-style: italic; }
+
+  .prop__text table { border-collapse: collapse; margin: 10px 0; font-size: 14px; }
+  .prop__text th, .prop__text td { padding: 6px 12px 6px 0; text-align: left; vertical-align: top; }
+  .prop__text th { border-bottom: 1px solid #111; font-weight: 500; }
+
+  /* Chapter index (side dock) */
+  .dock {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    right: 20px; z-index: 30;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .dock button {
+    display: block; padding: 8px 10px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+    color: var(--ink-mute); text-align: right;
+    border-right: 1px solid var(--rule-soft);
+    transition: color .2s, border-color .2s, padding .2s;
+  }
+  .dock button:hover, .dock button.is-active {
+    color: #111; border-right-color: #111; padding-right: 14px;
+  }
+  @media (max-width: 900px) { .dock { display: none; } }
+
+  /* Controls */
+  .controls {
+    position: sticky; top: 50px;
+    background: #fff; z-index: 10;
+    padding: 12px var(--pad);
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex; gap: 20px; align-items: center;
+    font-size: 13px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .controls__group { display: flex; gap: 10px; align-items: center; }
+  .controls label { color: var(--ink-soft); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  .controls button.cbtn {
+    font-size: 12px; letter-spacing: .08em; text-transform: lowercase;
+    color: var(--ink-soft); border-bottom: 1px solid var(--rule-soft);
+    padding-bottom: 2px;
+  }
+  .controls button.cbtn:hover { color: #111; border-color: #111; }
+  .search {
+    flex: 1; max-width: 320px;
+    border: 0; border-bottom: 1px solid var(--rule-soft);
+    padding: 4px 0; font-family: inherit; font-size: 14px;
+    color: #111; outline: none;
+  }
+  .search:focus { border-bottom-color: #111; }
+
+  .foot {
+    max-width: 880px; margin: 100px auto 0;
+    padding: 40px var(--pad) 60px;
+    border-top: 1px solid #111;
+    font-size: 13px; color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* Highlight on search match */
+  .is-match { background: #f5efd8 !important; }
+  .is-dimmed { opacity: .22; }
+
+  @media (max-width: 720px) {
+    :root { --pad: 20px; }
+    .prop { grid-template-columns: 48px 16px 1fr; gap: 10px; }
+    .prop[data-depth="3"] { padding-left: 12px; }
+    .prop[data-depth="4"] { padding-left: 24px; }
+    .topbar { flex-wrap: wrap; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar__left">Formlære · Proposisjonar</div>
+  <div class="topbar__right">
+    <a href="Formlære.html">← traktat</a>
+  </div>
+</div>
+
+<div class="controls">
+  <input type="text" class="search" id="search" placeholder="Søk i proposisjonane…">
+  <div class="controls__group">
+    <button class="cbtn" id="expandAll">fald ut alle</button>
+    <button class="cbtn" id="collapseAll">fald saman</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero__kicker">Formlære · proposisjonane bak traktaten</div>
+  <h1 class="hero__title">Proposisjonar</h1>
+  <p class="hero__sub">Den logiske strukturen i åtte kapittel; 165 nummererte setningar.</p>
+  <div class="hero__desc">
+    <p>Desse proposisjonane ligg under traktaten <em>Formlære</em> og spesifiserer rammeverket som kjerne-likninga er formulert ut frå. Dei er ordna hierarkisk: 1 er grunnsetninga i kapittel 1, 1.1 utdjupar, 1.11 utdjupar 1.1 vidare, og så bortetter.</p>
+    <p>Klikk eit nummer for å fald ut eller saman undergreinene. Søkefeltet filtrerer i sanntid.</p>
+    <div class="hero__legend">
+      <span><span class="ltag tag-d">d</span> definisjon</span>
+      <span><span class="ltag tag-a">a</span> postulat</span>
+      <span><span class="ltag tag-t">t</span> teorem</span>
+      <span><span class="ltag tag-o">o</span> observasjon</span>
+      <span><span class="ltag tag-i">i</span> illustrasjon</span>
+    </div>
+  </div>
+</header>
+
+<nav class="dock" id="dock"></nav>
+
+<main id="main"></main>
+
+<footer class="foot">
+  Formlære · Iver Raknes Finne · Arkitektur- og designhøgskolen i Oslo · 2026
+</footer>
+
+<script>
+// Load props.json (inlined at build time via fetch from adjacent file)
+let ALL_REFS = {};
+fetch('props.json').then(r => r.json()).then(data => {
+  // Support both old [chapters] array and new {chapters, refs} shape
+  const chapters = Array.isArray(data) ? data : data.chapters;
+  ALL_REFS = Array.isArray(data) ? {} : (data.refs || {});
+  render(chapters);
+}).catch(err => {
+  document.getElementById('main').innerHTML = '<div style="padding:40px;color:#c00">Kunne ikkje laste props.json: ' + err + '</div>';
+});
+
+function refsHtml(refs) {
+  if (!refs || !refs.length) return '';
+  const inner = refs.map(n => `<a data-ref="${n}">${n}</a>`).join(',');
+  return `<span class="prop__refs">${inner}</span>`;
+}
+function notesHtml(notes) {
+  if (!notes || !notes.length) return '';
+  const body = notes.map(n => `<p>${n}</p>`).join('');
+  return `<button class="prop__note-toggle" data-note-toggle>notat</button><div class="prop__note">${body}</div>`;
+}
+
+function depthOf(num) {
+  // 1 = 1, 1.1 = 2, 1.11 = 3, 1.131 = 4, etc.
+  const parts = num.split('.');
+  if (parts.length === 1) return 1;
+  // after first dot, length of second segment determines depth
+  return 1 + parts[1].length;
+}
+
+function parentOf(num) {
+  // parent of 1.131 is 1.13; parent of 1.13 is 1.1; parent of 1.1 is 1
+  const parts = num.split('.');
+  if (parts.length === 1) return null;
+  const tail = parts[1];
+  if (tail.length === 1) return parts[0];
+  return parts[0] + '.' + tail.slice(0, -1);
+}
+
+function render(chapters) {
+  const main = document.getElementById('main');
+  const dock = document.getElementById('dock');
+
+  chapters.forEach((c, i) => {
+    const section = document.createElement('section');
+    section.className = 'chap';
+    section.id = 'c' + c.mainNum;
+    section.innerHTML = `
+      <div class="chap__head">
+        <div class="chap__num">Proposisjon ${c.mainNum}</div>
+        <h2 class="chap__main">${c.mainText}</h2>
+      </div>
+      <ul class="props"></ul>
+    `;
+    const ul = section.querySelector('.props');
+
+    // Main prop as a "depth 1" entry
+    const mainLi = document.createElement('li');
+    mainLi.className = 'prop';
+    mainLi.dataset.num = c.mainNum;
+    mainLi.dataset.depth = 1;
+    const mainRefs = c.refs || [];
+    const mainNotes = c.notes || [];
+    mainLi.innerHTML = `
+      <span class="prop__num">${c.mainNum}</span>
+      <span class="prop__tag"></span>
+      <div class="prop__text">${c.mainText}${refsHtml(mainRefs)}${notesHtml(mainNotes)}</div>
+    `;
+    ul.appendChild(mainLi);
+
+    // Children
+    c.props.forEach(p => {
+      const d = depthOf(p.num);
+      const parent = parentOf(p.num);
+      const li = document.createElement('li');
+      li.className = 'prop';
+      li.dataset.num = p.num;
+      li.dataset.depth = d;
+      if (parent) li.dataset.parent = parent;
+      // Start collapsed beyond depth 2
+      if (d > 2) li.classList.add('is-hidden');
+
+      const tagHtml = p.type ? `<span class="prop__tag tag-${p.type}">${p.type}</span>` : '<span class="prop__tag"></span>';
+      const contHtml = p.cont ? `<div class="prop__cont">${p.cont}</div>` : '';
+      li.innerHTML = `
+        <span class="prop__num"><button class="prop__num-btn" data-toggle="${p.num}">${p.num}</button></span>
+        ${tagHtml}
+        <div class="prop__text">${p.text}${refsHtml(p.refs)}${contHtml}${notesHtml(p.notes)}</div>
+      `;
+      ul.appendChild(li);
+    });
+
+    // Add has-children class to nums that actually have children
+    const allNums = new Set([...ul.querySelectorAll('.prop')].map(el => el.dataset.num));
+    ul.querySelectorAll('.prop').forEach(el => {
+      const n = el.dataset.num;
+      const hasKids = [...allNums].some(x => parentOf(x) === n);
+      if (hasKids) el.classList.add('has-children');
+    });
+
+    main.appendChild(section);
+
+    // Dock entry
+    const btn = document.createElement('button');
+    btn.textContent = c.mainNum + ' · ' + (c.title.replace(/^\d+\s+/, '').split('er alt')[0] || '').slice(0, 22);
+    btn.textContent = c.mainNum;
+    btn.title = c.mainText;
+    btn.addEventListener('click', () => section.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    dock.appendChild(btn);
+  });
+
+  wireInteractions();
+}
+
+function wireInteractions() {
+  // Notat-toggle
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-note-toggle]');
+    if (!btn) return;
+    e.stopPropagation();
+    const prop = btn.closest('.prop');
+    if (prop) prop.classList.toggle('note-open');
+  });
+
+  // Reference popover
+  let pop = null;
+  function closePop() { if (pop) { pop.remove(); pop = null; } }
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('.prop__refs a[data-ref]');
+    if (!a) {
+      if (pop && !e.target.closest('.refpop')) closePop();
+      return;
+    }
+    e.stopPropagation();
+    const n = a.dataset.ref;
+    const body = ALL_REFS[n];
+    if (!body) return;
+    closePop();
+    pop = document.createElement('div');
+    pop.className = 'refpop';
+    pop.innerHTML = `<div class="refpop__num">Referanse ${n}</div><div class="refpop__body">${body}</div>`;
+    document.body.appendChild(pop);
+    // position near the click
+    const r = a.getBoundingClientRect();
+    const pw = pop.offsetWidth, ph = pop.offsetHeight;
+    let left = r.left;
+    let top = r.bottom + 8;
+    if (left + pw > window.innerWidth - 16) left = window.innerWidth - pw - 16;
+    if (top + ph > window.innerHeight - 16) top = r.top - ph - 8;
+    pop.style.left = Math.max(12, left) + 'px';
+    pop.style.top = Math.max(12, top) + 'px';
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePop(); });
+  window.addEventListener('scroll', closePop, { passive: true });
+
+  // Toggle children on num click
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.prop__num-btn');
+    if (!btn) return;
+    const num = btn.dataset.toggle;
+    const parent = document.querySelector(`.prop[data-num="${CSS.escape(num)}"]`);
+    if (!parent || !parent.classList.contains('has-children')) return;
+    const open = parent.classList.toggle('is-open');
+    // Show/hide immediate children (depth = parent depth + 1 semantically; but by data-parent)
+    document.querySelectorAll(`.prop[data-parent="${CSS.escape(num)}"]`).forEach(kid => {
+      kid.classList.toggle('is-hidden', !open);
+      if (!open) {
+        // also collapse deeper grandchildren
+        kid.classList.remove('is-open');
+        document.querySelectorAll(`.prop[data-parent^="${CSS.escape(kid.dataset.num)}"]`).forEach(gk => {
+          if (gk.dataset.parent === kid.dataset.num || gk.dataset.num.startsWith(kid.dataset.num + '') && gk.dataset.num !== kid.dataset.num) {
+            gk.classList.add('is-hidden');
+            gk.classList.remove('is-open');
+          }
+        });
+      }
+    });
+  });
+
+  // Expand all / collapse all
+  document.getElementById('expandAll').addEventListener('click', () => {
+    document.querySelectorAll('.prop.has-children').forEach(el => el.classList.add('is-open'));
+    document.querySelectorAll('.prop[data-parent]').forEach(el => el.classList.remove('is-hidden'));
+  });
+  document.getElementById('collapseAll').addEventListener('click', () => {
+    document.querySelectorAll('.prop.has-children').forEach(el => el.classList.remove('is-open'));
+    document.querySelectorAll('.prop[data-depth]').forEach(el => {
+      const d = +el.dataset.depth;
+      if (d > 2) el.classList.add('is-hidden');
+    });
+  });
+
+  // Open on hash: #1.432 expands ancestors and scrolls
+  function openToHash() {
+    const h = location.hash.slice(1);
+    if (!h) return;
+    const target = document.querySelector(`.prop[data-num="${CSS.escape(h)}"]`);
+    if (!target) return;
+    // expand all ancestors
+    let p = target.dataset.parent;
+    while (p) {
+      const pEl = document.querySelector(`.prop[data-num="${CSS.escape(p)}"]`);
+      if (pEl) {
+        pEl.classList.add('is-open');
+        document.querySelectorAll(`.prop[data-parent="${CSS.escape(p)}"]`).forEach(kid => kid.classList.remove('is-hidden'));
+      }
+      p = pEl ? pEl.dataset.parent : null;
+    }
+    target.classList.remove('is-hidden');
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    target.style.background = '#f5efd8';
+    setTimeout(() => { target.style.background = ''; }, 1800);
+  }
+  window.addEventListener('hashchange', openToHash);
+  openToHash();
+
+  // Search
+  const search = document.getElementById('search');
+  let timer;
+  search.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => doSearch(search.value.trim().toLowerCase()), 120);
+  });
+}
+
+function doSearch(q) {
+  const all = document.querySelectorAll('.prop');
+  if (!q) {
+    all.forEach(el => {
+      el.classList.remove('is-match', 'is-dimmed');
+      const d = +el.dataset.depth;
+      if (d > 2) el.classList.add('is-hidden');
+      else el.classList.remove('is-hidden');
+    });
+    document.querySelectorAll('.prop.has-children').forEach(el => el.classList.remove('is-open'));
+    return;
+  }
+  // Reveal all, dim non-matches, highlight matches, expand chain
+  document.querySelectorAll('.prop.has-children').forEach(el => el.classList.add('is-open'));
+  all.forEach(el => {
+    el.classList.remove('is-hidden');
+    const text = (el.dataset.num + ' ' + (el.querySelector('.prop__text')?.textContent || '')).toLowerCase();
+    if (text.includes(q)) {
+      el.classList.add('is-match');
+      el.classList.remove('is-dimmed');
+    } else {
+      el.classList.remove('is-match');
+      el.classList.add('is-dimmed');
+    }
+  });
+}
+
+// Dock active on scroll
+window.addEventListener('scroll', () => {
+  const chs = document.querySelectorAll('.chap');
+  let active = null;
+  chs.forEach(c => {
+    const r = c.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.4) active = c;
+  });
+  document.querySelectorAll('#dock button').forEach((b, i) => {
+    b.classList.toggle('is-active', chs[i] === active);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
