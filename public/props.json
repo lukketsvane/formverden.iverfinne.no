@@ -1,0 +1,1357 @@
+{
+  "chapters": [
+    {
+      "title": "Proposisjonar",
+      "mainNum": "1",
+      "mainText": "Formverda er alt som er tilfelle.",
+      "props": [
+        {
+          "num": "1.1",
+          "type": "o",
+          "text": "Formverda er totaliteten av realiserte konfigurasjonar, ikkje av ting."
+        },
+        {
+          "num": "1.11",
+          "type": "t",
+          "text": "Kvar realisert konfigurasjon er spesifikk; ingen konfigurasjon er delvis realisert."
+        },
+        {
+          "num": "1.12",
+          "type": "t",
+          "text": "At ein konfigurasjon tek ein eksakt form, når uendeleg mange andre var logisk moglege, krev ei forklaring utover konfigurasjonen sjølv."
+        },
+        {
+          "num": "1.13",
+          "type": "t",
+          "text": "Forklaringa ligg i relasjonen mellom den manifesterte konfigurasjonen og det totale settet av konfigurasjonar som var moglege, men ikkje vart realiserte."
+        },
+        {
+          "num": "1.131",
+          "type": "t",
+          "text": "Ei form utan alternativ er ikkje ei form; ho er ein nødvendigheit."
+        },
+        {
+          "num": "1.2",
+          "type": "d",
+          "text": "Eit <strong>objekt</strong> er den enklaste bestanddelen i ein konfigurasjon. Objektet er udeleleg og uforanderleg.",
+          "notes": [
+            "Objektet er udeleleg i den forstand at vidare dekomponering øydelegg den kausale kapasiteten me er interesserte i. Under det nivået finst det framleis fysikk; men ikkje formgjeving. Den klassiske mereologien [71] definerer atomet formelt: det utan eigne deler; vår variant er operasjonell: det utan kausalt verksame deler i den valde klassen. Distinksjonen er substansiell, ikkje terminologisk: same fysisk gjenstand kan vere atom i éin klasse og samansett i ein annan."
+          ]
+        },
+        {
+          "num": "1.201",
+          "type": "t",
+          "text": "Inndelinga i objekt er eit val av analysenivå. Under det valde nivået held fysikken fram; men ikkje formgjevinga."
+        },
+        {
+          "num": "1.203",
+          "type": "t",
+          "text": "Objekta utgjer formverdas substans. Substansen er det som eksisterer uavhengig av kva som er tilfellet."
+        },
+        {
+          "num": "1.2031",
+          "type": "t",
+          "text": "Om formverda ikkje hadde nokon substans, ville spørsmålet om ein konfigurasjon har meining vere avhengig av om ein annan konfigurasjon er realisert."
+        },
+        {
+          "num": "1.204",
+          "type": "t",
+          "text": "Objektet er det uforanderlege; konfigurasjonen er det ubestandige."
+        },
+        {
+          "num": "1.21",
+          "type": "d",
+          "text": "Ein <strong>konfigurasjon</strong> er ein bestemt samanheng av objekt. Forma er konfigurasjonens struktur."
+        },
+        {
+          "num": "1.211",
+          "type": "i",
+          "text": "I konfigurasjonen heng objekta saman som lenkene i ei kjede."
+        },
+        {
+          "num": "1.212",
+          "type": "t",
+          "text": "Måten objekta heng saman på i konfigurasjonen er konfigurasjonens struktur."
+        },
+        {
+          "num": "1.213",
+          "type": "t",
+          "text": "Forma er strukturens moglegheit."
+        },
+        {
+          "num": "1.214",
+          "type": "t",
+          "text": "To konfigurasjonar med same objekt men ulik struktur er ulike former."
+        },
+        {
+          "num": "1.2141",
+          "type": "t",
+          "text": "To konfigurasjonar med ulike objekt men same struktur deler form."
+        },
+        {
+          "num": "1.22",
+          "type": "t",
+          "text": "Sidan objektas natur inneber moglegheita for å inngå i konfigurasjonar, er alle moglege former allereie gjevne i og med objekta."
+        },
+        {
+          "num": "1.221",
+          "type": "t",
+          "text": "Moglegheita for å inngå i ein konfigurasjon er objektets form."
+        },
+        {
+          "num": "1.222",
+          "type": "t",
+          "text": "Formrommet vert ikkje konstruert. Det vert oppdaga."
+        },
+        {
+          "num": "1.2221",
+          "type": "t",
+          "text": "Designaren oppfinnar ikkje moglegheiter; ho avdekkjer dei."
+        },
+        {
+          "num": "1.223",
+          "type": "t",
+          "text": "Å kjenne objektet er å kjenne alle dets moglege konfigurasjonar. Ei ny moglegheit kan ikkje oppstå seinare."
+        },
+        {
+          "num": "1.3",
+          "type": "d",
+          "text": "<strong>Formrommet</strong> til ein klasse er mengda av alle moglege konfigurasjonar for objekt i denne klassen.",
+          "refs": [
+            2,
+            10,
+            20
+          ],
+          "notes": [
+            "Formrommet vart innført av Raup [10] for skjellgeometri og generalisert av Mitteroecker & Huttegger [20] til utviklingsbiologi. Me brukar det her substrat-uavhengig; rommet er definert av eigenskapar, ikkje av domene."
+          ]
+        },
+        {
+          "num": "1.31",
+          "type": "d",
+          "text": "Kvart realisert objekt utgjer eitt eksakt punkt i dette n-dimen\\-sjonale rommet. Kvar akse er ein målbar eigenskap."
+        },
+        {
+          "num": "1.311",
+          "type": "t",
+          "text": "Valet av aksar er ein projeksjon. Forma eksisterer uavhengig av målinga, slik eit fjell eksisterer uavhengig av kartet."
+        },
+        {
+          "num": "1.32",
+          "type": "d",
+          "text": "Det empiriske formrommet er alltid ein projeksjon. Inga endeleg mengd parametrar fangar den latente kompleksiteten fullt ut.",
+          "refs": [
+            2
+          ]
+        },
+        {
+          "num": "1.321",
+          "type": "t",
+          "text": "At formrommet er ein projeksjon tyder ikkje at det er vilkårleg. Somme projeksjonar fangar meir variasjon enn andre. Den beste projeksjonen er den som gjer flest seleksjonstrykk synlege."
+        },
+        {
+          "num": "1.4",
+          "type": "d",
+          "text": "Formrommet deler seg topologisk i tre regionar: dei <em>busette</em>, dei <em>opne</em> og dei <em>forbodne</em>."
+        },
+        {
+          "num": "1.41",
+          "type": "o",
+          "text": "Dei busette regionane utgjer det historiske arkivet. Dei fungerer som ankerpunkt for all framtidig navigasjon og utgjer den induktive premissen for vidare form."
+        },
+        {
+          "num": "1.411",
+          "type": "t",
+          "text": "Tyngda til ein busett posisjon veks med okkupasjonstid. Uavhengig konvergens frå isolerte tradisjonar stadfestar at attraktoren er reell, ikkje konvensjonell."
+        },
+        {
+          "num": "1.412",
+          "type": "t",
+          "text": "Totaliteten av busette posisjonar er formhistoria. Formhistoria avgjer kva som er kjent mogleg."
+        },
+        {
+          "num": "1.42",
+          "type": "o",
+          "text": "Dei opne regionane er det <em>nærliggande moglege</em>. Tilgjengelege, men uaktualiserte. Dei er endelige; spente ut mellom det busette og det forbodne."
+        },
+        {
+          "num": "1.421",
+          "type": "t",
+          "text": "Ei open region som grensar til ei busett region er tilgjengeleg. Ei open region som berre grensar til forbodne regionar er utilgjengeleg utan materialskifte."
+        },
+        {
+          "num": "1.43",
+          "type": "d",
+          "text": "Dei forbodne regionane er utelukka av materielle, strukturelle eller energetiske vilkår. Forbodet følgjer vilkåra, ikkje regionen. Eit materialskifte kan opne ein forboden region."
+        },
+        {
+          "num": "1.431",
+          "type": "t",
+          "text": "Grensa mellom open og forboden er materiell, ikkje logisk. Bøk bøyer seg langs fiberen; granit gjer det ikkje. Materialet avgjer kva som er forbode."
+        },
+        {
+          "num": "1.432",
+          "type": "t",
+          "text": "At det forbodne er materielt avgrensa tyder at formverda kan ekspandere. Kvar ny materialkunnskap forskyv grensa mellom det opne og det forbodne."
+        },
+        {
+          "num": "1.433",
+          "type": "t",
+          "text": "Dei topologiske regionane er ikkje identiske med dei epistemiske: eit forbode område kan vere tenkeleg (materielt avgrensa), ein open region kan vere utenkjeleg (kognitivt utilgjengeleg)."
+        },
+        {
+          "num": "1.44",
+          "type": "d",
+          "text": "Dei tre regionane utgjer ein epistemisk partisjon. Det <strong>kjende</strong> (K), det <strong>tenkelege</strong> (C∖K), og det utenkjelege. Grensene er epistemiske, ikkje ontologiske.",
+          "refs": [
+            16,
+            17
+          ],
+          "notes": [
+            "Tanke–kunnskapsteorien er utvikla av Hatchuel & Weil [15, 16] som ein formalisme for designprosessen. Me identifiserer C med dei opne regionane i formrommet og K med dei busette og stadfesta forbodne. Partisjonen er epistemisk; ho endrar seg med kvar ny realisering."
+          ]
+        },
+        {
+          "num": "1.441",
+          "type": "d",
+          "text": "C er <em>tankerommet</em>. Alle former som er tenkelege men ikkje avgjorte. K er <em>kunnskapsrommet</em>. Alle former som er kjende å verke eller svikte. Formgjeving er rørsla mellom dei."
+        },
+        {
+          "num": "1.442",
+          "type": "t",
+          "text": "Totaliteten av realiserte konfigurasjonar avgjer ikkje berre kva som er kjent mogleg, men også kva som er kjent umogleg. K rommar både suksessar og fiaskoar."
+        },
+        {
+          "num": "1.443",
+          "type": "t",
+          "text": "Grensa mellom C og det utenkjelege er usynleg innanfrå. Ein kan ikkje vite kva ein ikkje kan tenkje."
+        },
+        {
+          "num": "1.444",
+          "type": "t",
+          "text": "Operasjonane mellom C og K spenner ut fire retningar:"
+        }
+      ]
+    },
+    {
+      "title": "2 Ikkje alle posisjonar er like sannsynlege",
+      "mainNum": "2",
+      "mainText": "Ikkje alle posisjonar er like sannsynlege.",
+      "props": [
+        {
+          "num": "2.01",
+          "type": "t",
+          "text": "At ikkje alle posisjonar er like sannsynlege tyder at noko verkar på fordelinga. Det som verkar, er seleksjonstrykk."
+        },
+        {
+          "num": "2.011",
+          "type": "t",
+          "text": "Trykket er ikkje ei kraft. Det er ei avgrensing av kvar forma <em>ikkje</em> kan vere."
+        },
+        {
+          "num": "2.1",
+          "type": "d",
+          "text": "Eit <strong>seleksjonstrykk</strong> endrar sannsynsfordelinga i formrommet. Trykket er ein gradient, inga regel.",
+          "refs": [
+            3
+          ],
+          "notes": [
+            "Seleksjonstrykk som gradient (ikkje regel) er Wrights [3] tilpassing av evolusjonsteori. Michl [15] viste at den funksjonalistiske «regelen» (form follows function) er logisk tom. Vår formulering; at forma er ein rest; generaliserer Michls innsikt til eit positivt rammeverk. «Rest» er ei forenkling; meir presist er forma ein likevektstilstand i eit system der form og trykk er gjensidig avhengige (jf. 4.3). Restmetaforen held for den synkrone analysen; den dynamiske analysen krev likevektsomgrepet. Trentmann [25] skildrar den materielle kulturen si gjensidigheit frå eit historisk perspektiv."
+          ]
+        },
+        {
+          "num": "2.101",
+          "type": "t",
+          "text": "Forma er det som står att når trykka har utelukka alt anna.",
+          "refs": [
+            15,
+            77,
+            78
+          ]
+        },
+        {
+          "num": "2.11",
+          "type": "t",
+          "text": "Eit trykk som inkje utelukkar, er inkje trykk. Eit trykk som utelukkar alt unnateke éin region, er determinisme. Alle observerte trykk ligg mellom desse."
+        },
+        {
+          "num": "2.111",
+          "type": "t",
+          "text": "Mellom null-trykket og determinismen ligg heile rommet for design."
+        },
+        {
+          "num": "2.12",
+          "type": "a",
+          "text": "Fleire seleksjonstrykk verkar samstundes.",
+          "notes": [
+            "Falsifisert dersom ein observerer ein klasse der all formvariasjon let seg forklare av éin einaste faktor."
+          ]
+        },
+        {
+          "num": "2.121",
+          "type": "t",
+          "text": "Med berre eitt trykk ville alle former vore identiske."
+        },
+        {
+          "num": "2.122",
+          "type": "t",
+          "text": "Eit latent trykk verkar framleis; å påvise det krev variasjon i vilkåra."
+        },
+        {
+          "num": "2.13",
+          "type": "a",
+          "text": "Minst to seleksjonstrykk peikar i motstridande retningar. Kvar realisert form er difor eit kompromiss."
+        },
+        {
+          "num": "2.131",
+          "type": "t",
+          "text": "Omgrepet «suboptimal» føreset ein referanse. Utan eit spesifikt trykksett er det tomt."
+        },
+        {
+          "num": "2.14",
+          "type": "d",
+          "text": "Ein <strong>klasse</strong> er avgrensa gjennom delt <em>affordansestruktur</em>. Objekta i klassen tilbyr same operasjonar til same agentar.",
+          "refs": [
+            12,
+            55,
+            56
+          ],
+          "notes": [
+            "Gibson [12] definerer affordanse som relasjonell; ikkje ein eigenskap ved objektet åleine, men ved objektet-i-relasjon-til-agenten. Me utvider dette til å definere klassen sjølv gjennom affordansekonstellasjonen. Proposisjonen er flytta frå kapittel 1 til kapittel 2 fordi affordansestrukturen er operasjonelt knytt til seleksjonstrykk, ikkje til den ontologiske grunnstrukturen.",
+            "Den semiotiske utvidinga av affordansomgrepet [56] har sin teoretiske rot i Hoffmeyer [73] si syntese av Bateson og Peirce. Hoffmeyer plasserer affordans i ei kjede objekt → mønster → teikn → tolking; Brier formaliserer dette for designkontekst. Vår bruk av «affordansestruktur» er nær Gibson [12] (objektivt relasjonell), men opnar for den semiotiske vidareføringa når klassen krev det.",
+            "Falsifisert dersom bruksmåten (ikkje stilen) predikerer meir formvariasjon enn alle andre variablar innanfor klassen."
+          ]
+        },
+        {
+          "num": "2.141",
+          "type": "t",
+          "text": "Affordansestrukturen er konstant innanfor klassen. Han ber null informasjon om kvifor éi form oppstod framfor ei anna."
+        },
+        {
+          "num": "2.142",
+          "type": "o",
+          "text": "Stil predikerer meir formvariasjon enn materiale. Materialet er difor ikkje den drivande krafta.",
+          "refs": [
+            53
+          ]
+        },
+        {
+          "num": "2.2",
+          "type": "d",
+          "text": "<strong>Material\\-affordansen</strong> er operasjonane materialet tillèt og hindrar. Signaturen er <em>latent</em>; han bind sannsyn\\-sfordelinga utan å tvinge geometrien.",
+          "refs": [
+            12
+          ]
+        },
+        {
+          "num": "2.201",
+          "type": "o",
+          "text": "Stål fanst i hundreår før røyrstolen fordi operasjonen mangla. Formhistoria er systematisk langsamare enn materialhistoria.",
+          "cont": "Røyret låg i sykkelfabrikken i eit halvt hundreår. Nokon måtte sjå stolen i det.",
+          "refs": [
+            54
+          ]
+        },
+        {
+          "num": "2.21",
+          "type": "t",
+          "text": "Ein <em>samlevariabel</em> predikerer formvariasjon betre enn einskildtrykk. Stilperioden er ein slik samlevariabel."
+        },
+        {
+          "num": "2.211",
+          "type": "t",
+          "text": "Stilen er ikkje ei forklaring; han er eit aggregat som absorberer alle samtidige trykk i éin etikett."
+        },
+        {
+          "num": "2.212",
+          "type": "t",
+          "text": "Stilen er eit symptom på underliggjande krefter, ikkje ei årsak."
+        }
+      ]
+    },
+    {
+      "title": "3 Seleksjonstrykka produserer eit landskap",
+      "mainNum": "3",
+      "mainText": "Seleksjonstrykka spenner ut eit landskap over form\\-rommet.",
+      "props": [
+        {
+          "num": "3.1",
+          "type": "d",
+          "text": "<strong>Tilpassingslandskapet</strong> er vektorsummen av alle verksame seleksjons\\-trykk. Kvar posisjon held ein verdi; graden av samtidig forløysing for alle trykk.",
+          "refs": [
+            3,
+            8,
+            58
+          ],
+          "notes": [
+            "Tilpassingslandskapet samlar Wrights [3] adaptive landscape og Waddingtons [7] epigenetiske landskap i éin definisjon. Wright skildra landskapet for populasjonar; Waddington for utviklingsprosessar. Me skildrar det for formverda."
+          ]
+        },
+        {
+          "num": "3.11",
+          "type": "t",
+          "text": "Landskapet lèt seg berre lodde retrospektivt. Det yter lokal prediksjon, men ingen einskildform er garantert. I stasen er siktlinja lang; i bifurkasjonen brotnar ho."
+        },
+        {
+          "num": "3.12",
+          "type": "t",
+          "text": "Tilpassingsfunksjonen har talrike lokale maksima. Ein haug er staden der kvart avsteg kostar; dalar er tilstandane formene skyr.",
+          "notes": [
+            "Falsifisert dersom tilpassingsfunksjonen konsekvent har éin einaste global topp i kvar klasse."
+          ]
+        },
+        {
+          "num": "3.121",
+          "type": "t",
+          "text": "Éin universell topp er eit teoretisk unntak. Empirien knuser postulatet om den eine perfekte forma.",
+          "refs": [
+            58
+          ]
+        },
+        {
+          "num": "3.2",
+          "type": "d",
+          "text": "Stabiliteten til ein haug svarar til brattleiken på dalveggane. Bratte veggar tvingar fram <em>kanalisering</em>. Forma støyter vekk forstyrringar.",
+          "refs": [
+            8
+          ],
+          "notes": [
+            "Kanalisering er Waddingtons [7] omgrep for utviklingsrobustheit. I vårt rammeverk tyder det at somme dimensjonar av formrommet er meir robuste enn andre. Empirisk: setehøgd varierer minimalt (CV = 0,07) over 500 år; ornament varierer maksimalt (CV ≈ 1,5). Spreiinga er 128 gonger. Formelt: kanalisering langs aksen X er identisk med kort <em>minnehalveringstid</em> τ<sub>mem</sub>(X); ein Ornstein–Uhlenbeck-prosess med raskt relaksasjonsledd operasjonaliserer både 3.2 (bratte dalveggar) og 4.3 (stiavhengigheit med avtagande minne) samstundes. Djupe kanalar har kort τ<sub>mem</sub>; grunne kanalar har lang. Parameteren er direkte estimerbar frå tidsseriar av realiseringar."
+          ]
+        },
+        {
+          "num": "3.21",
+          "type": "t",
+          "text": "Djupe kanalar frys dimensjonane; grunne rommar fluktuasjonen."
+        },
+        {
+          "num": "3.3",
+          "type": "d",
+          "text": "Ein <strong>stilart</strong> er forma si <em>sverming</em> kring eit felles tyngdepunkt. Stilarten er ein <em>sverm</em>, ikkje ein kategori; grensene er naudsynleg uskarpe. Stilperiodar er gradientar, ikkje øyar.",
+          "cont": "Ingen har nokon gong sett ein stil. Ein ser stolar som liknar kvarandre.",
+          "refs": [
+            9,
+            53
+          ]
+        },
+        {
+          "num": "3.4",
+          "type": "t",
+          "text": "Formgjevinga skapar ikkje landskapets grunnstruktur; den følgjer av dei materielle og energetiske vilkåra. Men kvar realisering modifiserer landskapet lokalt gjennom utviding av K."
+        },
+        {
+          "num": "3.41",
+          "type": "i",
+          "text": "Isolerte tradisjonar navigerer den same kløfta utan å utveksle eit ord. Uavhengig konvergens stadfestar at attraktoren er reell."
+        }
+      ]
+    },
+    {
+      "title": "4 Landskapet er dynamisk",
+      "mainNum": "4",
+      "mainText": "Landskapet er dynamisk.",
+      "props": [
+        {
+          "num": "4.1",
+          "type": "a",
+          "text": "Seleksjonstrykka kviler aldri. Haugar stig, søkk, flyttar seg, deler seg, smeltar saman. Optimal tilpassing er lokal i tid.",
+          "notes": [
+            "Falsifisert dersom landskapet er stabilt over tid; dersom vektene ikkje endrar seg."
+          ]
+        },
+        {
+          "num": "4.11",
+          "type": "o",
+          "text": "Ein ny teknologi flyttar grensa for det forbodne; ein ny marknad endrar kva landskapet belønnar; eit nytt materiale utvidar operasjonsrommet."
+        },
+        {
+          "num": "4.12",
+          "type": "t",
+          "text": "Gradvise trykkforskyvingar akkumulerer seg til haugen kollapsar; diskontinuiteten ligg i topologien, ikkje i dynamikken."
+        },
+        {
+          "num": "4.2",
+          "type": "o",
+          "text": "Lange periodar med stase bryt saman i brå skifte. Radiasjon inn i ein ny region, deretter konvergens. Diskontinuiteten er signaturen til dynamikken, ikkje eit brot med han."
+        },
+        {
+          "num": "4.3",
+          "type": "t",
+          "text": "Landskapet har minne. Kvar realisert form endrar seleksjonstrykka for den neste. All formgjeving er omformgjeving; agenten arvar alltid ein posisjon. <em>Stiavhengigheit</em> er eit fundamentalt trekk, ingen anomali.",
+          "refs": [
+            14
+          ],
+          "notes": [
+            "Stiavhengigheit er Arthurs [14] omgrep for korleis tidlege val låser seinare. I formverda: kvar realisert konfigurasjon deformerer landskapet rundt seg og avgrensar kva nabokonfigurasjonar som er tilgjengelege for den neste agenten. Minnet er ikkje absolutt; det avtek med rate τ<sub>mem</sub><sup>−</sup>1 (jf. notat til 3.2). Lang τ<sub>mem</sub> svarer til kumulative tradisjonar; kort τ<sub>mem</sub> til felt der kvar generasjon kan starte om att."
+          ]
+        },
+        {
+          "num": "4.4",
+          "type": "o",
+          "text": "Formrommet ekspanderer kumulativt. Det <em>nærliggande moglege</em> er C∖K-grensa; mengda av former som er tenkelege men ukjende som realiserbare. Materialstraumar driv landskapsendringa.",
+          "refs": [
+            13,
+            59,
+            60,
+            79
+          ],
+          "notes": [
+            "Nicheconstruction-teorien [79] formaliserer at organismar (eller agentar) modifiserer dei seleksjonstrykka som verkar på dei sjølv. Påstand 4.4 generaliserer dette til formverda: kvar realisert konfigurasjon endrar tilpassingslandskapet for den neste agenten. Distinksjonen mellom passiv navigasjon og aktiv landskapsutviding er fundamental: stiavhengigheit [14] gjev tids\\-mekanismen, nicheconstruction gjev den evolusjonsteoretiske parallellen."
+          ]
+        },
+        {
+          "num": "4.5",
+          "type": "o",
+          "text": "Når eitt trykk dominerer, kollapsar landskapet mot éin attraktor. Eit eineveldande trykk forklarer ikkje form; det er fråværet av forklaring. Diversitet speglar mangfald av aktive trykk.",
+          "refs": [
+            59
+          ]
+        },
+        {
+          "num": "4.51",
+          "type": "t",
+          "text": "Ei lære som reduserer alle seleksjonstrykk til eitt kollapsar feltet til éin dimensjon. Dette er ikkje rasjonalitet; det er systematisk blindskap.",
+          "refs": [
+            15,
+            78
+          ],
+          "notes": [
+            "Falsifisert dersom éin-dimensjonal optimalisering produserer former som ikkje sviktar under dei andre dimensjonane."
+          ]
+        },
+        {
+          "num": "4.511",
+          "type": "t",
+          "text": "Formene som oppstår under eit kollapsa landskap sviktar under dei reelle trykka læra var blind for."
+        },
+        {
+          "num": "4.512",
+          "type": "t",
+          "text": "Dei fortrengde kompetansane let seg ikkje gjenskape frå læra som fortrengte dei."
+        }
+      ]
+    },
+    {
+      "title": "5 Det finst agentar",
+      "mainNum": "5",
+      "mainText": "Verda rommar agentar som responderer på landskapet.",
+      "props": [
+        {
+          "num": "5.1",
+          "type": "a",
+          "text": "Kvar klasse har minst eitt system som navigerer landskapet via negativ tilbakekopling.",
+          "refs": [
+            62
+          ],
+          "notes": [
+            "Ei klasse utan ein navigerande agent er formelt mogleg men empirisk tom; ho ville ha null realiserte posisjonar og difor ikkje eksistere som observerbar klasse."
+          ]
+        },
+        {
+          "num": "5.11",
+          "type": "d",
+          "text": "Ein <strong>agent</strong> A er eit persistent system definert av tuppelet (m, π, ε). m er ein generativ modell over ein delmengd av aksar i formrommet; π er politikken som minimerer variasjonell fri energi mellom det m predikerer og det agenten observerer; ε er toleranseterskelen for KL-divergens mellom prediksjon og observasjon. Agens krev berre denne strukturen; verken medvit, intensjon eller nervesystem.",
+          "refs": [
+            19,
+            21,
+            83,
+            84
+          ],
+          "notes": [
+            "Agentdefinisjonen konvergerer frå fire uavhengige tradisjonar: kybernetikk [4, 5, 7], utviklingsbiologi [22, 24, 84], maskinlæring [82], og fri-energi-prinsippet [19, 83]. At fire domene uavhengig definerer same struktur (mål, måling, justering), stadfestar at definisjonen grip noko reelt. Fields & Levin [21] formulerer det slik: konvergensen «dates back at least to Ashby, and includes Maturana and Varela, Pattee, and Rosen»; eit historisk kontinuum som strekker seg frå kybernetikken via autopoiesen til den frie energien. Seifert et al.\\ [82] viser eksplisitt at forsterkingslæring og utviklingsbiologi deler den same berekningstruktur: belønningssignal er ein avstandsfunksjon d, og politikk-oppdatering er justeringsmekanismen δ. Kirchhoff et al.\\ [83] viser at Markov-tepper formaliserer den same strukturen i FEP: det aktive teppet definerer grensa mellom agent og omverd via nettopp dette trippelet. Definisjonen er Turing-komplett [6]; eit kvart system som oppfyller (g, d, δ) med konvergensgaranti er ein universell navigator uavhengig av substrat. Formgrammatikken er og Turing-komplett; Stiny (1975) konstruerte to uavhengige simuleringar av Turing-maskiner i formgrammatikk-formalismen."
+          ]
+        },
+        {
+          "num": "5.111",
+          "type": "t",
+          "text": "Definisjonen er substrat-uavhengig. Eit kvart system som oppfyller vilkåra er ein agent.",
+          "refs": [
+            88,
+            89
+          ]
+        },
+        {
+          "num": "5.112",
+          "type": "d",
+          "text": "Agenten har ein <strong>prediksjonshorisont</strong> τ(A) gjeven av kor langt fram i tid m ekstrapolerer før variansen i prediksjonen overstig ε. Horisonten er endeleg for alle realiserte agentar; ho set den øvre grensa for kor langt lyskjegla rekk i tid.",
+          "cont": "Formelt. Agent A := (m, π, ε). For kvar observasjon o gjeld Den eldre kybernetiske formuleringa (g, d, δ) frå Rosenblueth–Wiener–Ashby er eit spesialtilfelle der g set probabilitet éin på éin konfigurasjon, d = KL, og δ = politikkoppdatering. Fire tradisjonar konvergerer om same struktur."
+        },
+        {
+          "num": "5.12",
+          "type": "o",
+          "text": "Agens er <em>stratifisert</em>: strukturen er stabil, oppløysinga varierer."
+        },
+        {
+          "num": "5.121",
+          "type": "i",
+          "text": "Termostaten: eitt mål, éin dimensjon, éin bryter."
+        },
+        {
+          "num": "5.122",
+          "type": "i",
+          "text": "Treet: fleire gradientar, ingen sentral prosessor. Kvar grein navigerer lokalt."
+        },
+        {
+          "num": "5.123",
+          "type": "i",
+          "text": "Kolonien: millionar av agentar; reiret trer fram i feltet mellom dei."
+        },
+        {
+          "num": "5.124",
+          "type": "i",
+          "text": "Pattedyret: prediksjon, minne, planlegging. Representasjonen strekk seg over tid.",
+          "refs": [
+            64,
+            65
+          ]
+        },
+        {
+          "num": "5.125",
+          "type": "i",
+          "text": "Designaren: representasjonen strekk seg forbi agentens eigne behov."
+        },
+        {
+          "num": "5.126",
+          "type": "t",
+          "text": "Designaren navigerer på vegne av andre som kjem til å leve med forma."
+        },
+        {
+          "num": "5.13",
+          "type": "t",
+          "text": "Agenten responderer på gradienten i landskapet, ikkje på forma. Han oppfinn ikkje målet; han oppdagar det.",
+          "refs": [
+            63,
+            64
+          ]
+        },
+        {
+          "num": "5.131",
+          "type": "t",
+          "text": "Navigasjon krev berre den lokale gradienten. Lokal kompetanse produserer global manifestasjon.",
+          "refs": [
+            63
+          ]
+        },
+        {
+          "num": "5.2",
+          "type": "d",
+          "text": "<strong>Kognitiv lyskjegle</strong> er delmengda av formrommet agenten kan representere og manipulere. Alt utanfor lyskjegla manglar kausal eksistens for agenten. Lyskjegler spenner frå cellulær millisekundrespons til tiårslang konsensus.",
+          "refs": [
+            21,
+            85,
+            90
+          ],
+          "notes": [
+            "Kognitiv lyskjegle er Fields & Levins [21] generalisering av perseptuelle grenser til vilkårlege agentar. Omgrepet generaliserer den fysiske lyskjegla frå relativitetsteorien: det finst ei grense for kor mykje av formrommet ein agent kan representere innanfor sin eigen tidsskala."
+          ]
+        },
+        {
+          "num": "5.21",
+          "type": "t",
+          "text": "Lyskjegla dikterer oppløysinga til formrommet. Innanfor ho persiperer agenten ikkje former, men <em>affordansar</em>: operasjonane konfigurasjonen tillèt.",
+          "refs": [
+            12,
+            55
+          ]
+        },
+        {
+          "num": "5.211",
+          "type": "t",
+          "text": "Utviding av lyskjegla aktualiserer latente affordansar; innsnevring deaktiverer reelle.",
+          "refs": [
+            55,
+            70
+          ]
+        },
+        {
+          "num": "5.212",
+          "type": "d",
+          "text": "Ei form <em>X</em> er i lyskjegla til agenten A <em>iff</em> det finst ein politikk π slik at \\(D_{KL}(X ^{*}) _A\\). Lyskjegla C(A) er difor mengda av aksar der A held prediksjonen innanfor toleransen; ho fell direkte ut av agentdefinisjonen i 5.11.",
+          "notes": [
+            "Den presise informasjonstap-definisjonen av lyskjegla følgjer Fields & Levin [21]: eit system er kognitiv agent for ein variabel dersom det finst ei politikk \\( \\) slik at KL-divergensen \\(D_{ {KL}}(p_{ {obs}} \\| p_{ })\\) er under terskelen \\( \\). Definisjonen er operasjonell og substrat-uavhengig."
+          ]
+        },
+        {
+          "num": "5.213",
+          "type": "t",
+          "text": "Informasjonstapet er eit mål på uvissa introdusert når agentens interne modell vert brukt til å representere observasjonane. Under \\(D_{KL} \\) har agenten kausal tilgang til aksen; over, ikkje.",
+          "notes": [
+            "Den presise informasjonstap-definisjonen av lyskjegla følgjer Fields & Levin [21]: eit system er kognitiv agent for ein variabel dersom det finst ei politikk \\( \\) slik at KL-divergensen \\(D_{ {KL}}(p_{ {obs}} \\| p_{ })\\) er under terskelen \\( \\). Definisjonen er operasjonell og substrat-uavhengig."
+          ]
+        },
+        {
+          "num": "5.3",
+          "type": "d",
+          "text": "Konfigurasjonar lukka under union, differanse og transformasjon utgjer ein <em>formalgebra</em>.",
+          "refs": [
+            11,
+            13,
+            18
+          ],
+          "notes": [
+            "Formalgebraen er utvikla av Stiny over fire tiår [11, 13, 18]. Algebraen er ikkje ein modell av form; han er syntaksen til formrommet. Innleiringsoperasjonen (at agenten gjenkjenner ei delform inne i heilforma) er grunnlaget for grammatikkreglane. At formrommet er kontinuerleg langs geometriske aksar og diskret langs materielle, adresserast her for fyrste gong."
+          ]
+        },
+        {
+          "num": "5.301",
+          "type": "d",
+          "text": "<strong>Formgrammatikken</strong> utfører diskrete overgangar i denne geometrien. Reglar fyrer på <em>innleiring</em>: agenten gjenkjenner ei delform inne i heilforma. Inndata\\-geometrien er einaste premiss.",
+          "cont": "Ein formgrammatikk er eit trippel SG = (S, R, ω) der R = \\{ri : (ai, bi)\\}. Reglane transformerer former:"
+        },
+        {
+          "num": "5.31",
+          "type": "t",
+          "text": "Grammatikkoperasjonen er ein C→C-partisjon; ho utvidar tankerommet. Realisering er ein C→K-operasjon; ho avgjer konfigurasjonen."
+        },
+        {
+          "num": "5.311",
+          "type": "t",
+          "text": "Grammatikken definerer moglegheitsrommet; landskapet fastset trajektorien."
+        },
+        {
+          "num": "5.312",
+          "type": "t",
+          "text": "Agenten forløyser ein konfigurasjon som reduserer lokal gradient."
+        },
+        {
+          "num": "5.4",
+          "type": "d",
+          "text": "Substratet fungerer som ein <em>null-ordens agent</em>. Det vetoar konfigurasjonar og gjev resonans til andre gjennom ufravikelege avgrensingar.",
+          "refs": [
+            26,
+            81,
+            92,
+            93
+          ],
+          "notes": [
+            "Substratet som null-ordens agent har ein parallell i Pyes [26] skilje mellom <em>risikohandverk</em> (utfallet avheng av handverkarens kompetanse i kvart steg) og <em>vissheitshandverk</em> (utfallet er predeterminert av forma, jigen, maskina). Risikohandverket let substratet tale sterkare; vissheitshandverket dempar substratets agens. Begge er former for navigasjon; dei skil seg i kor mykje av landskapet substratet sjølv får utforske."
+          ]
+        },
+        {
+          "num": "5.401",
+          "type": "t",
+          "text": "Substratet har to lag: strukturparametrar (den initiale konfigurasjonen) og funksjonsparametrar (kompetansereglane som opererer på konfigurasjonen). Under støy akselererer funksjonsparametra navigasjonen i formrommet.",
+          "refs": [
+            92
+          ],
+          "notes": [
+            "Tolagsstrukturen i substratet (struktur- vs.\\ funksjonsparametrar) er formalisert i Hartl, Risi & Levin [92]. Deira simuleringar viser at evolusjon under støy føretek seg signifikant raskare gjennom funksjonelle parametrar (MCA) enn gjennom direkte kodifisering av målforma. For formverda tyder dette at det grammatiske laget (reglar som opererer på konfigurasjonen) er ein adaptiv respons til støy i landskapet; ikkje berre ein ekspressiv konvensjon."
+          ]
+        },
+        {
+          "num": "5.41",
+          "type": "i",
+          "text": "Biologisk vev navigerer via bioelektrisk polarisering; menneskeleg praksis via materiell friksjon; ein slimsopp via oscillerande samandragingar; ein språkmodell via vektoriell merksemd.",
+          "refs": [
+            22,
+            24,
+            85
+          ]
+        },
+        {
+          "num": "5.5",
+          "type": "t",
+          "text": "Navigasjonskompetanse akkumulerer seg som strukturert informasjon. Læring er den irreversible ekspansjonen av tilgjengeleg formrom.",
+          "refs": [
+            64
+          ]
+        },
+        {
+          "num": "5.51",
+          "type": "t",
+          "text": "Kompetanseakkumulering utvider C(A) men garanterer ikkje omhug; agenten kan kjenne fleire aksar utan å justere for dei."
+        },
+        {
+          "num": "5.6",
+          "type": "d",
+          "text": "<strong>Omhug</strong> ω(A) er vektoren \\{DKL(Xi ∣ πA)\\}i over kapasiteten C(A), avskoren ved εA. Omhug er ikkje eit tal, men ei fordeling: for kvar akse i kapasiteten seier han kor nær agentens politikk faktisk kjem prediksjonsterskelen.",
+          "notes": [
+            "Omhug som formell eigenskap ved agentar er frå Doctor, Levin et al.\\ [23]. Identiteten <em>omhug = intelligensens innhald; intelligens = omhugen si form</em> er vår formulering av deira innsikt: at mengda av dimensjonar eit system aktivt justerer for, er same ting som det me kallar intelligens.",
+            "Distinksjonen mellom omhug og kapasitet er avgjerande. Ein designar med brei kapasitet som likevel berre attenderer til éin akse; til dømes visuell nyheit åleine; viser trong omhug trass i høg kapasitet. Det er omhugen, ikkje kapasiteten, som er leseleg i forma."
+          ]
+        },
+        {
+          "num": "5.601",
+          "type": "d",
+          "text": "<strong>Kapasitet</strong> C(A) er mengda av aksar <em>X</em> der det finst ein oppnåeleg politikk π slik at \\(D_{KL}(X ^{*}) _A\\). Kapasiteten set den ytre grensa; omhugen fyller henne ut, akse for akse. Spesialist og generalist er to fordelingar av same vektor."
+        },
+        {
+          "num": "5.61",
+          "type": "t",
+          "text": "Omhugsvektoren avgjer kor djupt aksane lyskjegla rommar. Ein agent kan ha høg kapasitet men trong omhug: mange aksar tilgjengelege, få aktivt justerte. Blindskapen er då per akse, ikkje per agent.",
+          "notes": [
+            "Omhug som formell eigenskap ved agentar er frå Doctor, Levin et al.\\ [23]. Identiteten <em>omhug = intelligensens innhald; intelligens = omhugen si form</em> er vår formulering av deira innsikt: at mengda av dimensjonar eit system aktivt justerer for, er same ting som det me kallar intelligens.",
+            "Proposisjonen er ein definisjon (status d), ikkje eit teorem. Identiteten omhug = intelligens er eit val av terminologi, ikkje ein empirisk påstand. Eit uavhengig mål på intelligens (til dømes navigasjonseffektivitet som funksjon av dim(C(A))) ville gjort identiteten testbar. Semper [1] var den fyrste som kopla materialteknikk, form og kulturell meining i éin systematisk analyse; omhugsomgrepet generaliserer denne innsikta. Thompson [2] viste at biologisk form følgjer fysiske krefter; me generaliserer innsikta hans til alle formdomene."
+          ]
+        },
+        {
+          "num": "5.62",
+          "type": "d",
+          "text": "Kompetanse er evna til å navigere mot stabile posisjonar i landskapet. Kompetansen veks med omhugen. Intelligens er denne kompetansen; omhug er intelligensens innhald.",
+          "refs": [
+            23,
+            86,
+            91
+          ],
+          "notes": [
+            "Falsifisert dersom snevring av lyskjegla ikkje har negative konsekvensar for forma si robustheit."
+          ]
+        },
+        {
+          "num": "5.621",
+          "type": "d",
+          "text": "Kompetanse er kvantifiserbar. Søkeeffektiviteten \\(K = _{10}(_{blind} / _{agent})\\) er talet på storleiksordnar av arbeid agentens politikk sparar relativt til tilfeldig vandring. \\(K = 0\\) er fråvær av navigasjon; \\(K > 0\\) er kompetanse.",
+          "notes": [
+            "K-metrikken er Chis-Ciure & Levins [86] kvantitative operasjonalisering av kompetanse. Metrikken er skala-invariant og additiv over uavhengige delproblem. Éi K-eining svarer til ca.\\ 3,32 bit sti-informasjon. For formverda: ein designar med K = 3 i eit gjeve formrom sparar tre storleiksordnar av designarbeid samanlikna med tilfeldig utforsking."
+          ]
+        },
+        {
+          "num": "5.63",
+          "type": "t",
+          "text": "Ein agent med låg komponent i ω(A) langs ein akse (DKL ≈ ε) er tilnærma blind for gradienten langs den aksen. Blindskapen er ikkje nøytral; dei urepresenterte trykka verkar framleis."
+        },
+        {
+          "num": "5.631",
+          "type": "t",
+          "text": "Omhugsvektoren kan ikkje supplerast i ettertid; komponentane måtte vore innanfor terskelen då forma vart navigert."
+        },
+        {
+          "num": "5.65",
+          "type": "d",
+          "text": "<strong>Liv</strong> er den prosessen der eit system opprettheld og utvidar si eiga lyskjegle over tid.",
+          "refs": [
+            85,
+            89
+          ],
+          "notes": [
+            "Liv-definisjonen er utleidd frå Levin [22, 24]. Å definere liv som aktiv lyskjegle-oppretthald er konsistent med klassisk homeostase-teori (Cannon, 1932) og med dei nyaste biofysiske rammeverka for levande system (Friston, 2010 [19]). Definisjonen er falsifiserbar: han fell dersom eit system som aktivt opprettheld lyskjegla likevel vert klassifisert som ikkje-levande i alle relevante domene."
+          ]
+        },
+        {
+          "num": "5.651",
+          "type": "t",
+          "text": "Eit system er levande i den grad det aktivt motverkar reduksjon av lyskjegla."
+        },
+        {
+          "num": "5.652",
+          "type": "t",
+          "text": "Død er den irreversible kollapsen av lyskjegla til det tomme.",
+          "notes": [
+            "Liv-definisjonen er utleidd frå Levin [22, 24]. Å definere liv som aktiv lyskjegle-oppretthald er konsistent med klassisk homeostase-teori (Cannon, 1932) og med dei nyaste biofysiske rammeverka for levande system (Friston, 2010 [19]). Definisjonen er falsifiserbar: han fell dersom eit system som aktivt opprettheld lyskjegla likevel vert klassifisert som ikkje-levande i alle relevante domene."
+          ]
+        },
+        {
+          "num": "5.653",
+          "type": "t",
+          "text": "Grensa mellom levande og ikkje-levande er ikkje ontologisk. Alle persistente system minimerer variasjonell fri energi og er formelt Bayesianske aktørar. Skilnaden er i grad, ikkje i slag.",
+          "refs": [
+            89
+          ],
+          "notes": [
+            "Fields & Levin [89] viser at Conway–Kochen-teoremet (2006) og FEP saman eliminerer ethvert «bright line» mellom kognitive og reint fysiske system. Alle persistente system oppfyller formelt definisjonen av Bayesiansk aktør. For formverda tyder dette at substratets agentstatus ikkje er ein metafor men ein fysisk konsekvens av persistens sjølv."
+          ]
+        },
+        {
+          "num": "5.7",
+          "type": "d",
+          "text": "<strong>Kjerne-likninga.</strong> Forma er grammatikken sin respons på gradienten i landskapet, projisert på agenten si lyskjegle:",
+          "refs": [
+            11,
+            17,
+            21
+          ],
+          "notes": [
+            "Kjerne-likninga er eit strukturelt skjema, ikkje ein prediksjonsmotor. Analogien er <em>F = ma</em> før kraftlova er kjend; likninga spesifiserer forma til forklaringa, ikkje forklaringa sjølv. Kvar historisk klasse fyller inn sin eigen L, sin eigen SG, sine eigne C(A), men skjemaet er delt."
+          ]
+        },
+        {
+          "num": "5.71",
+          "type": "o",
+          "text": "Likninga er eit strukturelt skjema. Ho namngjev komponentane som er naudsynte og saman tilstrekkelege. Ho spesifiserer ikkje den funksjonelle forma til L, kva reglar i R som fyrer, eller dimensjonaliteten av C(A)."
+        },
+        {
+          "num": "5.72",
+          "type": "t",
+          "text": "<strong>Reduksjon.</strong> Likninga reduserer til to grensetilfelle:",
+          "cont": "<em>(i) Rein formgrammatikk</em>, når ∇L ≡ 0, |A| = 1, og Π = (M, ∅, ∅). Då er Form = SG(0) = L(SG): heile det genererte språket utan seleksjon. <em>(ii) Rein kunnskapsromteori</em>, når SG = idM og L = 𝟙K. Då reduserer operasjonane til partisjonsendringar mellom C og K (operatorane i 1.443).",
+          "refs": [
+            11,
+            17
+          ],
+          "notes": [
+            "Reduksjonsteoremet klargjer tilhøvet til dei to kjeldetradisjonane. Stiny-Gips si formgrammatikkteori og Hatchuel-Weil si tanke-kunnskapsteori er ikkje to lesingar av den same prosessen; dei er den same prosessen sett under to ulike kollaps. At begge tradisjonane har utvikla seg uavhengig i fire tiår utan å møta kvarandre er difor naturleg: kvar har gjort sitt grensetilfelle så rikt som det kan bli. Samla gjev dei ikkje éin ny teori; dei gjev formen til den eksisterande.",
+            "CK-tradisjonen har modnast gjennom tre tiår: frå dei opphavlege artiklane [16, 17] gjennom den kanoniske boka [74], til refleksive kritikkar av om CK er ein <em>engineering</em> eller meir generell teori [75], til moderne dataeksperiment med LLM-agentar [76]. Reduksjonsteoremet relaterer seg til heile denne tradisjonen; kvart steg i CK-modninga er framleis innanfor det same grensetilfellet av kjerne-likninga. Tilsvarande modning på Stiny-sida [11, 13, 18] gjer den parallelle påstanden gyldig: båe tradisjonane utviklar seg innanfor sitt eige grensetilfelle, ikkje på tvers."
+          ]
+        },
+        {
+          "num": "5.721",
+          "type": "t",
+          "text": "Formgrammatikken og tanke–kunnskapsteorien er difor ikkje konkurrerande rammeverk. Dei er degenererte grensetilfelle av same likning; kvar beskriv den situasjonen der éin av tre komponentar er triviell."
+        },
+        {
+          "num": "5.722",
+          "type": "t",
+          "text": "Sidan historiske designsituasjonar aldri er degenererte, er kvart av dei to rammeverka åleine systematisk utilstrekkeleg. Dei manglar ikkje detaljar; dei manglar eit lag.",
+          "notes": [
+            "Eit domene som tidlegare tilhøyrde einten formgrammatikk eller tanke-kunnskap aleine, tilhøyrer no feltet deira ikkje-degenererte skjering. Praktiske konsekvensar: analysar som siterer berre éin av tradisjonane kvalifiserer seg sjølv som grensetilfelle."
+          ]
+        },
+        {
+          "num": "5.723",
+          "type": "a",
+          "text": "Likninga lukkar feltet. Fleire lag kan ikkje leggjast til utan å endre strukturen til form\\-verda sjølv; færre kan ikkje takast bort utan å forsvinne inn i eit grensetilfelle."
+        },
+        {
+          "num": "5.724",
+          "type": "t",
+          "text": "Formrommet 𝕄 er det <em>ontologiske</em> substratet; den epistemiske partisjonen Π = (K, C, F) er restsignaturen \\{Ai\\} lèt i 𝕄 gjennom verknad av ℒ. Dei tre laga (SG, ℒ, C(A)) er primitive; fem-komponentdiagrammet er avleidd, ikkje fundamentalt. Ingen lagdeling mellom ontologi og epistemologi kan kollapse utan at lukkingspåstanden i 5.723 fell."
+        }
+      ]
+    },
+    {
+      "title": "6 Forma oppstår mellom agentane",
+      "mainNum": "6",
+      "mainText": "Forma oppstår i feltet mellom agentar.",
+      "props": [
+        {
+          "num": "6.01",
+          "type": "d",
+          "text": "Ein <strong>formgjevar</strong> er ein agent som navigerer formrommet. Cella, bia, treet, handverkaren og ingeniøren er formgjevarar; det er substratet til agensen som varierer, ikkje strukturen."
+        },
+        {
+          "num": "6.02",
+          "type": "d",
+          "text": "Ein <strong>designar</strong> er ein agent A der C(A) inkluderer minst éin akse <em>X</em> slik at \\(D_{KL}(X _A)\\) inngår i den generative modellen til minst éin annan agent A'. Ingen kvalitativ skilnad frå andre formgjevarar; designar er ein spesifikk <em>kapasitets-konfigurasjon</em>, ikkje ein ontologisk kategori."
+        },
+        {
+          "num": "6.021",
+          "type": "t",
+          "text": "Alle aktørar i 6.01 (celle, bi, tre, handverkar, ingeniør) testast mot same kriterium. Cella som skil ut eit signalstoff som modifiserer nabocella si generative modell er designar langs den aksen; cella som berre regulerer si eiga membran er det ikkje. Ingen er designar <em>simpliciter</em>; alle er designar <em>langs nokre aksar</em>, ikkje andre."
+        },
+        {
+          "num": "6.022",
+          "type": "t",
+          "text": "Skiljet designar/ikkje-designar er parametrisk: ein funksjon av kor mange aksar i C(A) som oppfyller kriteriet, og kor mange agentar som vert påverka. Omgrepet vert meir alvorleg, ikkje mindre; å vere designar gjeld for langt fleire system enn profesjonen har rekna med, og profesjonen sjølv må no vise fram kapasitets-konfigurasjonen sin for å telje. Ansvarsproblemet følgjer av asymmetrien i verknad, ikkje av ein metafysisk asymmetri i valfridom."
+        },
+        {
+          "num": "6.1",
+          "type": "t",
+          "text": "Fleire agentar responderer på ulike trykk samstundes. Kvar form er eit <em>poly-agentisk kompromiss</em>. Ingen einskild agent dikterer morfologien; ho trer fram i skjeringspunktet mellom dei.",
+          "refs": [
+            66,
+            67
+          ],
+          "notes": [
+            "Falsifisert dersom éin einskild agent konsekvent dikterer morfologien i ein klasse."
+          ]
+        },
+        {
+          "num": "6.11",
+          "type": "t",
+          "text": "Kvart nivå løyser problem kompetent innanfor si eiga lyskjegle. Lågare komponentar fremjar mål dei manglar kapasitet til å representere.",
+          "refs": [
+            67
+          ]
+        },
+        {
+          "num": "6.111",
+          "type": "t",
+          "text": "Reduksjonisme og holisme er komplementære. Begge er sanne; ingen er tilstrekkeleg åleine.",
+          "refs": [
+            72
+          ]
+        },
+        {
+          "num": "6.12",
+          "type": "t",
+          "text": "Agens er <em>multiskalar</em>. Kvar skala har sin eigen kompetanse og si eiga lyskjegle. Formproduksjon er distribuert C↔K-ekspansjon utført av grammatikkoperasjonar over kompetanseskalaer.",
+          "refs": [
+            22,
+            67,
+            85,
+            87
+          ],
+          "notes": [
+            "Multiskala-kompetanse er Levins [22] rammeverk for korleis biologiske system opererer agentisk på fleire skalaer samstundes. Me generaliserer det til formverda: celle, materiale, verktøy, handverkar, marknad er alle agentar med eigne lyskjegler. Forma er resultatet av deira samtidige navigasjon."
+          ]
+        },
+        {
+          "num": "6.121",
+          "type": "t",
+          "text": "Evolusjonære overgangar i individualitet er den biologiske mekanismen for skalasprang. Djup interaksjonsstruktur; ikkje symmetrisk samspel; er vilkåret for at eit system av agentar vert éin agent.",
+          "refs": [
+            87
+          ],
+          "notes": [
+            "Watson, Levin & Buckley [87] formaliserer evolusjonære overgangar i individualitet som djup modellinduksjon: berre djupe, asymmetriske interaksjonar (ikkje berre symmetrisk samspel) produserer kollektive eigenskapar som er ikkje-lineært separable funksjonar av komponentkarakterane. For formverda: tett kopling mellom agentar er ikkje berre ei styrke; ho er det formelle vilkåret for at heilskapen kvalifiserer seg som eigen agent."
+          ]
+        },
+        {
+          "num": "6.13",
+          "type": "t",
+          "text": "Agenten vel; landskapet filtrerer. Kontrollen er alltid delt. Utforsking krev lause koplingar; utnytting krev tette.",
+          "refs": [
+            66
+          ]
+        },
+        {
+          "num": "6.14",
+          "type": "t",
+          "text": "Designaren er aldri åleine i landskapet. Ho navigerer i eit felt av konkurrerande agens frå mikrobielt vev til marknadskrefter. Kompetansen hennar ligg i å koordinere uavhengige lyskjegler til eit stabilt form-optimum.",
+          "refs": [
+            66,
+            67,
+            93
+          ],
+          "notes": [
+            "Levin & Gitelman [93] koplar formverda direkte til designpraksis: all design med agentivt materiale krev ei vending frå mikrostyring til samarbeid med kompetente substrat. Geninformasjon er ikkje preskriptiv men «prompts» som vert kreativt tolka på kvar skala. Whiteheads ingression-omgrep [93] gjev eit rammeverk for korleis matematiske strukturar «inngår» i det fysiske gjennom grensesnittet: forma trekk ikkje berre på kontingente seleksjonstrykk, men òg på platoniske regularitetar som vert tilgjengelege ved realisering."
+          ]
+        },
+        {
+          "num": "6.2",
+          "type": "o",
+          "text": "Tett samanbinding etablerer globale tilbakekoplingssløyfer; heilskapen vert sjølv ein agent.",
+          "refs": [
+            66
+          ]
+        },
+        {
+          "num": "6.3",
+          "type": "t",
+          "text": "Ein <em>stilart</em> manglar kausal kraft; han er ikkje ei kraft, men eit <em>mønster\\-minne</em>. Stilarten fungerer som ein makroskala-attraktor som kanar lyskjeglene til agentane som observerer han.",
+          "cont": "Han forenklar navigasjon ved å tilby eit gjenkjenneleg tyngdepunkt; men å formgje «i ein stil» utan å forstå trykka som genererte klynga, er ein kategorifeil.",
+          "refs": [
+            9,
+            15,
+            53
+          ],
+          "notes": [
+            "Stilarten spelar for formverda ei rolle som liknar det genus spelar i biologien; ein deskriptiv kategori som fangar slektskap utan å forklare det. Om stilarten ber kausal kraft utover mønsterminne; om han kan kanalisere navigasjon aktivt og ikkje berre passivt; er eit ope spørsmål. Falsifiseringseksperiment: gje to grupper designarar identiske trykk men ulik stileksponering. Dersom stileksponeringa endrar formvariasjonen signifikant utover trykka sin effekt, har stilarten kausal kraft utover mønsterminne.",
+            "Ingen reint eksperiment testar stileksponering som uavhengig variabel på formvariasjon (per april 2026). Designfiksasjon-litteraturen stadfestar at eksempeleksponering avgrensar kreativ output, men isolerer ikkje stilnivået frå eksempelnivået. Falsifiseringseksperimentet i 6.3-notatet er difor originalt."
+          ]
+        },
+        {
+          "num": "6.31",
+          "type": "o",
+          "text": "For brukaren er stilarten ikkje eit symptom; han er eit grensesnitt. Brukaren persiperer tyngdepunktet, ikkje seleksjonstrykka.",
+          "refs": [
+            80
+          ]
+        },
+        {
+          "num": "6.311",
+          "type": "t",
+          "text": "Designaren som ignorerer dette, ignorerer agenten ho formgjev for.",
+          "refs": [
+            80
+          ]
+        },
+        {
+          "num": "6.32",
+          "type": "t",
+          "text": "Å navigere med stilkunnskap er å representere fleire aksar."
+        },
+        {
+          "num": "6.4",
+          "type": "t",
+          "text": "Kvar realisert form utvidar det kjende og forskyver grensa til det nærliggande moglege (jf. 4.4). Formhistoria tømmer ikkje eit lukka repertoar; ho utvidar det gjennom rørsle.",
+          "refs": [
+            14,
+            79
+          ],
+          "notes": [
+            "Nicheconstruction-teorien [79] formaliserer at organismar (eller agentar) modifiserer dei seleksjonstrykka som verkar på dei sjølv. Påstand 4.4 generaliserer dette til formverda: kvar realisert konfigurasjon endrar tilpassingslandskapet for den neste agenten. Distinksjonen mellom passiv navigasjon og aktiv landskapsutviding er fundamental: stiavhengigheit [14] gjev tids\\-mekanismen, nicheconstruction gjev den evolusjonsteoretiske parallellen."
+          ]
+        },
+        {
+          "num": "6.5",
+          "type": "t",
+          "text": "Inga form er endeleg. Kvar balanse vert med tida suboptimal. Berre den generative strukturen varer; formrom, trykk, landskap, agentar. Formene er flyktige spor; grammatikken er stabil.",
+          "refs": [
+            60,
+            61
+          ],
+          "notes": [
+            "Følgjer av 2.13 (motstridande trykk utelukkar permanent likevekt) og 4.1 (trykka kviler aldri). Saman: ingen balanse er stabil over tid; kvar form er gyldig berre for aktualiseringsaugeblikket."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "7 Forma viser kor langt omhugen rakk",
+      "mainNum": "7",
+      "mainText": "Forma viser kor langt omhugen rakk.",
+      "props": [
+        {
+          "num": "7.1",
+          "type": "t",
+          "text": "Den realiserte forma er eit leseleg arkiv over kompromisset sin dimensjonalitet. Ei form designa under trong omhug sviktar systematisk langs dei aksane som ikkje vart tekne vare på. Svikten er ikkje tilfeldig; ho ber signaturen av blindskapen som produserte ho.",
+          "notes": [
+            "Seksjon 7 er rein deskriptiv etter endringsplanen. Alle proposisjonane der er empirisk testbare: dersom former designa under demonstrerbart trong omhug ikkje ber større svikt langs urepresenterte aksar (vekta med ρ) enn former designa under brei omhug, fell seksjonen. Normativiteten; at denne svikten tel; er ikkje innebygd i modellen og er difor heller ikkje falsifiserbar med empiriske verktøy. Ho høyrer heime der ho alltid har budd: i etterordet og breva.",
+            "Falsifiseringskrav: dersom former designa under demonstrerbart trong omhug ikkje presterer dårlegare langs urepresenterte aksar enn former designa under brei omhug, er proposisjonen tilbakevist."
+          ]
+        },
+        {
+          "num": "7.11",
+          "type": "t",
+          "text": "Signaturen er leseleg fordi form ikkje er tilfeldig støy; ho er residuet av ein retta prosess. Retninga er gjeven av lyskjegla."
+        },
+        {
+          "num": "7.12",
+          "type": "t",
+          "text": "To former designa under ulik omhug for same funksjon vil skilje seg langs dei aksane den eine designaren såg og den andre ikkje såg. Skilnaden er arkivet."
+        },
+        {
+          "num": "7.13",
+          "type": "t",
+          "text": "Arkivet er ikkje ei skulding. Det er eit faktum. Same faktumet som gjer geologi leseleg, gjer design leseleg.",
+          "refs": [
+            72
+          ],
+          "notes": [
+            "Geologi/biologi/design-parallellen er Bateson [72] sin «pattern that connects»: at same forklaringsmønsteret (mønster i residue ber spor av prosessen som produserte det) gjeld på tvers av domena. Bateson argumenterer for ein «nødvendig einskap» mellom natur og tanke; vi tek ein svakare stilling: same lesningsapparatet kan brukast, utan å hevde ontologisk einskap."
+          ]
+        },
+        {
+          "num": "7.14",
+          "type": "d",
+          "text": "<strong>Sviktlatensen</strong> ρi = τ(Xi) / τ(A) avgjer om sviktsignaturen langs ein akse er leseleg for agenten. τ(Xi) er responstida før konsekvensen manifesterer seg langs aksen; τ(A) er agentens prediksjonshorisont (5.112).",
+          "notes": [
+            "Sviktlatensen ρ gjev sviktsignaturen ei kvantitativ lesegrammatikk. Same formalisme bind ergonomi (ρ ∼ 10), klimagass-utslepp frå forbruksvarer (ρ ∼ 10<sup>2</sup>−10<sup>3</sup>), mikroplast i havet (ρ ∼ 10<sup>4</sup>) og langsiktig ustabilitet i merksemdsarkitektur (ρ ∼ 10<sup>1</sup>−10<sup>2</sup>). Kva aksar som vert <em>strukturelt usynlege</em> for ein gjeven designpraksis, er eit empirisk spørsmål teorien gjer handterleg; svaret gjev sviktsignaturen både retning og magnitude."
+          ]
+        },
+        {
+          "num": "7.141",
+          "type": "t",
+          "text": "Tre regimer fell ut av ratioen:"
+        },
+        {
+          "num": "7.142",
+          "type": "i",
+          "text": "Ergonomi: ρ ∼ 10, ryggverk etter ein arbeidsdag let seg lese i forma. Eingongskoppen: ρ ∼ 10, nedbrytinga ligg fire hundre år etter bruken, strukturelt usynleg. Same formalisme; ulik ratio.",
+          "refs": [
+            6
+          ]
+        },
+        {
+          "num": "7.15",
+          "type": "t",
+          "text": "Ein designteori utan omgrep for kognitiv lyskjegle kan ikkje predikera sviktsignatur. Ho kan berre registrera han i ettertid.",
+          "refs": [
+            21,
+            70
+          ],
+          "notes": [
+            "Meta-teoremet bind 7.1 til 5.722. Sviktsignatur kan lesast berre av ein teori som både har eit generativt lag (for å forklare kva var mogleg) og eit kompetanselag (for å forklare kva var urepresentert). At ingen tidlegare designteori har både lag, er den historiske diagnosen meta-teoremet gjev. <strong>CK-kritikk.</strong> Den sterkaste innvendinga mot tanke-kunnskapsteorien er at C-rommet er eindimensjonalt og at funksjons- og strukturomgrep manglar. Denne traktaten adresserer begge: formrommet er fleirdimensjonalt (1.3); affordansestrukturen erstattar funksjonsomgrepet (1.31); og formalgebraen gjev struktur (1.32). Reduksjonsteoremet (5.72) viser at innvendinga ikkje er eit feil ved tanke-kunnskapsteorien, men ein diagnose av grensetilfellet ho representerer."
+          ]
+        },
+        {
+          "num": "7.151",
+          "type": "t",
+          "text": "Prediksjonen krev at teorien namngjev representasjonsgrensa. Utan grensa finst inga akse å peike ut som urepresentert før svikten inntreffer.",
+          "refs": [
+            70
+          ]
+        },
+        {
+          "num": "7.152",
+          "type": "t",
+          "text": "Ein formgrammatikk åleine (5.72 i) genererer det moglege språket; ho kan ikkje skilje kva i språket som vil svikte langs kva akse. Ein kunnskapsromteori åleine (5.72 ii) partisjonerer K og C; ho kan ikkje utlede sviktsignatur. Derfor krev prediksjon alle tre lag."
+        },
+        {
+          "num": "7.153",
+          "type": "t",
+          "text": "Sviktsignaturen er difor ikkje ein empirisk bonus; han er prøvesteinen på at teorien faktisk forklarar form. Ein teori som ikkje predikerer sviktsignatur forklarer ikkje form; ho katalogiserer han."
+        },
+        {
+          "num": "7.2",
+          "type": "t",
+          "text": "Designhandlinga har empirisk verknad på andre agentar sine generative modellar langs dei aksene som oppfyller kriteriet i 6.02. Dette er ein deskriptiv påstand, ikkje ein normativ; kva som følgjer av han, avheng av agentens eige vurderingsapparat.",
+          "notes": [
+            "Seksjon 7 er etter endringsplanen rein <em>deskriptiv</em>: ho predikerer sviktsignatur, ho foreskriv ingenting. Den normative lesinga (at breiare omhug er ønskeleg, at sviktsignaturen tel som ansvar) er ein bruk av modellen, ikkje ei proposisjon i han. Hume si giljotin står urørt. Normative appellar høyrer heime i etterordet og dei tre breva, der dei alltid har budd; modellen sjølv seier berre kva forma ber signatur av. Designaren som les modellen, vel om signaturen skal tyde noko. Det valet er ein eigenskap ved bruken, ikkje ved teorien."
+          ]
+        },
+        {
+          "num": "7.21",
+          "type": "t",
+          "text": "Ei form designa under trong omhug etterlèt ei signatur langs aksane som ikkje vart representerte. Signaturen vert lesbar for observatørar med breiare horisont eller fleire representerte aksar."
+        },
+        {
+          "num": "7.23",
+          "type": "t",
+          "text": "<strong>Det predikerte sviktrommet</strong> er vektoren (C(A) ∖ ω(A)) vekta med sviktlatensen \\{ρi\\}. Modellen predikerer at forma ber signatur langs desse aksane; om signaturen er relevant for agenten, er eit spørsmål agenten stiller når ho les modellen, ikkje eit spørsmål modellen svarar på."
+        },
+        {
+          "num": "7.3",
+          "type": "t",
+          "text": "Formverda er det tilfellet som verkar. Navigasjonen held fram."
+        }
+      ]
+    },
+    {
+      "title": "8 Den generative modellen",
+      "mainNum": "8",
+      "mainText": "Forma er ei sannsynsfordeling over formrommet.",
+      "props": [
+        {
+          "num": "8.1",
+          "type": "d",
+          "text": "Den <strong>generative modellen</strong> for ei form F realisert av agentar {A<sub>i</sub>} som navigerer i eit landskap ℒ med grammatikk SG er: P(F | {A<sub>i</sub>}, ℒ, SG) ∝ exp(−Σ<sub>i</sub> w<sub>i</sub> ℒ̂<sub>i</sub>(F)) på domenet F ∈ L(SG) ∩ (⋂<sub>i</sub> C(A<sub>i</sub>)).",
+          "notes": [
+            "Den generative modellen er ein Boltzmann/Gibbs-distribusjon over formrommet. Denne forma er vald fordi ho er den einaste sannsynsfordelinga som maksimerer entropi under energirestriksjonar (jaynes, 1957). At \\( {L}_i\\) speler rolla til «energi» tyder at kvar agents estimat av «kor god ei form er» fungerer som ein fri-energi-funksjon i Fristons [19] forstand. Fleire agentar vert kombinerte gjennom vekta produktform, som svarer til ein log-lineær kombinasjon av dei individuelle preferansane.",
+            "Falsifiseringskrav: modellen fell dersom ei klasse viser formvariasjon som ikkje let seg dekomponere i bidrag frå \\(L( {SG})\\), \\( {L}_i\\) og \\(C(A_i)\\) kvar for seg; dersom grammatikk, landskap og lyskjegle saman ikkje predikerer fordelinga betre enn ein enklare modell, er rammeverket overflødig. } % Stille teikn på siste side: portal til digital versjon og open kjelde. {tikzpicture}[remember picture, overlay] [anchor=south east, inner sep=0] at ([xshift=-12mm, yshift=18mm]current page.south east) {% [width=22mm]{qr.png}% }; {tikzpicture}"
+          ]
+        },
+        {
+          "num": "8.11",
+          "type": "t",
+          "text": "ℒ̂<sub>i</sub> er agent i sitt estimat av tilpassingslandskapet. w<sub>i</sub> ≥ 0 er agentens relative innverknad med Σ<sub>i</sub> w<sub>i</sub> = 1."
+        },
+        {
+          "num": "8.12",
+          "type": "t",
+          "text": "Proporsjonalitetskonstanten følgjer av kravet om at P summerer til éin over domenet L(SG) ∩ (⋂<sub>i</sub> C(A<sub>i</sub>))."
+        },
+        {
+          "num": "8.2",
+          "type": "t",
+          "text": "Modellen sameinar tre komponentar: grammatikk (moglegheitsrommet L(SG)), landskap (preferansen ℒ̂<sub>i</sub>) og lyskjegle (representasjonen C(A<sub>i</sub>))."
+        },
+        {
+          "num": "8.21",
+          "type": "t",
+          "text": "Dei tre komponentane er ikkje uavhengige. Lyskjegla avgrensar kva del av grammatikkens språk som er tilgjengeleg. Landskapet avgrensar kva del av det tilgjengelege som er sannsynleg."
+        },
+        {
+          "num": "8.3",
+          "type": "t",
+          "text": "Grensetilfella til modellen er:",
+          "cont": "(i) Flatt landskap: \\(L_i(F) 0\\) for alle F og i. Alle formar i \\(L(SG) (_i C(A_i))\\) er like sannsynlege. Rein formgrammatikk utan seleksjon. (ii) Triviell grammatikk: \\(L(SG) = \\{\\}\\). Berre starttilstanden er i språket. Rein gradientnavigasjon i fiksert rom.",
+          "refs": [
+            92
+          ],
+          "notes": [
+            "Grensetilfella i 8.3 samsvarar eksakt med reduksjonsteoremet i 5.72: (i) tilsvarer «rein formgrammatikk» og (ii) tilsvarer «rein gradientnavigasjon». Proposisjon 8.31 er difor ei formell konsolidering av 5.721 med eksplisitt referanse til den probabilistiske formliseringa i 8.1."
+          ]
+        },
+        {
+          "num": "8.31",
+          "type": "t",
+          "text": "Formlære er ikkje eit alternativ til formgrammatikk-teorien eller tanke–kunnskapsteorien. Det er ei sameining som viser deira plass som degenererte grensetilfelle av proposisjon 8.1.",
+          "notes": [
+            "Grensetilfella i 8.3 samsvarar eksakt med reduksjonsteoremet i 5.72: (i) tilsvarer «rein formgrammatikk» og (ii) tilsvarer «rein gradientnavigasjon». Proposisjon 8.31 er difor ei formell konsolidering av 5.721 med eksplisitt referanse til den probabilistiske formliseringa i 8.1."
+          ]
+        }
+      ]
+    }
+  ],
+  "refs": {
+    "1": "Semper, G. (1860). <em>Der Stil in den technischen und tektonischen Künsten</em>. Verlag für Kunst und Wissenschaft.",
+    "2": "Thompson, D'A. W. (1917). <em>On Growth and Form</em>. Cambridge University Press.",
+    "3": "Wright, S. (1932). The roles of mutation, inbreeding, crossbreeding, and selection in evolution. <em>Proc. Sixth Int. Congress of Genetics</em>, 1, 356–366.",
+    "4": "Rosenblueth, A., Wiener, N. & Bigelow, J. (1943). Behavior, purpose and teleology. <em>Philosophy of Science</em>, 10(1), 18–24.",
+    "5": "Wiener, N. (1948). <em>Cybernetics</em>. MIT Press.",
+    "6": "Turing, A. M. (1950). Computing machinery and intelligence. <em>Mind</em>, 59(236), 433–460.",
+    "7": "Ashby, W. R. (1956). <em>An Introduction to Cybernetics</em>. Chapman & Hall.",
+    "8": "Waddington, C. H. (1957). <em>The strategy of the genes</em>. George Allen & Unwin.",
+    "9": "Kubler, G. (1962). <em>The shape of time</em>. Yale University Press.",
+    "10": "Raup, D. M. (1966). Geometric analysis of shell coiling. <em>Journal of Paleontology</em>, 40(5), 1178–1190.",
+    "11": "Stiny, G. & Gips, J. (1972). Shape grammars and the generative specification of painting and sculpture. <em>Information Processing 71</em>, 1460–1465.",
+    "12": "Gibson, J. J. (1979). <em>The ecological approach to visual perception</em>. Houghton Mifflin.",
+    "13": "Kauffman, S. A. (1993). <em>The origins of order</em>. Oxford University Press.",
+    "14": "Arthur, W. B. (1994). <em>Increasing returns and path dependence in the economy</em>. University of Michigan Press.",
+    "15": "Michl, J. (1995). Form follows WHAT? The modernist notion of function as a carte blanche. <em>1. Designforum Finland Magazine</em>, 1.",
+    "16": "Hatchuel, A. & Weil, B. (2003). A new approach of innovative design: An introduction to C-K theory. <em>Proc. ICED 2003</em>.",
+    "17": "Hatchuel, A. & Weil, B. (2009). C-K design theory: An advanced formulation. <em>Research in Engineering Design</em>, 19(4), 181–192.",
+    "18": "Stiny, G. (2006). <em>Shape: Talking about seeing and doing</em>. MIT Press.",
+    "19": "Friston, K. (2010). The free-energy principle: a unified brain theory? <em>Nature Reviews Neuroscience</em>, 11(2), 127–138.",
+    "20": "Mitteroecker, P. & Huttegger, S. M. (2009). The concept of morphospaces in evolutionary and developmental biology. <em>Biological Theory</em>, 4(1), 54–67.",
+    "21": "Fields, C. & Levin, M. (2022). Competency in navigating arbitrary spaces. <em>Entropy</em>, 24(6), 819.",
+    "22": "Levin, M. (2022). Technological approach to mind everywhere. <em>Frontiers in Systems Neuroscience</em>, 16, 768201.",
+    "23": "Doctor, T., Wakefield, E., Pavlic, T. P. & Levin, M. (2024). Biology, Buddhism, and AI: Care as the driver of intelligence. <em>Entropy</em>, 26(4), 352.",
+    "24": "Levin, M. (2025). Living things are not machines (also, they totally are). <em>Noema Magazine</em>.",
+    "25": "Trentmann, F. (2016). <em>Empire of Things: How We Became a World of Consumers</em>. Allen Lane.",
+    "26": "Pye, D. (1968). <em>The Nature and Art of Workmanship</em>. Cambridge University Press.",
+    "27": "Blackiston, D. J., Casey, E. S. & Bhatt, A. L. (2008). Retention of memory through metamorphosis: Can a moth remember what it learned as a caterpillar? <em>PLoS ONE</em>, 3(3), e1736.",
+    "28": "NOAA Marine Debris Program (2024). Estimated decomposition rates of common marine debris items. National Oceanic and Atmospheric Administration.",
+    "29": "NOAA Global Monitoring Laboratory (2024). Trends in atmospheric carbon dioxide. National Oceanic and Atmospheric Administration.",
+    "30": "FAO & UNCCD (2024). <em>Global Soil Partnership</em>: estimated annual topsoil loss. Food and Agriculture Organization of the United Nations.",
+    "31": "UN-Habitat (2024). <em>World Cities Report</em>: 1.8 billion people in inadequate housing. United Nations Human Settlements Programme.",
+    "32": "Biddle, S. (2019–2024). Palantir and ICE reporting series. <em>The Intercept</em>. Sjå òg Mijente, <em>Who's Behind ICE?</em>",
+    "33": "Abraham, Y. (2024). «Lavender» og «Where's Daddy?»: AI-baserte målrettingssystem i Gaza. <em>+972 Magazine / Local Call</em>. Sjå òg ICJ rådgjevande fråsegn (2024).",
+    "34": "Autoriteit Persoonsgegevens (2020). SyRI-dommen; Amnesty International (2021). Toeslagenaffaire: systematisk diskriminering gjennom algoritmisk profilering i nederlandsk velferd.",
+    "35": "Anthropic (2025). On the biology of a large language model: Probing emotion. Research report. Sjå òg Butlin, P. et al. (2023). Consciousness in artificial intelligence. arXiv:2308.08708.",
+    "36": "Biswas, S., Manicka, S., Hoel, E. P. & Levin, M. (2023). Gene regulatory networks exhibit several kinds of memory. <em>iScience</em>, 26(4), 106440.",
+    "37": "Vandenberg, L. N., Adams, D. S. & Levin, M. (2012). Normalized shape and location of perturbed craniofacial structures in the <em>Xenopus</em> tadpole reveal an innate ability to achieve correct morphology. <em>Developmental Dynamics</em>, 241(5), 863–878.",
+    "38": "Shomrat, T. & Levin, M. (2013). An automated training paradigm reveals long-term memory in planarians and its persistence through head regeneration. <em>Journal of Experimental Biology</em>, 216(20), 3799–3810.",
+    "39": "Fankhauser, G. (1945). The effects of changes in chromosome number on amphibian development. <em>Quarterly Review of Biology</em>, 20(1), 20–78.",
+    "40": "Kriegman, S., Blackiston, D., Levin, M. & Bongard, J. (2021). Kinematic self-replication in reconfigurable organisms. <em>Proceedings of the National Academy of Sciences</em>, 118(49), e2112672118.",
+    "41": "Gumuskaya, G., Srivastava, P., Cooper, B. G., Lesser, H., Semegran, B., Garber, S. & Levin, M. (2023). Motile living biobots self-construct from adult human somatic progenitor seed cells. <em>Advanced Science</em>, 10(34), 2303575.",
+    "42": "UNEP (2024). <em>Plastics</em>: annual global production. United Nations Environment Programme. Sjå òg Plastics Europe, <em>Plastics–-The Fast Facts 2023</em>.",
+    "43": "Ellen MacArthur Foundation (2017). <em>A New Textiles Economy</em>: average number of times a garment is worn before disposal.",
+    "44": "Richardson, K. et al. (2023). Earth beyond six of nine planetary boundaries. <em>Science Advances</em>, 9(37), eadh2458.",
+    "45": "IPBES (2019). <em>Global Assessment Report on Biodiversity and Ecosystem Services</em>: approximately 1 million species threatened with extinction.",
+    "46": "WWF (2022). <em>Living Planet Report 2022</em>: 69 % average decline in monitored wildlife populations since 1970.",
+    "47": "FAO (2022). <em>Global Forest Resources Assessment</em>: approximately 10 million hectares of forest lost per year (2015–2020).",
+    "48": "WHO/UNICEF Joint Monitoring Programme (2023). <em>Progress on household drinking water, sanitation and hygiene</em>: 2.4 billion people lack basic sanitation.",
+    "49": "UNHCR (2024). <em>Global Trends: Forced Displacement in 2023</em>: 120 million people displaced worldwide.",
+    "50": "IPCC (2022). <em>Climate Change 2022: Impacts, Adaptation and Vulnerability</em> (AR6 WGII): 3.3–3.6 billion people highly vulnerable to climate change.",
+    "51": "UCDP/PRIO (2024). <em>Armed Conflict Dataset v24.1</em>: 56 active state-based armed conflicts in 2023.",
+    "52": "Ecovative Design / GROWN.bio (2024). Mycelium-based packaging and construction materials as polystyrene replacement.",
+    "53": "Riegl, A. (1893). <em>Stilfragen: Grundlegungen zu einer Geschichte der Ornamentik</em>. George Siemens.",
+    "54": "Frampton, K. (1995). <em>Studies in Tectonic Culture: The Poetics of Construction in Nineteenth and Twentieth Century Architecture</em>. MIT Press.",
+    "55": "Rietveld, E. & Kiverstein, J. (2014). A rich landscape of affordances. <em>Ecological Psychology</em>, 26(4), 325–352.",
+    "56": "Brier, S. (2020). Affordances are signs. <em>tripleC: Communication, Capitalism & Critique</em>, 18(1).",
+    "57": "Fultot, M. & Turvey, M. T. (2019). Von Uexküll's theory of meaning and Gibson's organism–environment reciprocity. <em>Ecological Psychology</em>, 31(4), 289–315.",
+    "58": "Pievani, T. (2013). Adaptive landscapes: A case study of metaphors, models, and synthesis in evolutionary biology. Università degli Studi di Milano-Bicocca.",
+    "59": "Kauffman, S. A. & Roli, A. (2023). A third transition in science? <em>Interface Focus</em>, 13(3).",
+    "60": "Huneman, P. & Walsh, D. M. (Eds.) (2023). <em>Evolution ``On Purpose''</em>. MIT Press.",
+    "61": "Svensson, E. I. & Connallon, T. (2026). Evolution of adaptation's evil Doppelgänger. <em>Evolution</em>.",
+    "62": "Schlosser, M. (2019). Agency. I <em>The Stanford Encyclopedia of Philosophy</em>. Metaphysics Research Lab, Stanford University.",
+    "63": "Friston, K. (2010). The free-energy principle: a unified brain theory? <em>Nature Reviews Neuroscience</em>, 11(2), 127–138.",
+    "64": "Niv, Y. (2009). Reinforcement learning in the brain. <em>Journal of Mathematical Psychology</em>, 53(3), 139–154.",
+    "65": "Murray, E. A. et al. (2016). <em>The Evolution of Memory Systems</em>. Oxford University Press.",
+    "66": "Latour, B. (2005). <em>Reassembling the Social: An Introduction to Actor-Network-Theory</em>. Oxford University Press.",
+    "67": "Hutchins, E. (1995). <em>Cognition in the Wild</em>. MIT Press.",
+    "68": "Tronto, J. C. (1993). <em>Moral Boundaries: A Political Argument for an Ethic of Care</em>. Routledge.",
+    "69": "Dewey, J. (1934). <em>Art as Experience</em>. Minton, Balch & Company.",
+    "70": "Fields, C. & Levin, M. (2024). Principled limitations on self-representation for generic physical systems. <em>Entropy</em>, 26(3), 194.",
+    "71": "Varzi, A. (2016). Mereology. I <em>The Stanford Encyclopedia of Philosophy</em>. Metaphysics Research Lab, Stanford University.",
+    "72": "Bateson, G. (1979). <em>Mind and Nature: A Necessary Unity</em>. E.P. Dutton.",
+    "73": "Hoffmeyer, J. (2008). Bateson and Peirce on the pattern that connects and the sacred. I <em>A Legacy for Living Systems</em>. Springer.",
+    "74": "Le Masson, P., Weil, B. & Hatchuel, A. (2010). <em>Strategic Management of Innovation and Design</em>. Cambridge University Press.",
+    "75": "Kazakçi, A. O. (2015). C-K, an engineering design theory? <em>Proceedings of the International Conference on Engineering Design</em>. Design Society.",
+    "76": "Ma, M. (2023). Simulating design theory using LLM agents: A case study of C-K theory. Co-Design Lab, UC Berkeley.",
+    "77": "Michl, J. (1989). On forms following functions and post-modernism. <em>Pro Forma</em>, 1, 5–15.",
+    "78": "Michl, J. (2014). A case against the modernist regime in design education. <em>Archnet-IJAR</em>, 8(2), 36–46.",
+    "79": "Odling-Smee, F. J., Laland, K. N. & Feldman, M. W. (2003). <em>Niche Construction: The Neglected Process in Evolution</em>. Princeton University Press.",
+    "80": "Norman, D. A. (2013). <em>The Design of Everyday Things</em> (Revised ed.). Basic Books.",
+    "81": "Cussat-Blanc, S., Harrington, K. & Banzhaf, W. (2018). Artificial gene regulatory networks–-A review. <em>Artificial Life</em>, 24(4).",
+    "82": "Seifert, U., Sealander, P., Marzen, S. & Levin, M. (2024). Reinforcement learning and developmental biology: A shared computational structure. <em>BioSystems</em>, 235, 105107.",
+    "83": "Kirchhoff, M., Parr, T., Palacios, E., Friston, K. & Kiverstein, J. (2018). The Markov blankets of life: Autonomy, active inference and the free energy principle. <em>Journal of the Royal Society Interface</em>, 15(138), 20170792.",
+    "84": "Levin, M. (2023). Darwin's agential materials: Evolutionary implications of multiscale competency in developmental biology. <em>Cellular and Molecular Life Sciences</em>, 80(6), 142.",
+    "85": "Levin, M. (2023). Bioelectric networks: The cognitive glue enabling evolutionary scaling from physiology to mind. <em>Animal Cognition</em>, 26, 1865–1891.",
+    "86": "Chis-Ciure, R. & Levin, M. (2025). Cognition all the way down 2.0: Neuroscience beyond neurons in the diverse intelligence era. <em>Synthese</em>, 206, 257.",
+    "87": "Watson, R. A., Levin, M. & Buckley, C. L. (2022). Design for an individual: Connectionist approaches to the evolutionary transitions in individuality. <em>Frontiers in Ecology and Evolution</em>, 10, 823588.",
+    "88": "Levin, M. (2025). Artificial intelligences: A bridge toward diverse intelligence and humanity's future. <em>Advanced Intelligent Systems</em>, 7, 2401034.",
+    "89": "Fields, C. & Levin, M. (2025). Life, its origin, and its distribution: A perspective from the Conway–Kochen theorem and the Free Energy Principle. <em>Communicative & Integrative Biology</em>, 18(1), 2466017.",
+    "90": "Doctor, T., Witkowski, O., Colognese, P., Ishihara, Y. & Levin, M. (2025). Selves as perspectives: From biological life to superintelligence and a Bodhisattva project. Manuscript, Center for the Study of Apparent Selves.",
+    "91": "Solé, R., Seoane, L. F., Pla-Mauri, J., Bennett, M. T., Hochberg, M. E. & Levin, M. (2026). Cognition spaces: Natural, artificial, and hybrid. arXiv:2601.12837.",
+    "92": "Hartl, B., Risi, S. & Levin, M. (2024). Evolutionary implications of multi-scale intelligence. Preprint.",
+    "93": "Levin, M. & Gitelman, A. (2025). Designing with diverse intelligence: Interfaces, agential materials, and ingressing minds. SUrF interview.",
+    "94": "Haidt, J. (2024). <em>The Anxious Generation: How the Great Rewiring of Childhood Is Causing an Epidemic of Mental Illness</em>. Penguin Press. Sjå òg Twenge, J. M. (2017). <em>iGen</em>. Atria Books.",
+    "95": "Haugen, F. (2021). Testimony before U.S. Senate Subcommittee on Consumer Protection; <em>The Facebook Files</em>, Wall Street Journal investigation series.",
+    "96": "Cadwalladr, C. & Graham-Harrison, E. (2018). Revealed: 50 million Facebook profiles harvested for Cambridge Analytica in major data breach. <em>The Guardian</em>, 17 March.",
+    "97": "Ovid. <em>Metamorfosar</em> III: Ekko og Narcissus.",
+    "98": "Rajan, D., Makushok, T., Kalantari, A. et al. (2023). Single-cell analysis of habituation in <em>Stentor coeruleus</em>. <em>Current Biology</em>, 33, 241–251.",
+    "99": "Boisseau, R. P., Vogel, D. & Dussutour, A. (2016). Habituation in non-neural organisms: Evidence from slime moulds. <em>Proceedings of the Royal Society B</em>, 283, 20160446.",
+    "100": "Netea, M. G., Joosten, L. A. B., Latz, E. et al. (2016). Trained immunity: A program of innate immune memory in health and disease. <em>Science</em>, 352(6284), aaf1098.",
+    "101": "Kandel, E. R. (2001). The molecular biology of memory storage: A dialogue between genes and synapses. <em>Science</em>, 294(5544), 1030–1038.",
+    "102": "Pavlov, I. P. (1927). <em>Conditioned Reflexes</em>. Oxford University Press.",
+    "103": "Friston, K. & Frith, C. (2015). A duet for one. <em>Consciousness and Cognition</em>, 36, 390–405.",
+    "104": "March, J. G. (1991). Exploration and exploitation in organizational learning. <em>Organization Science</em>, 2(1), 71–87.",
+    "105": "Kuhn, T. S. (1962). <em>The Structure of Scientific Revolutions</em>. University of Chicago Press.",
+    "106": "Wigner, E. P. (1960). The unreasonable effectiveness of mathematics in the natural sciences. <em>Communications on Pure and Applied Mathematics</em>, 13(1), 1–14.",
+    "107": "Brandel, J. (2024). Usynlige landskap. <em>IDEALTID.org</em>, 17.12.2024. Essay om interstitium som væskefylt organ i bindevevet, omklassifisert frå barrière i 2018."
+  }
+}
