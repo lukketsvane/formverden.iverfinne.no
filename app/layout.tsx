@@ -5,7 +5,10 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif' });
 
+const siteUrl = process.env.APP_URL ?? 'https://formverden.iverfinne.no';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'formlære',
   description: 'Formlære',
   manifest: '/manifest.webmanifest',
@@ -17,6 +20,36 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'formlære',
+  },
+  openGraph: {
+    type: 'website',
+    url: siteUrl,
+    siteName: 'formlære',
+    title: 'formlære',
+    description: 'Formlære',
+    locale: 'nn_NO',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        type: 'image/png',
+        alt: 'formlære',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'formlære',
+    description: 'Formlære',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'formlære',
+      },
+    ],
   },
 };
 
