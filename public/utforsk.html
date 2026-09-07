@@ -3,36 +3,67 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ee">
 <title>FORMLÆRE</title>
-<style>html,body{margin:0;background:#f5f3ee;color:#171714;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}#loading{min-height:70vh;display:grid;place-items:center;padding:32px;text-align:center}</style>
-<div id="loading"><div style="font-family:Georgia,serif;font-size:36px;letter-spacing:.06em">FORMLÆRE</div></div>
+<style>html,body{margin:0;background:#f5f3ee;color:#171714}#loading{min-height:70vh;display:grid;place-items:center}.mark{font:36px Georgia,serif;letter-spacing:.06em}</style>
+<div id="loading"><div class="mark">FORMLÆRE</div></div>
 <script>
 fetch('https://raw.githubusercontent.com/lukketsvane/iverfinne.no/main/traktat/index.html',{cache:'no-store'})
- .then(r=>{if(!r.ok) throw new Error(String(r.status)); return r.text()})
- .then(html=>{
-   html=html
-     .replace(/<section class="intro">[\s\S]*?<\/section>/,'')
-     .replace('<div class="brand"><h1>FORMLÆRE</h1><p>Iver Raknes Finne · interaktiv utforskning av traktaten</p></div>','<div class="brand"><h1>FORMLÆRE</h1><p>Iver Raknes Finne</p></div>')
-     .replace('<button data-view="guide" class="on">Stigen</button>','<button data-view="guide" class="on">Stige</button>')
-     .replace('<button data-view="map">Kartet</button>','<button data-view="map">Tre</button>')
-     .replace('<button data-view="text">Hele teksten</button>','<button data-view="text">Tekst</button>')
-     .replace('<aside class="stage"><div class="stagehead"><h3>Intuisjonsmodell</h3><span id="labtitle"></span></div><div id="lab" class="lab"></div></aside>','<aside class="stage"><div id="lab" class="lab"></div><span id="labtitle" class="sr"></span></aside>')
-     .replace(/<div class="maphead"><div><h2 class="serif">Hele treet<\/h2><p[^>]*>Åpne en grein og se hva den bærer videre\.<\/p><\/div><input/,'<div class="maphead"><input')
-     .replace('placeholder="Søk i 232 proposisjoner"','placeholder="Søk"')
-     .replace('<div class="texthead"><h2 class="serif">Traktaten</h2></div>','')
-     .replace('placeholder="Søk i teksten"','placeholder="Søk"')
-     .replace('<button id="cleartext" class="smallbtn">Nullstill</button>','<button id="cleartext" class="smallbtn" aria-label="Nullstill søk">×</button>')
-     .replace(/<footer class="footer">[\s\S]*?<\/footer>/,'')
-     .replace('<button id="openmap">Se grenen i kartet</button>','<button id="openmap">Tre</button>');
-   html=html.replace('</head>',`<style>
-     .intro,.stagehead,.footer,.texthead{display:none!important}
-     .chapter span{display:none!important}
-     .stepmeta #stepcount{display:none!important}
-     .stepmeta{justify-content:flex-start!important;margin-bottom:14px!important}
-     .maphead{justify-content:flex-end!important;margin-top:18px!important}
-     .brand p{margin-top:3px!important}
-     @media(max-width:760px){.shell{padding-top:12px!important}.brand p{font-size:11px!important}}
-   </style></head>`);
-   document.open();document.write(html);document.close();
- })
- .catch(()=>{document.getElementById('loading').innerHTML='<div style="font-family:Georgia,serif;font-size:32px">FORMLÆRE</div>'})
+.then(r=>{if(!r.ok)throw new Error(String(r.status));return r.text()})
+.then(html=>{
+  html=html
+    .replace(/<section class="intro">[\s\S]*?<\/section>/,'')
+    .replace('<div class="brand"><h1>FORMLÆRE</h1><p>Iver Raknes Finne · interaktiv utforskning av traktaten</p></div>','<div class="brand"><h1>FORMLÆRE</h1></div>')
+    .replace('<button data-view="guide" class="on">Stigen</button>','<button data-view="guide" class="on">Stige</button>')
+    .replace('<button data-view="map">Kartet</button>','<button data-view="map">Tre</button>')
+    .replace('<button data-view="text">Hele teksten</button>','<button data-view="text">Tekst</button>')
+    .replace('<aside class="stage"><div class="stagehead"><h3>Intuisjonsmodell</h3><span id="labtitle"></span></div><div id="lab" class="lab"></div></aside>','<aside class="stage"><div id="lab" class="lab"></div><span id="labtitle" class="sr"></span></aside>')
+    .replace(/<div class="maphead"><div><h2 class="serif">Hele treet<\/h2><p[^>]*>Åpne en grein og se hva den bærer videre\.<\/p><\/div><input/,'<div class="maphead"><input')
+    .replace('placeholder="Søk i 232 proposisjoner"','placeholder="Søk"')
+    .replace('<div class="texthead"><h2 class="serif">Traktaten</h2></div>','<div class="texthead"></div>')
+    .replace('placeholder="Søk i teksten"','placeholder="Søk"')
+    .replace('<button id="cleartext" class="smallbtn">Nullstill</button>','<button id="cleartext" class="smallbtn" aria-label="Nullstill søk">×</button>')
+    .replace(/<footer class="footer">[\s\S]*?<\/footer>/,'');
+
+  html=html.replace('</head>',`<style>
+    :root{--muted:#77746c!important}
+    .shell{padding-top:22px!important;padding-bottom:56px!important}
+    header{align-items:baseline!important;padding:0 0 18px!important;gap:24px!important}
+    .brand h1{font-size:clamp(21px,2.4vw,31px)!important;font-weight:500!important;letter-spacing:.09em!important}
+    .brand p,.intro,.stagehead,.footer,.texthead,.stepmeta{display:none!important}
+    .nav{gap:18px!important;align-items:center!important}
+    .nav button{border:0!important;border-bottom:1px solid transparent!important;border-radius:0!important;background:none!important;color:var(--muted)!important;padding:4px 0!important;min-height:0!important;font-size:13px!important}
+    .nav button.on{color:var(--ink)!important;border-bottom-color:var(--ink)!important}
+    .chapterbar{gap:10px!important;margin:20px 0 48px!important}
+    .chapter{border-top:1px solid var(--line)!important;padding:8px 0 0!important;color:var(--muted)!important}
+    .chapter span{display:none!important}
+    .chapter b{font-size:11px!important;font-weight:500!important}
+    .chapter.on{border-top-color:var(--ink)!important;color:var(--ink)!important}
+    .guidegrid{grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr)!important;gap:clamp(30px,5vw,72px)!important}
+    .propnum{font-size:clamp(58px,8vw,104px)!important;line-height:.82!important;margin-bottom:22px!important}
+    .proptext{font-size:clamp(27px,3.4vw,43px)!important;line-height:1.14!important;margin-bottom:34px!important}
+    .shiftbox{padding:17px 0!important;grid-template-columns:1fr 24px 1fr!important;gap:12px!important;align-items:start!important}
+    .shiftbox label{font-size:9px!important;margin-bottom:7px!important}.shiftbox p{font-size:14px!important}.arrow{padding-top:20px!important}
+    .why{font-size:14px!important;color:#4c4a44!important;margin-top:17px!important}
+    .stage{border:0!important;border-radius:0!important;background:transparent!important;padding:0!important;min-height:390px!important}
+    .lab{min-height:330px!important}.lab svg{max-height:300px!important}
+    .smallbtn,.lab-controls button{border:1px solid var(--line)!important;border-radius:999px!important;background:transparent!important;padding:7px 11px!important;min-height:34px!important}
+    .legend{font-size:11px!important;margin-top:9px!important}
+    .pathdots{gap:7px!important;margin-top:26px!important}.dot{width:5px!important;height:5px!important}.dot.on{transform:scale(1.35)}
+    .guideactions{display:grid!important;grid-template-columns:44px 1fr 44px!important;align-items:center!important;gap:12px!important;margin-top:16px!important}
+    .guideactions button{border:0!important;background:none!important;border-radius:0!important;min-height:42px!important;padding:0!important;color:var(--muted)!important;font-size:0!important}
+    #prev::after{content:'←';font-size:22px}#next::after{content:'→';font-size:22px}#openmap{display:none!important}
+    .maphead{justify-content:flex-end!important;margin:26px 0 20px!important}.maphead>div{display:none!important}
+    .search{width:min(280px,100%)!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;background:transparent!important;padding:8px 0!important;font-size:14px!important;outline:none!important}
+    .mapgrid{gap:10px!important}.colhead{border-top-width:1px!important;padding:8px 0 14px!important}.colhead strong{font-size:19px!important;font-weight:500!important}.colhead small{font-size:9px!important}
+    .node{padding:8px 0!important;min-height:52px!important}.node .n{font-size:10px!important}.node .t{font-size:10px!important;line-height:1.28!important}
+    .drawer{grid-template-columns:92px minmax(0,1fr)!important;gap:20px!important;margin-top:20px!important}.child{border:0!important;border-top:1px solid var(--line)!important;border-radius:0!important;padding:9px 0!important;font-size:11px!important}
+    .texttools{justify-content:flex-end!important;margin:26px 0 18px!important}.texttools .smallbtn{display:none!important}
+    @media(max-width:760px){
+      .shell{padding-top:18px!important}.nav{margin-top:14px!important;gap:16px!important}.chapterbar{margin-bottom:34px!important}
+      .guidegrid{grid-template-columns:1fr!important;gap:22px!important}.stage{min-height:300px!important}.lab{min-height:270px!important}
+      .propnum{font-size:64px!important}.proptext{font-size:29px!important}.drawer{grid-template-columns:52px 1fr!important}
+    }
+  </style></head>`);
+  document.open();document.write(html);document.close();
+})
+.catch(()=>{document.getElementById('loading').innerHTML='<div class="mark">FORMLÆRE</div>'})
 </script>
