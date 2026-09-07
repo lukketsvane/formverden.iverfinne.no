@@ -1,15 +1,17 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+const TRAKTAT_READER = 'https://grutnegitless-iverfinnes-projects.vercel.app/';
 
 export default function Home() {
+  const [reader, setReader] = useState<string | null>(null);
+
   useEffect(() => {
     const { hostname, pathname, hash } = window.location;
 
-    // The dedicated tractatus subdomain opens the intuitive explorer.
-    // formverden.iverfinne.no keeps its existing reading experience unchanged.
     if (hostname === 'traktat.iverfinne.no') {
-      window.location.replace(`/utforsk.html${hash}`);
+      setReader(`${TRAKTAT_READER}${hash}`);
       return;
     }
 
@@ -18,7 +20,24 @@ export default function Home() {
     window.location.replace(target);
   }, []);
 
-  return (
-    <div style={{ minHeight: '100vh', background: '#f4f1e8' }} />
-  );
+  if (reader) {
+    return (
+      <iframe
+        src={reader}
+        title="FORMLÆRE"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          width: '100%',
+          height: '100dvh',
+          border: 0,
+          margin: 0,
+          padding: 0,
+          background: 'transparent',
+        }}
+      />
+    );
+  }
+
+  return <div style={{ position: 'fixed', inset: 0, background: '#fff' }} />;
 }
