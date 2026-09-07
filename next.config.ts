@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
       {
         source: '/',
         has: [{ type: 'host', value: 'traktat.iverfinne.no' }],
-        destination: '/utforsk.html',
+        destination: 'https://grutnegitless-iverfinnes-projects.vercel.app/',
       },
       { source: '/:slug(\\d+(?:\\.\\d+)*)', destination: '/' },
       { source: '/:slug(forord|foreord|f%C3%B8reord|etterord)', destination: '/' },
