@@ -2,12 +2,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ee">
-<title>FORMLÆRE — interaktiv traktat</title>
-<style>html,body{margin:0;background:#f5f3ee;color:#171714;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}#loading{min-height:70vh;display:grid;place-items:center;padding:32px;text-align:center}small{color:#6c6a62}</style>
-<div id="loading"><div><div style="font-family:Georgia,serif;font-size:36px;letter-spacing:.06em">FORMLÆRE</div><small>åpner traktaten …</small></div></div>
+<title>FORMLÆRE</title>
+<style>html,body{margin:0;background:#f5f3ee;color:#171714;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}#loading{min-height:70vh;display:grid;place-items:center;padding:32px;text-align:center}</style>
+<div id="loading"><div style="font-family:Georgia,serif;font-size:36px;letter-spacing:.06em">FORMLÆRE</div></div>
 <script>
 fetch('https://raw.githubusercontent.com/lukketsvane/iverfinne.no/main/traktat/index.html',{cache:'no-store'})
  .then(r=>{if(!r.ok) throw new Error(String(r.status)); return r.text()})
- .then(html=>{document.open();document.write(html);document.close()})
- .catch(()=>{document.getElementById('loading').innerHTML='<div><div style="font-family:Georgia,serif;font-size:32px">FORMLÆRE</div><p>Utforskeren kunne ikke lastes akkurat nå.</p></div>'})
+ .then(html=>{
+   html=html
+     .replace(/<section class="intro">[\s\S]*?<\/section>/,'')
+     .replace('<div class="brand"><h1>FORMLÆRE</h1><p>Iver Raknes Finne · interaktiv utforskning av traktaten</p></div>','<div class="brand"><h1>FORMLÆRE</h1><p>Iver Raknes Finne</p></div>')
+     .replace('<button data-view="guide" class="on">Stigen</button>','<button data-view="guide" class="on">Stige</button>')
+     .replace('<button data-view="map">Kartet</button>','<button data-view="map">Tre</button>')
+     .replace('<button data-view="text">Hele teksten</button>','<button data-view="text">Tekst</button>')
+     .replace('<aside class="stage"><div class="stagehead"><h3>Intuisjonsmodell</h3><span id="labtitle"></span></div><div id="lab" class="lab"></div></aside>','<aside class="stage"><div id="lab" class="lab"></div><span id="labtitle" class="sr"></span></aside>')
+     .replace(/<div class="maphead"><div><h2 class="serif">Hele treet<\/h2><p[^>]*>Åpne en grein og se hva den bærer videre\.<\/p><\/div><input/,'<div class="maphead"><input')
+     .replace('placeholder="Søk i 232 proposisjoner"','placeholder="Søk"')
+     .replace('<div class="texthead"><h2 class="serif">Traktaten</h2></div>','')
+     .replace('placeholder="Søk i teksten"','placeholder="Søk"')
+     .replace('<button id="cleartext" class="smallbtn">Nullstill</button>','<button id="cleartext" class="smallbtn" aria-label="Nullstill søk">×</button>')
+     .replace(/<footer class="footer">[\s\S]*?<\/footer>/,'')
+     .replace('<button id="openmap">Se grenen i kartet</button>','<button id="openmap">Tre</button>');
+   html=html.replace('</head>',`<style>
+     .intro,.stagehead,.footer,.texthead{display:none!important}
+     .chapter span{display:none!important}
+     .stepmeta #stepcount{display:none!important}
+     .stepmeta{justify-content:flex-start!important;margin-bottom:14px!important}
+     .maphead{justify-content:flex-end!important;margin-top:18px!important}
+     .brand p{margin-top:3px!important}
+     @media(max-width:760px){.shell{padding-top:12px!important}.brand p{font-size:11px!important}}
+   </style></head>`);
+   document.open();document.write(html);document.close();
+ })
+ .catch(()=>{document.getElementById('loading').innerHTML='<div style="font-family:Georgia,serif;font-size:32px">FORMLÆRE</div>'})
 </script>
